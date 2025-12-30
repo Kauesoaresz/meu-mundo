@@ -1,0 +1,69 @@
+<div class="hero">
+  <h1 class="mc-title">🌍 Meu Mundo</h1>
+  <p>Um mundo survival eterno, documentado bloco por bloco.</p>
+</div>
+
+<section class="card">
+  <h2 class="section-title">📖 Sobre o Projeto</h2>
+  <p>
+    Este site é um registro vivo do meu mundo no Minecraft.
+    Aqui eu documento farms, construções, explorações e tudo
+    que faz parte de um survival de longo prazo.
+  </p>
+</section>
+
+<br><br>
+
+<section class="card">
+  <h2 class="section-title">📊 Status do Mundo</h2>
+
+  <div class="status-grid">
+    <div class="status-item">
+      <span>Versão do Minecraft</span>
+      <strong><%= mundo.versao_minecraft %></strong>
+    </div>
+
+    <div class="status-item">
+      <span>Última Atualização</span>
+      <strong>
+        <%= ultimaAtualizacao
+          ? new Date(ultimaAtualizacao).toLocaleDateString("pt-BR")
+          : "Nenhuma ainda" %>
+      </strong>
+    </div>
+  </div>
+</section>
+
+<br><br>
+
+<section>
+  <h2 class="section-title">📰 Últimas Atualizações</h2>
+
+  <div class="posts-grid">
+    <% postsRecentes.forEach(post => { %>
+      <a href="/<%= post.Secao.slug %>/post/<%= post.id %>" class="post-card">
+        <div
+          class="post-thumb"
+          style="background-image:url('<%= post.imagem || "/img/default.jpg" %>')"
+        ></div>
+
+        <div class="post-info">
+          <span class="post-tag"><%= post.Secao.nome %></span>
+          <h3><%= post.titulo %></h3>
+          <p><%= post.descricao %></p>
+        </div>
+      </a>
+    <% }) %>
+  </div>
+</section>
+
+
+
+
+<!-- ========================= -->
+<!-- ACESSO ADMIN (DISCRETO) -->
+<!-- ========================= -->
+
+<a href="/admin/login" class="admin-access">
+  ⛏ Admin
+</a>

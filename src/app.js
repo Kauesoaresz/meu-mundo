@@ -1,0 +1,51 @@
+require("dotenv").config();
+const express = require("express");
+const path = require("path");
+const session = require("express-session");
+
+const sequelize = require("./config/database");
+const routes = require("./routes");
+const loadSecoes = require("./middlewares/loadSecoes");
+
+const app = express();
+
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.static(path.join(__dirname, "public")));
+
+app.use(session({
+  secret: "meu-mundo-secret",
+  resave: false,
+  saveUninitialized: false
+}));
+
+/* ===========================
+   MIDDLEWARE GLOBAL
+=========================== */
+app.use(loadSecoes);
+
+/* ===========================
+   RENDER COM LAYOUT
+=========================== */
+app.use((req, res, next) => {
+  res.renderWithLayout = (view, data) => {
+    res.render(view, data, (err, html) => {
+      if (err) return res.status(500).send(err.message);
+      res.render(data.layout, { ...data, body: html });
+    });
+  };
+  next();
+});
+
+app.use("/", routes);
+
+sequelize.authenticate()
+  .then(() => console.log("🟢 Banco conectado"))
+  .catch(() => console.log("🔴 Erro no banco"));
+
+app.listen(3000, () => {
+  console.log("🌍 Meu Mundo rodando em http://localhost:3000");
+});

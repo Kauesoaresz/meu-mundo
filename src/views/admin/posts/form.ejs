@@ -1,0 +1,61 @@
+<h2 class="admin-title">
+  <%= post ? "✏️ Editar Post" : "➕ Novo Post" %>
+</h2>
+
+<div class="admin-card">
+  <form class="admin-form" method="POST">
+
+    <label>Título</label>
+    <input
+      type="text"
+      name="titulo"
+      value="<%= post ? post.titulo : "" %>"
+      required
+    >
+
+    <label>Descrição curta</label>
+    <input
+      type="text"
+      name="descricao"
+      value="<%= post ? post.descricao : "" %>"
+      required
+    >
+
+    <label>Imagem (URL)</label>
+    <input
+      type="text"
+      name="imagem"
+      value="<%= post ? post.imagem : "" %>"
+    >
+
+    <label>Seção</label>
+    <select name="secao_id" required>
+      <% secoes.forEach(secao => { %>
+        <option
+          value="<%= secao.id %>"
+          <%= post && post.secao_id === secao.id ? "selected" : "" %>
+        >
+          <%= secao.nome %>
+        </option>
+      <% }) %>
+    </select>
+
+    <label>Conteúdo</label>
+    <textarea
+      name="conteudo"
+      rows="6"
+      required
+    ><%= post ? post.conteudo : "" %></textarea>
+
+    <div class="admin-actions">
+      <button class="btn btn-primary">
+        Salvar
+      </button>
+
+      <a href="/admin/posts" class="btn">
+        Cancelar
+      </a>
+    </div>
+
+  </form>
+</div>

@@ -1,0 +1,50 @@
+<h2 class="admin-title">📝 Posts</h2>
+
+<div class="admin-card">
+  <div class="admin-actions">
+    <p>Gerencie os posts do site</p>
+    <a href="/admin/posts/novo" class="btn btn-primary">+ Novo Post</a>
+  </div>
+</div>
+
+<div class="admin-card">
+  <table class="admin-table">
+    <thead>
+      <tr>
+        <th>Título</th>
+        <th>Seção</th>
+        <th>Data</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% posts.forEach(post => { %>
+        <tr>
+          <td><%= post.titulo %></td>
+          <td><%= post.Secao.nome %></td>
+          <td>
+            <%= new Date(post.criado_em).toLocaleDateString("pt-BR") %>
+          </td>
+          <td>
+            <a
+              href="/admin/posts/<%= post.id %>/editar"
+              class="btn btn-primary"
+            >
+              Editar
+            </a>
+
+            <form
+              action="/admin/posts/<%= post.id %>/deletar"
+              method="POST"
+              style="display:inline"
+            >
+              <button class="btn btn-danger">
+                Excluir
+              </button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,12 @@
+<h2>Seção: <%= secao.nome %></h2>
+
+<p><strong>ID:</strong> <%= secao.id %></p>
+<p><strong>Slug:</strong> <%= secao.slug %></p>
+<p><strong>Ícone:</strong> <%= secao.icone %></p>
+<p><strong>Ordem:</strong> <%= secao.ordem %></p>
+<p><strong>Ativa:</strong> <%= secao.ativa ? "Sim" : "Não" %></p>
+
+<hr>
+
+<a href="/admin/secoes/<%= secao.id %>/editar">✏️ Editar</a><br>
+<a href="/admin/secoes">⬅ Voltar</a>

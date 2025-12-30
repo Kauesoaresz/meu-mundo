@@ -1,0 +1,45 @@
+<h2 class="admin-title">
+  <%= secao ? "✏️ Editar Seção" : "➕ Nova Seção" %>
+</h2>
+
+<div class="admin-card">
+  <form class="admin-form" method="POST">
+
+    <label>Nome da Seção</label>
+    <input
+      type="text"
+      name="nome"
+      value="<%= secao ? secao.nome : "" %>"
+      required
+    >
+
+    <label>Slug</label>
+    <input
+      type="text"
+      name="slug"
+      value="<%= secao ? secao.slug : "" %>"
+      required
+    >
+
+    <label>Status</label>
+    <select name="ativa">
+      <option value="1" <%= secao && secao.ativa ? "selected" : "" %>>
+        Ativa
+      </option>
+      <option value="0" <%= secao && !secao.ativa ? "selected" : "" %>>
+        Inativa
+      </option>
+    </select>
+
+    <div class="admin-actions">
+      <button class="btn btn-primary">
+        Salvar
+      </button>
+
+      <a href="/admin/secoes" class="btn">
+        Cancelar
+      </a>
+    </div>
+
+  </form>
+</div>

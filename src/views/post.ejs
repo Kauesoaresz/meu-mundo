@@ -1,0 +1,19 @@
+<div class="post-container">
+  <h2 class="mc-title"><%= post.titulo %></h2>
+
+  <p class="post-meta">
+    📂 <%= secao.nome %>
+  </p>
+
+  <% if (post.imagem) { %>
+    <img src="<%= post.imagem %>" class="post-image">
+  <% } %>
+
+  <p class="post-descricao"><%= post.descricao %></p>
+
+  <hr>
+
+  <div class="post-conteudo">
+    <%= post.conteudo %>
+  </div>
+</div>

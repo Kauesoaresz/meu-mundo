@@ -1,0 +1,54 @@
+<h2 class="admin-title">📂 Seções</h2>
+
+<div class="admin-card">
+  <div class="admin-actions">
+    <p>Gerencie as seções do site</p>
+    <a href="/admin/secoes/nova" class="btn btn-primary">+ Nova Seção</a>
+  </div>
+</div>
+
+<div class="admin-card">
+  <table class="admin-table">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Slug</th>
+        <th>Status</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% secoes.forEach(secao => { %>
+        <tr>
+          <td><%= secao.nome %></td>
+          <td><%= secao.slug %></td>
+          <td>
+            <% if (secao.ativa) { %>
+              <span style="color: var(--green)">Ativa</span>
+            <% } else { %>
+              <span style="color: var(--muted)">Inativa</span>
+            <% } %>
+          </td>
+          <td>
+            <a
+              href="/admin/secoes/<%= secao.id %>/editar"
+              class="btn btn-primary"
+            >
+              Editar
+            </a>
+
+            <form
+              action="/admin/secoes/<%= secao.id %>/deletar"
+              method="POST"
+              style="display:inline"
+            >
+              <button class="btn btn-danger">
+                Excluir
+              </button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>

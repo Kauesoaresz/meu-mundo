@@ -1,0 +1,193 @@
+@font-face {
+  font-family: "Minecraft";
+  src: url("/fonts/minecraft.ttf");
+}
+
+/* =========================
+   RESET
+========================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* =========================
+   VARIÁVEIS
+========================= */
+:root {
+  --bg: #0f0f0f;
+  --panel: #1b1b1b;
+  --panel-light: #232323;
+  --green: #62d96b;
+  --green-dark: #2e7d32;
+  --text: #e0e0e0;
+  --muted: #9e9e9e;
+  --danger: #e57373;
+}
+
+/* =========================
+   BODY
+========================= */
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+}
+
+/* =========================
+   HEADER ADMIN
+========================= */
+.admin-header {
+  background: #0b0b0b;
+  border-bottom: 2px solid var(--green-dark);
+  padding: 20px 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.admin-header h1 {
+  font-family: "Minecraft";
+  color: var(--green);
+  font-size: 22px;
+}
+
+.admin-header nav a {
+  margin-left: 20px;
+  color: var(--text);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.admin-header nav a:hover {
+  color: var(--green);
+}
+
+/* =========================
+   CONTAINER
+========================= */
+.admin-container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+/* =========================
+   TITLES
+========================= */
+.admin-title {
+  font-family: "Minecraft";
+  color: var(--green);
+  margin-bottom: 20px;
+}
+
+/* =========================
+   CARD
+========================= */
+.admin-card {
+  background: var(--panel);
+  border-radius: 14px;
+  padding: 24px;
+  margin-bottom: 24px;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+}
+
+/* =========================
+   TABLE
+========================= */
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 12px;
+  text-align: left;
+}
+
+.admin-table th {
+  background: var(--panel-light);
+  color: var(--green);
+}
+
+.admin-table tr {
+  border-bottom: 1px solid #2a2a2a;
+}
+
+.admin-table tr:hover {
+  background: #202020;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+.btn {
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.btn-primary {
+  background: var(--green);
+  color: #0b0b0b;
+}
+
+.btn-primary:hover {
+  background: #7CFC8A;
+}
+
+.btn-danger {
+  background: var(--danger);
+  color: #0b0b0b;
+}
+
+.btn-danger:hover {
+  opacity: 0.8;
+}
+
+/* =========================
+   FORM
+========================= */
+.admin-form label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--muted);
+}
+
+.admin-form input,
+.admin-form textarea,
+.admin-form select {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 18px;
+
+  background: #0e0e0e;
+  border: 2px solid #2a2a2a;
+  border-radius: 8px;
+
+  color: var(--text);
+}
+
+.admin-form input:focus,
+.admin-form textarea:focus,
+.admin-form select:focus {
+  outline: none;
+  border-color: var(--green);
+}
+
+/* =========================
+   ACTION BAR
+========================= */
+.admin-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title><%= titulo %></title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <nav class="sidebar">
+    <h1>🌍 Meu Mundo</h1>
+
+    <ul>
+      <li>
+        <a href="/">🏠 Home</a>
+      </li>
+
+      <% secoes.forEach(secao => { %>
+        <li>
+          <a href="/<%= secao.slug %>">
+            <%= secao.icone %> <%= secao.nome %>
+          </a>
+        </li>
+      <% }) %>
+    </ul>
+  </nav>
+
+  <!-- CONTEÚDO -->
+  <main class="main-content">
+    <%- body %>
+
+    <div class="footer">
+      Meu Mundo — projeto pessoal
+    </div>
+  </main>
+
+</body>
+</html>

@@ -1,0 +1,16 @@
+<h2><%= post.titulo %></h2>
+
+<p><strong>Seção:</strong> <%= post.Secao.nome %></p>
+
+<p><strong>Descrição:</strong></p>
+<p><%= post.descricao %></p>
+
+<hr>
+
+<p><strong>Conteúdo:</strong></p>
+<p><%= post.conteudo %></p>
+
+<hr>
+
+<a href="/admin/posts/<%= post.id %>/editar">✏️ Editar</a><br>
+<a href="/admin/posts">⬅ Voltar</a>
