@@ -1,114 +1,112 @@
-<h2 class="admin-title">🌍 Configurações do Mundo</h2>
+<h2 class="admin-title">🌍 Mundo</h2>
+<p class="admin-description">
+  Informações gerais e status do seu mundo Minecraft.
+</p>
 
-<div class="admin-card">
-  <form
-    class="admin-form"
-    method="POST"
-    action="/admin/mundo"
-  >
+<form class="admin-form" method="POST" action="/admin/mundo">
 
-    <!-- IDENTIDADE -->
-    <h3 class="admin-subtitle">Identidade</h3>
+  <!-- BLOCO: IDENTIDADE -->
+  <div class="admin-section">
+    <h3>Identidade</h3>
 
-    <label>Nome do Mundo</label>
-    <input
-      type="text"
-      name="nome"
-      value="<%= mundo.nome %>"
-      required
-    >
+    <div class="admin-grid">
+      <div>
+        <label>Nome do Mundo</label>
+        <input type="text" name="nome" value="<%= mundo.nome %>" required>
+      </div>
 
-    <label>Descrição</label>
-    <textarea name="descricao" rows="4">
-<%= mundo.descricao || "" %>
-    </textarea>
-
-    <!-- JOGO -->
-    <h3 class="admin-subtitle">Jogo</h3>
-
-    <label>Versão do Minecraft</label>
-    <input
-      type="text"
-      name="versao_minecraft"
-      value="<%= mundo.versao_minecraft || "" %>"
-    >
-
-    <label>Edição</label>
-    <select name="edicao">
-      <option value="Java Edition" <%= mundo.edicao === "Java Edition" ? "selected" : "" %>>
-        Java Edition
-      </option>
-    </select>
-
-    <label>Modo</label>
-    <input
-      type="text"
-      name="modo"
-      value="<%= mundo.modo %>"
-    >
-
-    <label>Dificuldade</label>
-    <select name="dificuldade">
-      <option value="Difícil" <%= mundo.dificuldade === "Difícil" ? "selected" : "" %>>
-        Difícil
-      </option>
-      <option value="Normal" <%= mundo.dificuldade === "Normal" ? "selected" : "" %>>
-        Normal
-      </option>
-      <option value="Fácil" <%= mundo.dificuldade === "Fácil" ? "selected" : "" %>>
-        Fácil
-      </option>
-    </select>
-
-    <!-- TEMPO -->
-    <h3 class="admin-subtitle">Tempo do Mundo</h3>
-
-    <label>Data de Criação</label>
-    <input
-      type="date"
-      name="criado_em"
-      value="<%= mundo.criado_em ? mundo.criado_em.toISOString().slice(0,10) : "" %>"
-      required
-    >
-
-    <!-- DIMENSÕES -->
-    <h3 class="admin-subtitle">Dimensões</h3>
-
-    <label>
-      <input type="checkbox" name="overworld" <%= mundo.overworld ? "checked" : "" %>>
-      Overworld
-    </label>
-
-    <label>
-      <input type="checkbox" name="nether" <%= mundo.nether ? "checked" : "" %>>
-      Nether
-    </label>
-
-    <label>
-      <input type="checkbox" name="end" <%= mundo.end ? "checked" : "" %>>
-      End
-    </label>
-
-    <!-- STATUS -->
-    <h3 class="admin-subtitle">Status Atual</h3>
-
-    <label>Objetivo Atual</label>
-    <textarea name="objetivo_atual" rows="3">
-<%= mundo.objetivo_atual || "" %>
-    </textarea>
-
-    <label>Seed</label>
-    <input
-      type="text"
-      name="seed"
-      value="<%= mundo.seed || "" %>"
-    >
-
-    <div class="admin-actions">
-      <button type="submit" class="btn btn-primary">
-        Salvar Alterações
-      </button>
+      <div>
+        <label>Versão do Minecraft</label>
+        <input
+          type="text"
+          name="versao_minecraft"
+          value="<%= mundo.versao_minecraft || "" %>"
+        >
+      </div>
     </div>
 
-  </form>
-</div>
+    <label>Descrição</label>
+    <textarea name="descricao" rows="3"><%= mundo.descricao || "" %></textarea>
+  </div>
+
+  <!-- BLOCO: JOGO -->
+  <div class="admin-section">
+    <h3>Jogo</h3>
+
+    <div class="admin-grid">
+      <div>
+        <label>Edição</label>
+        <select name="edicao">
+          <option value="Java Edition" <%= mundo.edicao === "Java Edition" ? "selected" : "" %>>
+            Java Edition
+          </option>
+        </select>
+      </div>
+
+      <div>
+        <label>Modo</label>
+        <input type="text" name="modo" value="<%= mundo.modo || "" %>">
+      </div>
+
+      <div>
+        <label>Dificuldade</label>
+        <select name="dificuldade">
+          <option value="Difícil" <%= mundo.dificuldade === "Difícil" ? "selected" : "" %>>Difícil</option>
+          <option value="Normal" <%= mundo.dificuldade === "Normal" ? "selected" : "" %>>Normal</option>
+          <option value="Fácil" <%= mundo.dificuldade === "Fácil" ? "selected" : "" %>>Fácil</option>
+        </select>
+      </div>
+
+      <div>
+        <label>Data de Criação</label>
+        <input
+          type="date"
+          name="criado_em"
+          value="<%= mundo.criado_em ? mundo.criado_em.toISOString().slice(0,10) : "" %>"
+          required
+        >
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOCO: DIMENSÕES -->
+  <div class="admin-section">
+    <h3>Dimensões Ativas</h3>
+
+    <div class="admin-checkboxes">
+      <label>
+        <input type="checkbox" name="overworld" <%= mundo.overworld ? "checked" : "" %>>
+        Overworld
+      </label>
+
+      <label>
+        <input type="checkbox" name="nether" <%= mundo.nether ? "checked" : "" %>>
+        Nether
+      </label>
+
+      <label>
+        <input type="checkbox" name="end" <%= mundo.end ? "checked" : "" %>>
+        End
+      </label>
+    </div>
+  </div>
+
+  <!-- BLOCO: STATUS -->
+  <div class="admin-section">
+    <h3>Status Atual</h3>
+
+    <label>Objetivo Atual</label>
+    <textarea name="objetivo_atual" rows="3"><%= mundo.objetivo_atual || "" %></textarea>
+
+    <label>Seed</label>
+    <input type="text" name="seed" value="<%= mundo.seed || "" %>">
+  </div>
+
+  <!-- AÇÕES -->
+  <div class="admin-actions">
+    <button type="submit" class="btn btn-primary">
+      💾 Salvar Alterações
+    </button>
+  </div>
+
+</form>

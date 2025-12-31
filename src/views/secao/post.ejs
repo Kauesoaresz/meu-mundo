@@ -35,6 +35,15 @@
       <img src="<%= post.imagem %>" class="post-hero">
     <% } %>
 
+    <% if (post.PostImagems && post.PostImagems.length) { %>
+  <div class="post-gallery">
+    <% post.PostImagems.forEach(img => { %>
+      <img src="<%= img.imagem %>" alt="">
+    <% }) %>
+  </div>
+<% } %>
+
+
     <div class="post-content">
       <%- post.conteudo %>
     </div>

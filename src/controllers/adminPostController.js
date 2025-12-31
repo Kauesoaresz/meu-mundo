@@ -1,18 +1,16 @@
+const fs = require("fs");
+const path = require("path");
+
 const Post = require("../models/Post");
 const Secao = require("../models/Secao");
+const PostImagem = require("../models/PostImagem");
 
 /* ===============================
    HELPERS
 =============================== */
 function extrairYoutubeId(valor) {
   if (!valor) return null;
-
-  // Se já for um ID (11 caracteres)
-  if (valor.length === 11 && !valor.includes("http")) {
-    return valor;
-  }
-
-  // Tenta extrair do link padrão
+  if (valor.length === 11 && !valor.includes("http")) return valor;
   const match = valor.match(/v=([^&]+)/);
   return match ? match[1] : null;
 }
@@ -63,58 +61,60 @@ exports.store = async (req, res) => {
     coord_x,
     coord_y,
     coord_z,
-    dimensao
+    dimensao,
+    imagem
   } = req.body;
 
   const videoId = extrairYoutubeId(video_youtube);
 
-  await Post.create({
+  let imagemFinal = imagem || null;
+  if (req.files?.imagem_upload?.[0]) {
+    imagemFinal = `/uploads/posts/${req.files.imagem_upload[0].filename}`;
+  }
+
+  const post = await Post.create({
     titulo,
     descricao,
     conteudo,
     secao_id,
+    imagem: imagemFinal,
     video_youtube: videoId,
-
-    // 🔹 COORDENADAS (opcional)
     coord_x: coord_x || null,
     coord_y: coord_y || null,
     coord_z: coord_z || null,
     dimensao: dimensao || null,
-
     criado_em: new Date()
   });
+
+  if (req.files?.galeria?.length) {
+    await PostImagem.bulkCreate(
+      req.files.galeria.map(file => ({
+        post_id: post.id,
+        imagem: `/uploads/posts/${file.filename}`
+      }))
+    );
+  }
 
   res.redirect("/admin/posts");
 };
 
 /* ===============================
-   VER POST
-=============================== */
-exports.show = async (req, res) => {
-  const post = await Post.findByPk(req.params.id, {
-    include: Secao
-  });
-
-  if (!post) return res.send("Post não encontrado");
-
-  res.renderWithLayout("admin/posts/show", {
-    layout: "layouts/admin",
-    titulo: post.titulo,
-    post
-  });
-};
-
-/* ===============================
-   FORM EDITAR POST
+   FORM EDITAR POST (CORRIGIDO)
 =============================== */
 exports.editForm = async (req, res) => {
-  const post = await Post.findByPk(req.params.id);
+  const post = await Post.findByPk(req.params.id, {
+    include: [
+      Secao,
+      { model: PostImagem, as: "imagens" }
+    ]
+  });
+
   const secoes = await Secao.findAll({
     where: { ativa: true },
     order: [["ordem", "ASC"]]
   });
 
-  if (!post) return res.send("Post não encontrado");
+  if (!post) return res.redirect("/admin/posts");
 
   res.renderWithLayout("admin/posts/form", {
     layout: "layouts/admin",
@@ -137,10 +137,16 @@ exports.update = async (req, res) => {
     coord_x,
     coord_y,
     coord_z,
-    dimensao
+    dimensao,
+    imagem
   } = req.body;
 
   const videoId = extrairYoutubeId(video_youtube);
+
+  let imagemFinal = imagem || null;
+  if (req.files?.imagem_upload?.[0]) {
+    imagemFinal = `/uploads/posts/${req.files.imagem_upload[0].filename}`;
+  }
 
   await Post.update(
     {
@@ -148,9 +154,8 @@ exports.update = async (req, res) => {
       descricao,
       conteudo,
       secao_id,
+      imagem: imagemFinal,
       video_youtube: videoId,
-
-      // 🔹 COORDENADAS
       coord_x: coord_x || null,
       coord_y: coord_y || null,
       coord_z: coord_z || null,
@@ -159,16 +164,45 @@ exports.update = async (req, res) => {
     { where: { id: req.params.id } }
   );
 
-  res.redirect("/admin/posts");
+  if (req.files?.galeria?.length) {
+    await PostImagem.bulkCreate(
+      req.files.galeria.map(file => ({
+        post_id: req.params.id,
+        imagem: `/uploads/posts/${file.filename}`
+      }))
+    );
+  }
+
+  res.redirect(`/admin/posts/${req.params.id}/editar`);
 };
 
 /* ===============================
    EXCLUIR POST
 =============================== */
 exports.destroy = async (req, res) => {
-  await Post.destroy({
-    where: { id: req.params.id }
-  });
-
+  await Post.destroy({ where: { id: req.params.id } });
   res.redirect("/admin/posts");
+};
+
+/* ===============================
+   EXCLUIR IMAGEM DA GALERIA
+=============================== */
+exports.excluirImagem = async (req, res) => {
+  const imagem = await PostImagem.findByPk(req.params.id);
+  if (!imagem) return res.redirect("/admin/posts");
+
+  const caminhoArquivo = path.join(
+    __dirname,
+    "../../public",
+    imagem.imagem
+  );
+
+  if (fs.existsSync(caminhoArquivo)) {
+    fs.unlinkSync(caminhoArquivo);
+  }
+
+  const postId = imagem.post_id;
+  await imagem.destroy();
+
+  res.redirect(`/admin/posts/${postId}/editar`);
 };

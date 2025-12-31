@@ -2,116 +2,231 @@
   <%= post ? "✏️ Editar Post" : "➕ Novo Post" %>
 </h2>
 
-<div class="admin-card">
-  <form
+<form
   class="admin-form"
   method="POST"
+  enctype="multipart/form-data"
   action="<%= post ? `/admin/posts/${post.id}/editar` : '/admin/posts' %>"
 >
 
+  <div class="admin-grid">
 
-    <label>Título</label>
-    <input
-      type="text"
-      name="titulo"
-      value="<%= post ? post.titulo : "" %>"
-      required
-    >
+    <!-- =========================
+         COLUNA ESQUERDA — CONTEÚDO
+    ========================== -->
+    <div>
 
-    <label>Descrição curta</label>
-    <input
-      type="text"
-      name="descricao"
-      value="<%= post ? post.descricao : "" %>"
-      required
-    >
+      <div class="admin-section">
+        <h3>Conteúdo</h3>
 
-    <label>Imagem (URL)</label>
-    <input
-      type="text"
-      name="imagem"
-      value="<%= post ? post.imagem : "" %>"
-    >
+        <label>Título</label>
+        <input type="text" name="titulo" value="<%= post?.titulo || "" %>" required>
 
-    <label>Vídeo do YouTube (opcional)</label>
-<input
-  type="text"
-  name="video_youtube"
-  value="<%= post ? post.video_youtube : "" %>"
-  placeholder="https://www.youtube.com/watch?v=ABC123XYZ"
->
-<small>
-  Cole o link completo ou apenas o ID do vídeo
-</small>
+        <label>Descrição curta</label>
+        <input type="text" name="descricao" value="<%= post?.descricao || "" %>" required>
 
-<hr>
+        <label>Conteúdo</label>
+        <textarea name="conteudo" rows="10" required><%= post?.conteudo || "" %></textarea>
+      </div>
 
-<h3>📍 Coordenadas (opcional)</h3>
+      <div class="admin-section">
+        <h3>Vídeo</h3>
+        <label>Vídeo do YouTube</label>
+        <input type="text" name="video_youtube" value="<%= post?.video_youtube || "" %>">
+      </div>
 
-<label>X</label>
-<input
-  type="number"
-  name="coord_x"
-  value="<%= post ? post.coord_x : "" %>"
->
+      <div class="admin-section">
+        <h3>📍 Coordenadas</h3>
 
-<label>Y</label>
-<input
-  type="number"
-  name="coord_y"
-  value="<%= post ? post.coord_y : "" %>"
->
+        <div class="admin-grid">
+          <input type="number" name="coord_x" placeholder="X" value="<%= post?.coord_x || "" %>">
+          <input type="number" name="coord_y" placeholder="Y" value="<%= post?.coord_y || "" %>">
+          <input type="number" name="coord_z" placeholder="Z" value="<%= post?.coord_z || "" %>">
+        </div>
 
-<label>Z</label>
-<input
-  type="number"
-  name="coord_z"
-  value="<%= post ? post.coord_z : "" %>"
->
+        <select name="dimensao">
+          <option value="">Dimensão</option>
+          <option value="overworld" <%= post?.dimensao === "overworld" ? "selected" : "" %>>Overworld</option>
+          <option value="nether" <%= post?.dimensao === "nether" ? "selected" : "" %>>Nether</option>
+          <option value="end" <%= post?.dimensao === "end" ? "selected" : "" %>>End</option>
+        </select>
+      </div>
 
-<label>Dimensão</label>
-<select name="dimensao">
-  <option value="">—</option>
-  <option value="overworld" <%= post?.dimensao === "overworld" ? "selected" : "" %>>
-    Overworld
-  </option>
-  <option value="nether" <%= post?.dimensao === "nether" ? "selected" : "" %>>
-    Nether
-  </option>
-  <option value="end" <%= post?.dimensao === "end" ? "selected" : "" %>>
-    End
-  </option>
-</select>
-
-
-    <label>Seção</label>
-    <select name="secao_id" required>
-      <% secoes.forEach(secao => { %>
-        <option
-          value="<%= secao.id %>"
-          <%= post && post.secao_id === secao.id ? "selected" : "" %>
-        >
-          <%= secao.nome %>
-        </option>
-      <% }) %>
-    </select>
-
-    <label>Conteúdo</label>
-    <textarea
-      name="conteudo"
-      rows="6"
-      required
-    ><%= post ? post.conteudo : "" %></textarea>
-
-    <div class="admin-actions">
-      <button class="btn btn-primary">
-        Salvar
-      </button>
-
-      <a href="/admin/posts" class="btn">
-        Cancelar
-      </a>
     </div>
 
-  </form>
+    <!-- =========================
+         COLUNA DIREITA — CONTROLE
+    ========================== -->
+    <div>
+
+      <div class="admin-section">
+        <h3>Organização</h3>
+
+        <label>Seção</label>
+        <select name="secao_id" required>
+          <% secoes.forEach(secao => { %>
+            <option value="<%= secao.id %>" <%= post?.secao_id === secao.id ? "selected" : "" %>>
+              <%= secao.nome %>
+            </option>
+          <% }) %>
+        </select>
+      </div>
+
+      <!-- IMAGEM DE CAPA -->
+      <div class="admin-section">
+        <h3>Imagem de Capa</h3>
+
+        <label>Imagem (URL)</label>
+        <input
+          type="text"
+          name="imagem"
+          id="imagemUrl"
+          value="<%= post?.imagem || "" %>"
+        >
+
+        <label>Imagem (Upload)</label>
+        <input
+          type="file"
+          name="imagem_upload"
+          id="imagemUpload"
+          accept="image/*"
+        >
+
+        <div id="previewCapa" style="margin-top: 10px;">
+          <% if (post?.imagem) { %>
+            <img
+              src="<%= post.imagem %>"
+              style="width:100%; border-radius:10px;"
+            >
+          <% } %>
+        </div>
+
+        <small style="color: var(--muted);">
+          Upload tem prioridade sobre URL
+        </small>
+      </div>
+
+      <!-- GALERIA -->
+     <div class="admin-section">
+  <h3>Galeria</h3>
+
+  <input
+    type="file"
+    name="galeria"
+    id="galeriaInput"
+    accept="image/*"
+    multiple
+  >
+
+  <div
+    id="previewGaleria"
+    style="display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:10px;"
+  ></div>
+
+  <% if (post?.imagens?.length) { %>
+    <hr style="margin:15px 0; border-color:#2a2a2a;">
+    <h4 style="margin-bottom:10px;">Imagens já salvas</h4>
+
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:10px;">
+      <% post.imagens
+  .filter(img => img.imagem !== post.imagem)
+  .forEach(img => { %>
+
+        <div style="position:relative;">
+          <img
+            src="<%= img.imagem %>"
+            style="width:100%; border-radius:8px;"
+          >
+
+          <form
+            method="POST"
+            action="/admin/posts/imagem/<%= img.id %>/excluir"
+            onsubmit="return confirm('Remover esta imagem?')"
+            style="position:absolute; top:5px; right:5px;"
+          >
+            <button
+              type="submit"
+              class="btn btn-danger"
+              style="padding:4px 6px; font-size:10px;"
+            >
+              ✕
+            </button>
+          </form>
+        </div>
+      <% }) %>
+    </div>
+  <% } %>
 </div>
+
+
+      <!-- AÇÕES -->
+      <div class="admin-section">
+        <h3>Ações</h3>
+
+        <div class="admin-actions">
+          <button class="btn btn-primary">Salvar</button>
+          <a href="/admin/posts" class="btn">Cancelar</a>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</form>
+
+<script>
+  // Preview imagem por URL
+  const urlInput = document.getElementById("imagemUrl");
+  const uploadInput = document.getElementById("imagemUpload");
+  const preview = document.getElementById("previewCapa");
+
+  if (urlInput) {
+    urlInput.addEventListener("input", () => {
+      if (urlInput.value) {
+        preview.innerHTML = `<img src="${urlInput.value}" style="width:100%; border-radius:10px;">`;
+      }
+    });
+  }
+
+  // Preview imagem por upload
+  if (uploadInput) {
+    uploadInput.addEventListener("change", () => {
+      const file = uploadInput.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = e => {
+          preview.innerHTML = `<img src="${e.target.result}" style="width:100%; border-radius:10px;">`;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  }
+
+  
+</script>
+
+<script>
+  const galeriaInput = document.getElementById("galeriaInput");
+  const previewGaleria = document.getElementById("previewGaleria");
+
+  if (galeriaInput) {
+    galeriaInput.addEventListener("change", () => {
+      previewGaleria.innerHTML = "";
+
+      Array.from(galeriaInput.files).forEach(file => {
+        const reader = new FileReader();
+
+        reader.onload = e => {
+          const img = document.createElement("img");
+          img.src = e.target.result;
+          img.style.width = "100%";
+          img.style.borderRadius = "8px";
+          previewGaleria.appendChild(img);
+        };
+
+        reader.readAsDataURL(file);
+      });
+    });
+  }
+</script>

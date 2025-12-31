@@ -1,0 +1,58 @@
+<h2 class="admin-title">Painel Administrativo</h2>
+<p class="admin-description">
+  Visão geral do seu mundo e acesso rápido às principais ações.
+</p>
+
+<div class="admin-grid">
+
+  <div class="admin-card">
+    <h3>🌍 Mundo</h3>
+    <p><strong><%= mundo.nome %></strong></p>
+    <p class="muted"><%= mundo.descricao || "Sem descrição" %></p>
+    <br>
+    <a href="/admin/mundo" class="btn btn-primary">
+      Configurações
+    </a>
+  </div>
+
+  <div class="admin-card">
+    <h3>🧱 Posts</h3>
+    <p>Total cadastrados</p>
+    <h2><%= totalPosts %></h2>
+    <br>
+    <a href="/admin/posts" class="btn btn-primary">
+      Gerenciar Posts
+    </a>
+  </div>
+
+  <div class="admin-card">
+    <h3>📂 Seções</h3>
+    <p>Total cadastradas</p>
+    <h2><%= totalSecoes %></h2>
+    <br>
+    <a href="/admin/secoes" class="btn btn-primary">
+      Gerenciar Seções
+    </a>
+  </div>
+
+</div>
+
+<% if (ultimoPost) { %>
+  <div class="admin-section">
+    <h3>🕒 Último Post Criado</h3>
+
+    <p>
+      <strong><%= ultimoPost.titulo %></strong><br>
+      <span class="muted">
+        Criado em
+        <%= new Date(ultimoPost.createdAt).toLocaleDateString("pt-BR") %>
+      </span>
+    </p>
+
+    <br>
+
+    <a href="/admin/posts/<%= ultimoPost.id %>/editar" class="btn btn-primary">
+      Editar Post
+    </a>
+  </div>
+<% } %>
