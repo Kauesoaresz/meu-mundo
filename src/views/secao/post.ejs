@@ -1,0 +1,57 @@
+<section class="section-block reveal">
+  <div class="section-container post-full">
+
+    <h1 class="post-title"><%= post.titulo %></h1>
+
+    <% if (post.coord_x !== null && post.coord_y !== null && post.coord_z !== null) { %>
+  <div
+    class="post-coords"
+    data-coords="X: <%= post.coord_x %> Y: <%= post.coord_y %> Z: <%= post.coord_z %>"
+  >
+    <strong>📍 Coordenadas</strong>
+
+    <span>X: <%= post.coord_x %></span>
+    <span>Y: <%= post.coord_y %></span>
+    <span>Z: <%= post.coord_z %></span>
+
+    <% if (post.dimensao) { %>
+      <span class="dim-badge <%= post.dimensao %>">
+        <%= post.dimensao %>
+      </span>
+    <% } %>
+
+    <button class="copy-coords" title="Copiar coordenadas">
+      📋 Copiar
+    </button>
+  </div>
+<% } %>
+
+
+    <% if (post.descricao) { %>
+      <p class="post-description"><%= post.descricao %></p>
+    <% } %>
+
+    <% if (post.imagem) { %>
+      <img src="<%= post.imagem %>" class="post-hero">
+    <% } %>
+
+    <div class="post-content">
+      <%- post.conteudo %>
+    </div>
+
+    <% if (post.video_youtube) { %>
+      <div class="post-video">
+        <iframe
+          src="https://www.youtube.com/embed/<%= post.video_youtube %>"
+          frameborder="0"
+          allowfullscreen
+        ></iframe>
+      </div>
+    <% } %>
+
+    <div class="post-back">
+      <a href="/<%= secao.slug %>">← Voltar para <%= secao.nome %></a>
+    </div>
+
+  </div>
+</section>

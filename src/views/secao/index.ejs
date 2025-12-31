@@ -1,0 +1,24 @@
+<section class="section-block reveal">
+  <div class="section-container">
+    <h2 class="section-title"><%= secao.nome %></h2>
+
+    <div class="posts-grid">
+      <% posts.forEach(post => { %>
+        <a
+          href="/<%= secao.slug %>/post/<%= post.id %>"
+          class="post-card reveal"
+        >
+          <div
+            class="post-thumb"
+            style="background-image:url('<%= post.imagem || "/img/default.jpg" %>')"
+          ></div>
+
+          <div class="post-info">
+            <h3><%= post.titulo %></h3>
+            <p><%= post.descricao %></p>
+          </div>
+        </a>
+      <% }) %>
+    </div>
+  </div>
+</section>

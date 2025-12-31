@@ -66,4 +66,3 @@ sequelize.authenticate()
 app.listen(3000, () => {
   console.log("🌍 Meu Mundo rodando em http://localhost:3000");
 });
-

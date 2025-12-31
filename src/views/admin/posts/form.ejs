@@ -3,7 +3,12 @@
 </h2>
 
 <div class="admin-card">
-  <form class="admin-form" method="POST">
+  <form
+  class="admin-form"
+  method="POST"
+  action="<%= post ? `/admin/posts/${post.id}/editar` : '/admin/posts' %>"
+>
+
 
     <label>Título</label>
     <input
@@ -27,6 +32,57 @@
       name="imagem"
       value="<%= post ? post.imagem : "" %>"
     >
+
+    <label>Vídeo do YouTube (opcional)</label>
+<input
+  type="text"
+  name="video_youtube"
+  value="<%= post ? post.video_youtube : "" %>"
+  placeholder="https://www.youtube.com/watch?v=ABC123XYZ"
+>
+<small>
+  Cole o link completo ou apenas o ID do vídeo
+</small>
+
+<hr>
+
+<h3>📍 Coordenadas (opcional)</h3>
+
+<label>X</label>
+<input
+  type="number"
+  name="coord_x"
+  value="<%= post ? post.coord_x : "" %>"
+>
+
+<label>Y</label>
+<input
+  type="number"
+  name="coord_y"
+  value="<%= post ? post.coord_y : "" %>"
+>
+
+<label>Z</label>
+<input
+  type="number"
+  name="coord_z"
+  value="<%= post ? post.coord_z : "" %>"
+>
+
+<label>Dimensão</label>
+<select name="dimensao">
+  <option value="">—</option>
+  <option value="overworld" <%= post?.dimensao === "overworld" ? "selected" : "" %>>
+    Overworld
+  </option>
+  <option value="nether" <%= post?.dimensao === "nether" ? "selected" : "" %>>
+    Nether
+  </option>
+  <option value="end" <%= post?.dimensao === "end" ? "selected" : "" %>>
+    End
+  </option>
+</select>
+
 
     <label>Seção</label>
     <select name="secao_id" required>

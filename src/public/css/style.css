@@ -349,3 +349,197 @@ main {
 .status-item.wide {
   grid-column: span 2;
 }
+
+
+.post-video {
+  margin-top: 40px;
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 */
+  height: 0;
+  overflow: hidden;
+  border-radius: 14px;
+}
+
+.post-video iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* =========================
+   POST COMPLETO
+========================= */
+
+.post-full {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.post-title {
+  font-family: "Minecraft", Arial, sans-serif;
+  color: var(--green);
+  font-size: 36px;
+  margin-bottom: 12px;
+}
+
+.post-description {
+  font-size: 16px;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+}
+
+.post-hero {
+  width: 100%;
+  border-radius: 16px;
+  margin-bottom: 32px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.7);
+}
+
+.post-content {
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--text);
+}
+
+.post-content p {
+  margin-bottom: 18px;
+}
+
+.post-content h2,
+.post-content h3 {
+  color: var(--green);
+  margin-top: 32px;
+  margin-bottom: 12px;
+}
+
+.post-content ul {
+  padding-left: 22px;
+  margin-bottom: 20px;
+}
+
+.post-content li {
+  margin-bottom: 8px;
+}
+
+/* VÍDEO */
+.post-video {
+  margin-top: 40px;
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  border-radius: 16px;
+}
+
+.post-video iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* VOLTAR */
+.post-back {
+  margin-top: 40px;
+}
+
+.post-back a {
+  color: var(--green);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.post-back a:hover {
+  text-decoration: underline;
+}
+
+.post-coords {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+
+  align-items: center;
+
+  background: linear-gradient(
+    90deg,
+    rgba(98, 217, 107, 0.25),
+    rgba(98, 217, 107, 0.08)
+  );
+
+  border-left: 6px solid var(--green);
+  padding: 22px 26px;
+  border-radius: 14px;
+
+  margin: 28px 0 36px 0;
+
+  font-size: 18px;
+}
+
+.post-coords strong {
+  font-size: 20px;
+  color: var(--green);
+}
+
+.post-coords span {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 18px;
+  background: rgba(0, 0, 0, 0.35);
+  padding: 6px 12px;
+  border-radius: 8px;
+}
+
+.post-coords em {
+  font-size: 16px;
+  opacity: 0.85;
+}
+
+/* ===============================
+   COORDENADAS – BADGES & COPY
+=============================== */
+
+.copy-coords {
+  margin-left: auto;
+  background: var(--green);
+  color: #0b0b0b;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.copy-coords:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+.copy-coords.copied {
+  background: #4caf50;
+}
+
+.dim-badge {
+  text-transform: uppercase;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 6px 12px;
+  border-radius: 999px;
+  letter-spacing: 1px;
+}
+
+.dim-badge.overworld {
+  background: #4caf50;
+  color: #081f0a;
+}
+
+.dim-badge.nether {
+  background: #e53935;
+  color: #fff;
+}
+
+.dim-badge.end {
+  background: #7e57c2;
+  color: #fff;
+}
