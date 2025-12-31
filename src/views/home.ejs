@@ -1,69 +1,151 @@
-<div class="hero">
-  <h1 class="mc-title">🌍 Meu Mundo</h1>
-  <p>Um mundo survival eterno, documentado bloco por bloco.</p>
-</div>
+<!-- HERO / LANDING -->
+<section
+  class="hero-launcher"
+  style="background-image: url('<%= heroImagem %>')"
+>
+  <div class="hero-overlay"></div>
 
-<section class="card">
-  <h2 class="section-title">📖 Sobre o Projeto</h2>
-  <p>
-    Este site é um registro vivo do meu mundo no Minecraft.
-    Aqui eu documento farms, construções, explorações e tudo
-    que faz parte de um survival de longo prazo.
-  </p>
-</section>
+  <div class="hero-content">
+    <h1 class="mc-title">MEU MUNDO</h1>
+    <p class="hero-subtitle">
+      Um mundo survival documentado bloco por bloco
+    </p>
 
-<br><br>
-
-<section class="card">
-  <h2 class="section-title">📊 Status do Mundo</h2>
-
-  <div class="status-grid">
-    <div class="status-item">
-      <span>Versão do Minecraft</span>
-      <strong><%= mundo.versao_minecraft %></strong>
-    </div>
-
-    <div class="status-item">
-      <span>Última Atualização</span>
-      <strong>
-        <%= ultimaAtualizacao
-          ? new Date(ultimaAtualizacao).toLocaleDateString("pt-BR")
-          : "Nenhuma ainda" %>
-      </strong>
+    <div class="hero-buttons">
+      <a href="#secoes" class="btn-primary">Explorar Mundo</a>
+      <a href="#posts" class="btn-secondary">Últimos Posts</a>
     </div>
   </div>
 </section>
 
-<br><br>
 
-<section>
-  <h2 class="section-title">📰 Últimas Atualizações</h2>
+<!-- SOBRE -->
+<section class="section-block reveal">
+  <div class="section-container">
+    <h2 class="section-title">📖 Sobre o Projeto</h2>
+    <p class="section-text">
+      Este site é um registro vivo do meu mundo no Minecraft.
+      Aqui eu documento construções, farms, explorações e toda
+      a evolução de um mundo eterno.
+    </p>
+  </div>
+</section>
 
-  <div class="posts-grid">
-    <% postsRecentes.forEach(post => { %>
-      <a href="/<%= post.Secao.slug %>/post/<%= post.id %>" class="post-card">
-        <div
-          class="post-thumb"
-          style="background-image:url('<%= post.imagem || "/img/default.jpg" %>')"
-        ></div>
+<!-- STATUS DO MUNDO -->
+<section class="section-block alt reveal">
+  <div class="section-container">
+    <h2 class="section-title">📊 Status do Mundo</h2>
 
-        <div class="post-info">
-          <span class="post-tag"><%= post.Secao.nome %></span>
-          <h3><%= post.titulo %></h3>
-          <p><%= post.descricao %></p>
+    <div class="status-grid">
+
+      <div class="status-item">
+        <span>🌱 Criado em</span>
+        <strong>
+          <%= new Date(mundo.criado_em).toLocaleDateString("pt-BR") %>
+        </strong>
+      </div>
+
+      <div class="status-item">
+        <span>⏳ Idade do mundo</span>
+        <strong><%= idadeDias %> dias</strong>
+      </div>
+
+      <div class="status-item">
+        <span>🎮 Edição</span>
+        <strong><%= mundo.edicao %></strong>
+      </div>
+
+      <div class="status-item">
+        <span>🧱 Modo</span>
+        <strong><%= mundo.modo %></strong>
+      </div>
+
+      <div class="status-item">
+        <span>⚔️ Dificuldade</span>
+        <strong><%= mundo.dificuldade %></strong>
+      </div>
+
+      <div class="status-item">
+        <span>🌍 Dimensões</span>
+        <strong>
+          Overworld <%= mundo.overworld ? "✔️" : "❌" %>
+          | Nether <%= mundo.nether ? "✔️" : "❌" %>
+          | End <%= mundo.end ? "✔️" : "❌" %>
+        </strong>
+      </div>
+
+      <div class="status-item">
+        <span>🧩 Versão do Minecraft</span>
+        <strong><%= mundo.versao_minecraft %></strong>
+      </div>
+
+      <div class="status-item">
+        <span>🕒 Última atualização</span>
+        <strong>
+          <%= ultimaAtualizacao
+            ? new Date(ultimaAtualizacao).toLocaleDateString("pt-BR")
+            : "Nenhuma ainda" %>
+        </strong>
+      </div>
+
+      <% if (mundo.objetivo_atual) { %>
+        <div class="status-item wide">
+          <span>🎯 Objetivo atual</span>
+          <strong><%= mundo.objetivo_atual %></strong>
         </div>
-      </a>
-    <% }) %>
+      <% } %>
+
+      <% if (mundo.seed) { %>
+        <div class="status-item">
+          <span>🌱 Seed</span>
+          <strong><%= mundo.seed %></strong>
+        </div>
+      <% } %>
+
+    </div>
   </div>
 </section>
 
 
+<!-- SEÇÕES -->
+<section class="section-block reveal" id="secoes">
+  <div class="section-container">
+    <h2 class="section-title">🧱 Explorar Conteúdos</h2>
 
+    <div class="sections-grid">
+      <% secoes.forEach(secao => { %>
+        <a href="/<%= secao.slug %>" class="section-card reveal">
+          <div class="section-card-overlay"></div>
+          <h3><%= secao.nome %></h3>
+        </a>
+      <% }) %>
+    </div>
+  </div>
+</section>
 
-<!-- ========================= -->
-<!-- ACESSO ADMIN (DISCRETO) -->
-<!-- ========================= -->
+<!-- POSTS -->
+<section class="section-block alt reveal" id="posts">
+  <div class="section-container">
+    <h2 class="section-title">📰 Últimas Atualizações</h2>
 
-<a href="/admin/login" class="admin-access">
-  ⛏ Admin
-</a>
+    <div class="posts-grid">
+      <% postsRecentes.forEach(post => { %>
+        <a href="/<%= post.Secao.slug %>/post/<%= post.id %>" class="post-card reveal">
+          <div
+            class="post-thumb"
+            style="background-image:url('<%= post.imagem || "/img/default.jpg" %>')"
+          ></div>
+
+          <div class="post-info">
+            <span class="post-tag"><%= post.Secao.nome %></span>
+            <h3><%= post.titulo %></h3>
+            <p><%= post.descricao %></p>
+          </div>
+        </a>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<!-- ADMIN -->
+<a href="/admin/login" class="admin-access">⛏ Admin</a>

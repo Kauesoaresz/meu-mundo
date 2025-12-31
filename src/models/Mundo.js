@@ -1,22 +1,97 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
 
-const Mundo = sequelize.define("Mundo", {
-  nome: {
-    type: DataTypes.STRING,
-    allowNull: false
+const Mundo = sequelize.define(
+  "Mundo",
+  {
+    // =====================
+    // IDENTIDADE
+    // =====================
+    nome: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+
+    descricao: {
+      type: DataTypes.TEXT
+    },
+
+    // =====================
+    // VERSÃO / JOGO
+    // =====================
+    versao_minecraft: {
+      type: DataTypes.STRING
+    },
+
+    edicao: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: "Java Edition"
+    },
+
+    modo: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: "Survival (Vanilla)"
+    },
+
+    dificuldade: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: "Difícil"
+    },
+
+    // =====================
+    // TEMPO DO MUNDO
+    // =====================
+    criado_em: {
+      type: DataTypes.DATE,
+      allowNull: false
+    },
+
+    // =====================
+    // DIMENSÕES
+    // =====================
+    overworld: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true
+    },
+
+    nether: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
+
+    end: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
+
+    // =====================
+    // STATUS ATUAL
+    // =====================
+    objetivo_atual: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    },
+
+    seed: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+
+    // =====================
+    // HERO
+    // =====================
+    hero_imagem: {
+      type: DataTypes.STRING,
+      allowNull: true
+    }
   },
-  descricao: {
-    type: DataTypes.TEXT
-  },
-  versao_minecraft: {
-    type: DataTypes.STRING
-  },
-  criado_em: {
-    type: DataTypes.DATE
+  {
+    tableName: "mundo",
+    timestamps: false
   }
-}, {
-  tableName: "mundo"
-});
+);
 
 module.exports = Mundo;

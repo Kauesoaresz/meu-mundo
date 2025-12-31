@@ -2,7 +2,9 @@ const Secao = require("../models/Secao");
 
 // LISTAR
 exports.index = async (req, res) => {
-  const secoes = await Secao.findAll({ order: [["ordem", "ASC"]] });
+  const secoes = await Secao.findAll({
+    order: [["ordem", "ASC"]]
+  });
 
   res.renderWithLayout("admin/secoes/index", {
     layout: "layouts/admin",
@@ -28,8 +30,8 @@ exports.store = async (req, res) => {
     nome,
     slug,
     icone,
-    ordem,
-    ativa: ativa ? true : false
+    ordem: Number(ordem) || 0,
+    ativa: ativa === "1"   // ✅ CORREÇÃO REAL
   });
 
   res.redirect("/admin/secoes");
@@ -38,7 +40,7 @@ exports.store = async (req, res) => {
 // VER
 exports.show = async (req, res) => {
   const secao = await Secao.findByPk(req.params.id);
-  if (!secao) return res.send("Seção não encontrada");
+  if (!secao) return res.redirect("/admin/secoes");
 
   res.renderWithLayout("admin/secoes/show", {
     layout: "layouts/admin",
@@ -50,7 +52,7 @@ exports.show = async (req, res) => {
 // FORM EDITAR
 exports.editForm = async (req, res) => {
   const secao = await Secao.findByPk(req.params.id);
-  if (!secao) return res.send("Seção não encontrada");
+  if (!secao) return res.redirect("/admin/secoes");
 
   res.renderWithLayout("admin/secoes/form", {
     layout: "layouts/admin",
@@ -68,8 +70,8 @@ exports.update = async (req, res) => {
       nome,
       slug,
       icone,
-      ordem,
-      ativa: ativa ? true : false
+      ordem: Number(ordem) || 0,
+      ativa: ativa === "1"   // ✅ CORREÇÃO REAL
     },
     { where: { id: req.params.id } }
   );
@@ -79,6 +81,9 @@ exports.update = async (req, res) => {
 
 // EXCLUIR
 exports.destroy = async (req, res) => {
-  await Secao.destroy({ where: { id: req.params.id } });
+  await Secao.destroy({
+    where: { id: req.params.id }
+  });
+
   res.redirect("/admin/secoes");
 };

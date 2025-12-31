@@ -3,7 +3,11 @@
 </h2>
 
 <div class="admin-card">
-  <form class="admin-form" method="POST">
+  <form
+    class="admin-form"
+    method="POST"
+    action="<%= secao ? `/admin/secoes/${secao.id}/editar` : '/admin/secoes' %>"
+  >
 
     <label>Nome da Seção</label>
     <input
@@ -21,6 +25,22 @@
       required
     >
 
+    <label>Ícone</label>
+    <input
+      type="text"
+      name="icone"
+      value="<%= secao ? secao.icone : "" %>"
+      placeholder="🧱"
+    >
+
+    <label>Ordem (menu)</label>
+    <input
+      type="number"
+      name="ordem"
+      value="<%= secao ? secao.ordem : 0 %>"
+      min="0"
+    >
+
     <label>Status</label>
     <select name="ativa">
       <option value="1" <%= secao && secao.ativa ? "selected" : "" %>>
@@ -32,7 +52,7 @@
     </select>
 
     <div class="admin-actions">
-      <button class="btn btn-primary">
+      <button type="submit" class="btn btn-primary">
         Salvar
       </button>
 

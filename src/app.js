@@ -9,6 +9,23 @@ const loadSecoes = require("./middlewares/loadSecoes");
 
 const app = express();
 
+const Secao = require("./models/Secao");
+
+app.use(async (req, res, next) => {
+  try {
+    const secoes = await Secao.findAll({
+      where: { ativa: true },
+      order: [["ordem", "ASC"]]
+    });
+
+    res.locals.secoes = secoes;
+    next();
+  } catch (err) {
+    next(err);
+  }
+});
+
+
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
@@ -49,3 +66,4 @@ sequelize.authenticate()
 app.listen(3000, () => {
   console.log("🌍 Meu Mundo rodando em http://localhost:3000");
 });
+

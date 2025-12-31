@@ -3,36 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <title><%= titulo %></title>
+
+  <!-- CSS -->
   <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/animations.css">
+
+  <!-- JS -->
+  <script src="/js/animations.js" defer></script>
 </head>
 <body>
 
-  <!-- SIDEBAR -->
-  <nav class="sidebar">
-    <h1>🌍 Meu Mundo</h1>
+<header class="main-header">
+  <div class="header-container">
 
-    <ul>
-      <li>
-        <a href="/">🏠 Home</a>
-      </li>
+    <a href="/" class="header-logo">
+      🌍 <span>Meu Mundo</span>
+    </a>
+
+    <nav class="header-nav">
+      <a href="/" class="nav-link">🏠 Home</a>
 
       <% secoes.forEach(secao => { %>
-        <li>
-          <a href="/<%= secao.slug %>">
-            <%= secao.icone %> <%= secao.nome %>
-          </a>
-        </li>
+        <a href="/<%= secao.slug %>" class="nav-link">
+          <%= secao.icone || "🧱" %> <%= secao.nome %>
+        </a>
       <% }) %>
-    </ul>
-  </nav>
+    </nav>
+
+  </div>
+</header>
+
 
   <!-- CONTEÚDO -->
-  <main class="main-content">
+  <main>
     <%- body %>
-
-    <div class="footer">
-      Meu Mundo — projeto pessoal
-    </div>
   </main>
 
 </body>

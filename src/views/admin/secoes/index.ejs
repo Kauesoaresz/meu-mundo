@@ -3,7 +3,9 @@
 <div class="admin-card">
   <div class="admin-actions">
     <p>Gerencie as seções do site</p>
-    <a href="/admin/secoes/nova" class="btn btn-primary">+ Nova Seção</a>
+    <a href="/admin/secoes/nova" class="btn btn-primary">
+      + Nova Seção
+    </a>
   </div>
 </div>
 
@@ -11,6 +13,7 @@
   <table class="admin-table">
     <thead>
       <tr>
+        <th>Ordem</th>
         <th>Nome</th>
         <th>Slug</th>
         <th>Status</th>
@@ -20,6 +23,7 @@
     <tbody>
       <% secoes.forEach(secao => { %>
         <tr>
+          <td><%= secao.ordem %></td>
           <td><%= secao.nome %></td>
           <td><%= secao.slug %></td>
           <td>
@@ -38,11 +42,11 @@
             </a>
 
             <form
-              action="/admin/secoes/<%= secao.id %>/deletar"
+              action="/admin/secoes/<%= secao.id %>/excluir"
               method="POST"
               style="display:inline"
             >
-              <button class="btn btn-danger">
+              <button type="submit" class="btn btn-danger">
                 Excluir
               </button>
             </form>
