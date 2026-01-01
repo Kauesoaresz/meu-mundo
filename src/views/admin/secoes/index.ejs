@@ -1,15 +1,12 @@
 <h2 class="admin-title">📂 Seções</h2>
+<p class="admin-description">Gerencie as seções do site</p>
 
-<div class="admin-card">
-  <div class="admin-actions">
-    <p>Gerencie as seções do site</p>
-    <a href="/admin/secoes/nova" class="btn btn-primary">
-      + Nova Seção
-    </a>
-  </div>
+<div class="admin-action-bar">
+  <span></span>
+  <a href="/admin/secoes/nova" class="btn btn-primary">+ Nova Seção</a>
 </div>
 
-<div class="admin-card">
+<div class="admin-section">
   <table class="admin-table">
     <thead>
       <tr>
@@ -20,36 +17,38 @@
         <th>Ações</th>
       </tr>
     </thead>
+
     <tbody>
       <% secoes.forEach(secao => { %>
         <tr>
           <td><%= secao.ordem %></td>
-          <td><%= secao.nome %></td>
+          <td><strong><%= secao.nome %></strong></td>
           <td><%= secao.slug %></td>
           <td>
-            <% if (secao.ativa) { %>
-              <span style="color: var(--green)">Ativa</span>
-            <% } else { %>
-              <span style="color: var(--muted)">Inativa</span>
-            <% } %>
+            <span style="color: var(--green); font-weight: bold">
+              Ativa
+            </span>
           </td>
           <td>
-            <a
-              href="/admin/secoes/<%= secao.id %>/editar"
-              class="btn btn-primary"
-            >
-              Editar
-            </a>
+            <!-- 🔥 CONTAINER CORRETO -->
+            <div class="admin-table-actions">
+              <a
+                href="/admin/secoes/<%= secao.id %>/editar"
+                class="btn btn-primary"
+              >
+                Editar
+              </a>
 
-            <form
-              action="/admin/secoes/<%= secao.id %>/excluir"
-              method="POST"
-              style="display:inline"
-            >
-              <button type="submit" class="btn btn-danger">
-                Excluir
-              </button>
-            </form>
+              <form
+                action="/admin/secoes/<%= secao.id %>/excluir"
+                method="POST"
+                onsubmit="return confirm('Deseja excluir esta seção?')"
+              >
+                <button class="btn btn-danger">
+                  Excluir
+                </button>
+              </form>
+            </div>
           </td>
         </tr>
       <% }) %>

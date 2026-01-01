@@ -11,7 +11,6 @@
   <!-- JS -->
   <script src="/js/animations.js" defer></script>
   <script src="/js/coords.js"></script>
-
 </head>
 <body>
 
@@ -25,6 +24,11 @@
     <nav class="header-nav">
       <a href="/" class="nav-link">🏠 Home</a>
 
+      <!-- ✅ BOTÃO AFAZERES (PÚBLICO) -->
+      <a href="/afazeres" class="nav-link">
+        📋 Afazeres
+      </a>
+
       <% secoes.forEach(secao => { %>
         <a href="/<%= secao.slug %>" class="nav-link">
           <%= secao.icone || "🧱" %> <%= secao.nome %>
@@ -35,11 +39,10 @@
   </div>
 </header>
 
-
-  <!-- CONTEÚDO -->
-  <main>
-    <%- body %>
-  </main>
+<!-- CONTEÚDO -->
+<main>
+  <%- body %>
+</main>
 
 </body>
 </html>

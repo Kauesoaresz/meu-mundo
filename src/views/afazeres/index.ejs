@@ -1,0 +1,66 @@
+<section class="section-block">
+  <div class="section-container afazeres-wrapper">
+
+    <h1 class="section-title">📋 Afazeres do Mundo</h1>
+
+    <p class="section-text">
+      Acompanhe o progresso das construções e objetivos deste mundo.
+    </p>
+
+    <!-- =========================
+         PROGRESSO GERAL
+    ========================== -->
+    <div class="afazeres-progress">
+      <span>Progresso geral</span>
+      <strong>
+        <%= concluidos %> / <%= total %>
+        (<%= total > 0 ? Math.round((concluidos / total) * 100) : 0 %>%)
+      </strong>
+    </div>
+
+    <!-- =========================
+         LISTA DE AFAZERES
+    ========================== -->
+    <div class="afazeres-list">
+
+      <% afazeres.forEach(afazer => { %>
+        <div class="afazer-item <%= afazer.status === 'concluido' ? 'concluido' : '' %>">
+
+          <!-- STATUS -->
+          <div class="afazer-status <%= afazer.status %>">
+            <%= afazer.status === "concluido"
+              ? "Concluído"
+              : afazer.status === "em_obra"
+              ? "Em obra"
+              : "Não iniciado" %>
+          </div>
+
+          <!-- CONTEÚDO -->
+          <div class="afazer-content">
+            <strong><%= afazer.titulo %></strong>
+
+            <% if (afazer.descricao) { %>
+              <p><%= afazer.descricao %></p>
+            <% } %>
+
+            <% if (afazer.concluido_em) { %>
+              <p style="font-size:12px; color:var(--text-muted); margin-top:4px;">
+                Concluído em
+                <%= new Date(afazer.concluido_em).toLocaleDateString("pt-BR") %>
+              </p>
+            <% } %>
+          </div>
+
+          <!-- PRIORIDADE -->
+          <div class="afazer-priority <%= afazer.prioridade %>">
+            Prioridade:
+            <%= afazer.prioridade.charAt(0).toUpperCase() + afazer.prioridade.slice(1) %>
+          </div>
+
+        </div>
+      <% }) %>
+
+    </div>
+
+  </div>
+</section>

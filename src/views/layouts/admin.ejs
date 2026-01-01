@@ -2,25 +2,30 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title><%= titulo %></title>
+  <title><%= titulo || "Admin" %></title>
+
   <link rel="stylesheet" href="/css/admin.css">
+  <link rel="stylesheet" href="/css/admin-afazeres.css">
 </head>
 <body>
 
-  <header class="admin-header">
-    <h1>⛏ Meu Mundo — Admin</h1>
+<header class="admin-topbar">
+  <div class="admin-topbar-inner">
+    <h1 class="admin-logo">Meu Mundo — Admin</h1>
 
-    <nav>
+    <nav class="admin-nav">
       <a href="/admin">Painel</a>
       <a href="/admin/secoes">Seções</a>
       <a href="/admin/posts">Posts</a>
+      <a href="/admin/afazeres">Afazeres</a>
       <a href="/admin/logout">Sair</a>
     </nav>
-  </header>
+  </div>
+</header>
 
-  <main class="admin-container">
-    <%- body %>
-  </main>
+<main class="admin-container">
+  <%- body %>
+</main>
 
 </body>
 </html>

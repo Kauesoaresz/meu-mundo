@@ -7,10 +7,35 @@ const sequelize = require("./config/database");
 const routes = require("./routes");
 const loadSecoes = require("./middlewares/loadSecoes");
 
-const app = express();
+const adminAfazeresRoutes = require("./routes/adminAfazeres");
+const afazeresRoutes = require("./routes/afazeres");
 
 const Secao = require("./models/Secao");
 
+const app = express();
+
+/* ===========================
+   VIEW ENGINE
+=========================== */
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
+
+/* ===========================
+   MIDDLEWARES BÁSICOS
+=========================== */
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.static(path.join(__dirname, "public")));
+
+app.use(session({
+  secret: "meu-mundo-secret",
+  resave: false,
+  saveUninitialized: false
+}));
+
+/* ===========================
+   CARREGAR SEÇÕES (NAV)
+=========================== */
 app.use(async (req, res, next) => {
   try {
     const secoes = await Secao.findAll({
@@ -24,20 +49,6 @@ app.use(async (req, res, next) => {
     next(err);
   }
 });
-
-
-app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views"));
-
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(express.static(path.join(__dirname, "public")));
-
-app.use(session({
-  secret: "meu-mundo-secret",
-  resave: false,
-  saveUninitialized: false
-}));
 
 /* ===========================
    MIDDLEWARE GLOBAL
@@ -57,12 +68,27 @@ app.use((req, res, next) => {
   next();
 });
 
+/* ===========================
+   ROTAS — ORDEM CORRETA
+=========================== */
+
+/* 🔥 ROTAS ESPECÍFICAS PRIMEIRO */
+app.use("/admin/afazeres", adminAfazeresRoutes);
+app.use("/afazeres", afazeresRoutes);
+
+/* 🔥 ROTAS GENÉRICAS POR ÚLTIMO */
 app.use("/", routes);
 
+/* ===========================
+   BANCO
+=========================== */
 sequelize.authenticate()
   .then(() => console.log("🟢 Banco conectado"))
   .catch(() => console.log("🔴 Erro no banco"));
 
+/* ===========================
+   SERVER
+=========================== */
 app.listen(3000, () => {
   console.log("🌍 Meu Mundo rodando em http://localhost:3000");
 });

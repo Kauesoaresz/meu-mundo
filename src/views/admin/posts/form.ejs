@@ -20,35 +20,72 @@
         <h3>Conteúdo</h3>
 
         <label>Título</label>
-        <input type="text" name="titulo" value="<%= post?.titulo || "" %>" required>
+        <input
+          type="text"
+          name="titulo"
+          value="<%= post?.titulo || "" %>"
+        >
 
         <label>Descrição curta</label>
-        <input type="text" name="descricao" value="<%= post?.descricao || "" %>" required>
+        <input
+          type="text"
+          name="descricao"
+          value="<%= post?.descricao || "" %>"
+        >
 
         <label>Conteúdo</label>
-        <textarea name="conteudo" rows="10" required><%= post?.conteudo || "" %></textarea>
+        <textarea
+          name="conteudo"
+          rows="10"
+        ><%= post?.conteudo || "" %></textarea>
       </div>
 
       <div class="admin-section">
         <h3>Vídeo</h3>
+
         <label>Vídeo do YouTube</label>
-        <input type="text" name="video_youtube" value="<%= post?.video_youtube || "" %>">
+        <input
+          type="text"
+          name="video_youtube"
+          value="<%= post?.video_youtube || "" %>"
+        >
       </div>
 
       <div class="admin-section">
         <h3>📍 Coordenadas</h3>
 
         <div class="admin-grid">
-          <input type="number" name="coord_x" placeholder="X" value="<%= post?.coord_x || "" %>">
-          <input type="number" name="coord_y" placeholder="Y" value="<%= post?.coord_y || "" %>">
-          <input type="number" name="coord_z" placeholder="Z" value="<%= post?.coord_z || "" %>">
+          <input
+            type="number"
+            name="coord_x"
+            placeholder="X"
+            value="<%= post?.coord_x || "" %>"
+          >
+          <input
+            type="number"
+            name="coord_y"
+            placeholder="Y"
+            value="<%= post?.coord_y || "" %>"
+          >
+          <input
+            type="number"
+            name="coord_z"
+            placeholder="Z"
+            value="<%= post?.coord_z || "" %>"
+          >
         </div>
 
         <select name="dimensao">
           <option value="">Dimensão</option>
-          <option value="overworld" <%= post?.dimensao === "overworld" ? "selected" : "" %>>Overworld</option>
-          <option value="nether" <%= post?.dimensao === "nether" ? "selected" : "" %>>Nether</option>
-          <option value="end" <%= post?.dimensao === "end" ? "selected" : "" %>>End</option>
+          <option value="overworld" <%= post?.dimensao === "overworld" ? "selected" : "" %>>
+            Overworld
+          </option>
+          <option value="nether" <%= post?.dimensao === "nether" ? "selected" : "" %>>
+            Nether
+          </option>
+          <option value="end" <%= post?.dimensao === "end" ? "selected" : "" %>>
+            End
+          </option>
         </select>
       </div>
 
@@ -65,7 +102,10 @@
         <label>Seção</label>
         <select name="secao_id" required>
           <% secoes.forEach(secao => { %>
-            <option value="<%= secao.id %>" <%= post?.secao_id === secao.id ? "selected" : "" %>>
+            <option
+              value="<%= secao.id %>"
+              <%= post?.secao_id === secao.id ? "selected" : "" %>
+            >
               <%= secao.nome %>
             </option>
           <% }) %>
@@ -107,57 +147,56 @@
       </div>
 
       <!-- GALERIA -->
-     <div class="admin-section">
-  <h3>Galeria</h3>
+      <div class="admin-section">
+        <h3>Galeria</h3>
 
-  <input
-    type="file"
-    name="galeria"
-    id="galeriaInput"
-    accept="image/*"
-    multiple
-  >
+        <input
+          type="file"
+          name="galeria"
+          id="galeriaInput"
+          accept="image/*"
+          multiple
+        >
 
-  <div
-    id="previewGaleria"
-    style="display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:10px;"
-  ></div>
+        <div
+          id="previewGaleria"
+          style="display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:10px;"
+        ></div>
 
-  <% if (post?.imagens?.length) { %>
-    <hr style="margin:15px 0; border-color:#2a2a2a;">
-    <h4 style="margin-bottom:10px;">Imagens já salvas</h4>
+        <% if (post?.imagens?.length) { %>
+          <hr style="margin:15px 0; border-color:#2a2a2a;">
+          <h4 style="margin-bottom:10px;">Imagens já salvas</h4>
 
-    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:10px;">
-      <% post.imagens
-  .filter(img => img.imagem !== post.imagem)
-  .forEach(img => { %>
+          <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:10px;">
+            <% post.imagens
+              .filter(img => img.imagem !== post.imagem)
+              .forEach(img => { %>
 
-        <div style="position:relative;">
-          <img
-            src="<%= img.imagem %>"
-            style="width:100%; border-radius:8px;"
-          >
+              <div style="position:relative;">
+                <img
+                  src="<%= img.imagem %>"
+                  style="width:100%; border-radius:8px;"
+                >
 
-          <form
-            method="POST"
-            action="/admin/posts/imagem/<%= img.id %>/excluir"
-            onsubmit="return confirm('Remover esta imagem?')"
-            style="position:absolute; top:5px; right:5px;"
-          >
-            <button
-              type="submit"
-              class="btn btn-danger"
-              style="padding:4px 6px; font-size:10px;"
-            >
-              ✕
-            </button>
-          </form>
-        </div>
-      <% }) %>
-    </div>
-  <% } %>
-</div>
-
+                <form
+                  method="POST"
+                  action="/admin/posts/imagem/<%= img.id %>/excluir"
+                  onsubmit="return confirm('Remover esta imagem?')"
+                  style="position:absolute; top:5px; right:5px;"
+                >
+                  <button
+                    type="submit"
+                    class="btn btn-danger"
+                    style="padding:4px 6px; font-size:10px;"
+                  >
+                    ✕
+                  </button>
+                </form>
+              </div>
+            <% }) %>
+          </div>
+        <% } %>
+      </div>
 
       <!-- AÇÕES -->
       <div class="admin-section">
@@ -184,7 +223,8 @@
   if (urlInput) {
     urlInput.addEventListener("input", () => {
       if (urlInput.value) {
-        preview.innerHTML = `<img src="${urlInput.value}" style="width:100%; border-radius:10px;">`;
+        preview.innerHTML =
+          `<img src="${urlInput.value}" style="width:100%; border-radius:10px;">`;
       }
     });
   }
@@ -196,14 +236,13 @@
       if (file) {
         const reader = new FileReader();
         reader.onload = e => {
-          preview.innerHTML = `<img src="${e.target.result}" style="width:100%; border-radius:10px;">`;
+          preview.innerHTML =
+            `<img src="${e.target.result}" style="width:100%; border-radius:10px;">`;
         };
         reader.readAsDataURL(file);
       }
     });
   }
-
-  
 </script>
 
 <script>

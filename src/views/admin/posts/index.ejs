@@ -1,44 +1,49 @@
 <h2 class="admin-title">📝 Posts</h2>
+<p class="admin-description">Gerencie os posts do site</p>
 
-<div class="admin-card">
-  <div class="admin-actions">
-    <p>Gerencie os posts do site</p>
-    <a href="/admin/posts/novo" class="btn btn-primary">+ Novo Post</a>
-  </div>
+<!-- BARRA DE AÇÃO -->
+<div class="admin-action-bar">
+  <span></span>
+  <a href="/admin/posts/novo" class="btn btn-primary">+ Novo Post</a>
 </div>
 
-<div class="admin-grid">
+<!-- LISTA DE POSTS -->
+<div class="admin-post-list">
 
   <% posts.forEach(post => { %>
-    <div class="admin-card">
+    <div class="admin-post-row">
 
-      <!-- IMAGEM -->
-      <% if (post.imagem) { %>
-        <img
-          src="<%= post.imagem %>"
-          alt="<%= post.titulo %>"
-          style="
-            width: 100%;
-            height: 160px;
-            object-fit: cover;
-            border-radius: 10px;
-            margin-bottom: 12px;
-          "
-        >
-      <% } %>
+      <!-- THUMB -->
+      <div>
+        <% if (post.imagem) { %>
+          <img
+            src="<%= post.imagem %>"
+            alt="<%= post.titulo %>"
+            class="admin-post-thumb"
+          >
+        <% } else { %>
+          <div class="admin-post-thumb" style="background:#222;"></div>
+        <% } %>
+      </div>
 
-      <!-- CONTEÚDO -->
-      <h3 style="margin-bottom: 6px;">
-        <%= post.titulo %>
-      </h3>
+      <!-- INFO -->
+      <div class="admin-post-info">
+        <strong><%= post.titulo %></strong>
+        <span>
+          <%= post.Secao.nome %> •
+          <%= new Date(post.criado_em).toLocaleDateString("pt-BR") %>
+        </span>
+      </div>
 
-      <p style="color: var(--muted); font-size: 13px; margin-bottom: 10px;">
-        <%= post.Secao.nome %> •
-        <%= new Date(post.criado_em).toLocaleDateString("pt-BR") %>
-      </p>
+      <!-- STATUS -->
+      <div>
+        <span style="color: var(--green); font-size: 14px;">
+          Publicado
+        </span>
+      </div>
 
       <!-- AÇÕES -->
-      <div class="admin-actions" style="justify-content: flex-start; gap: 10px;">
+      <div class="admin-post-actions">
         <a
           href="/admin/posts/<%= post.id %>/editar"
           class="btn btn-primary"
@@ -51,9 +56,7 @@
           method="POST"
           onsubmit="return confirm('Deseja realmente excluir este post?')"
         >
-          <button class="btn btn-danger">
-            Excluir
-          </button>
+          <button class="btn btn-danger">Excluir</button>
         </form>
       </div>
 

@@ -563,3 +563,256 @@ main {
   transform: scale(1.05);
 }
 
+/* =========================
+   POST – REFORMULAÇÃO TOTAL
+========================= */
+
+.post-page {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 60px 20px 80px;
+}
+
+/* CABEÇALHO */
+.post-header {
+  margin-bottom: 40px;
+}
+
+.post-section {
+  font-size: 13px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.post-title {
+  font-family: "Minecraft";
+  color: var(--green);
+  font-size: 42px;
+  margin: 8px 0;
+}
+
+.post-date {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+/* REGISTRO PRINCIPAL */
+.post-record {
+  margin-bottom: 50px;
+}
+
+.post-record img {
+  width: 100%;
+  border-radius: 20px;
+  display: block;
+}
+
+.post-record-text {
+  margin-top: 14px;
+  padding-left: 16px;
+  border-left: 4px solid var(--green);
+  color: var(--text-muted);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* CONTEÚDO */
+.post-body {
+  font-size: 16px;
+  line-height: 1.85;
+  margin-bottom: 50px;
+}
+
+/* GALERIA */
+.post-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 18px;
+  margin-bottom: 50px;
+}
+
+.post-gallery img {
+  width: 100%;
+  border-radius: 14px;
+}
+
+/* VÍDEO */
+.post-video {
+  position: relative;
+  padding-bottom: 56.25%;
+  margin-bottom: 50px;
+}
+
+.post-video iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+}
+
+/* COORDENADAS */
+.post-coords {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+  background: rgba(98,217,107,0.15);
+  border-left: 6px solid var(--green);
+  padding: 20px;
+  border-radius: 16px;
+  margin-bottom: 60px;
+}
+
+.post-coords strong {
+  width: 100%;
+  color: var(--green);
+}
+
+.post-coords span {
+  background: rgba(0,0,0,0.35);
+  padding: 6px 12px;
+  border-radius: 8px;
+}
+
+/* FOOTER */
+.post-footer {
+  text-align: center;
+}
+
+.post-footer a {
+  color: var(--green);
+  font-weight: bold;
+  text-decoration: none;
+}
+
+/* =========================
+   AFAZERES – PÁGINA PÚBLICA
+========================= */
+
+.afazeres-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* PROGRESSO */
+.afazeres-progress {
+  background: linear-gradient(180deg, #1a1a1a, #141414);
+  border-radius: 16px;
+  padding: 26px;
+  margin: 40px 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+}
+
+.afazeres-progress span {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.afazeres-progress strong {
+  font-size: 28px;
+  color: var(--green);
+}
+
+/* LISTA */
+.afazeres-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ITEM */
+.afazer-item {
+  background: linear-gradient(180deg, #1b1b1b, #141414);
+  border-radius: 14px;
+  padding: 18px 22px;
+
+  display: grid;
+  grid-template-columns: 160px 1fr 140px;
+  gap: 20px;
+  align-items: center;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+/* STATUS */
+.afazer-status {
+  font-weight: bold;
+  font-size: 13px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  text-align: center;
+}
+
+.afazer-status.nao_iniciado {
+  background: #9e9e9e;
+  color: #1a1a1a;
+}
+
+.afazer-status.em_obra {
+  background: #ffd54f;
+  color: #332900;
+}
+
+.afazer-status.concluido {
+  background: #4caf50;
+  color: #081f0a;
+}
+
+/* CONTEÚDO */
+.afazer-content strong {
+  font-size: 17px;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.afazer-content p {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+/* PRIORIDADE */
+.afazer-priority {
+  text-align: right;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.afazer-priority.alta {
+  color: #ef5350;
+}
+
+.afazer-priority.media {
+  color: #ffca28;
+}
+
+.afazer-priority.baixa {
+  color: #66bb6a;
+}
+
+/* CONCLUÍDO (efeito visual) */
+.afazer-item.concluido {
+  opacity: 0.7;
+}
+
+.afazer-item.concluido .afazer-content strong {
+  text-decoration: line-through;
+}
+
+/* RESPONSIVO */
+@media (max-width: 768px) {
+  .afazer-item {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .afazer-priority {
+    text-align: left;
+  }
+}

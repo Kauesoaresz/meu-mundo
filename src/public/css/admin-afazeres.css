@@ -1,0 +1,118 @@
+/* =========================
+   ADMIN – AFAZERES (ISOLADO)
+========================= */
+
+.admin-container .admin-afazeres-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+.admin-container .admin-afazeres-form {
+  display: flex;
+  gap: 12px;
+}
+
+.admin-container .admin-afazeres-form input,
+.admin-container .admin-afazeres-form select {
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: #111;
+  border: 2px solid #2a2a2a;
+  color: #fff;
+}
+
+/* LISTA */
+.admin-container .admin-afazeres-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* ITEM */
+.admin-container .admin-afazer-item {
+  display: grid;
+  grid-template-columns: 140px 1fr 120px 180px;
+  gap: 18px;
+  align-items: center;
+
+  background: linear-gradient(180deg, #1a1a1a, #141414);
+  border-radius: 14px;
+  padding: 18px 22px;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+}
+
+/* STATUS */
+.admin-container .admin-afazer-status {
+  font-size: 13px;
+  font-weight: bold;
+  padding: 6px 12px;
+  border-radius: 999px;
+  text-align: center;
+}
+
+.admin-container .admin-afazer-status.nao_iniciado {
+  background: #9e9e9e;
+  color: #1a1a1a;
+}
+
+.admin-container .admin-afazer-status.em_obra {
+  background: #ffd54f;
+  color: #332900;
+}
+
+.admin-container .admin-afazer-status.concluido {
+  background: #4caf50;
+  color: #081f0a;
+}
+
+/* CONTEÚDO */
+.admin-container .admin-afazer-content strong {
+  display: block;
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+.admin-container .admin-afazer-content p {
+  font-size: 13px;
+  color: #9e9e9e;
+}
+
+/* PRIORIDADE */
+.admin-container .admin-afazer-priority {
+  font-weight: bold;
+  text-align: center;
+}
+
+.admin-container .admin-afazer-priority.alta { color: #ef5350; }
+.admin-container .admin-afazer-priority.media { color: #ffca28; }
+.admin-container .admin-afazer-priority.baixa { color: #66bb6a; }
+
+/* AÇÕES */
+.admin-container .admin-afazer-actions select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 8px;
+  background: #111;
+  border: 2px solid #2a2a2a;
+  color: #fff;
+}
+
+/* CONCLUÍDO */
+.admin-container .admin-afazer-item.concluido {
+  opacity: 0.65;
+}
+
+.admin-container .admin-afazer-item.concluido strong {
+  text-decoration: line-through;
+}
+
+/* RESPONSIVO */
+@media (max-width: 900px) {
+  .admin-container .admin-afazer-item {
+    grid-template-columns: 1fr;
+  }
+}

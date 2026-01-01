@@ -8,7 +8,7 @@
   <div class="admin-card">
     <h3>🌍 Mundo</h3>
     <p><strong><%= mundo.nome %></strong></p>
-    <p class="muted"><%= mundo.descricao || "Sem descrição" %></p>
+    <p><%= mundo.descricao || "Sem descrição" %></p>
     <br>
     <a href="/admin/mundo" class="btn btn-primary">
       Configurações
@@ -19,7 +19,6 @@
     <h3>🧱 Posts</h3>
     <p>Total cadastrados</p>
     <h2><%= totalPosts %></h2>
-    <br>
     <a href="/admin/posts" class="btn btn-primary">
       Gerenciar Posts
     </a>
@@ -29,9 +28,18 @@
     <h3>📂 Seções</h3>
     <p>Total cadastradas</p>
     <h2><%= totalSecoes %></h2>
-    <br>
     <a href="/admin/secoes" class="btn btn-primary">
       Gerenciar Seções
+    </a>
+  </div>
+
+  <!-- ✅ NOVO CARD: AFAZERES -->
+  <div class="admin-card">
+    <h3>✅ Afazeres</h3>
+    <p>Planejamento e progresso do mundo</p>
+    <br>
+    <a href="/admin/afazeres" class="btn btn-primary">
+      Gerenciar Afazeres
     </a>
   </div>
 
@@ -43,7 +51,7 @@
 
     <p>
       <strong><%= ultimoPost.titulo %></strong><br>
-      <span class="muted">
+      <span class="admin-description">
         Criado em
         <%= new Date(ultimoPost.createdAt).toLocaleDateString("pt-BR") %>
       </span>
@@ -51,7 +59,10 @@
 
     <br>
 
-    <a href="/admin/posts/<%= ultimoPost.id %>/editar" class="btn btn-primary">
+    <a
+      href="/admin/posts/<%= ultimoPost.id %>/editar"
+      class="btn btn-primary"
+    >
       Editar Post
     </a>
   </div>
