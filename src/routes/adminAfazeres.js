@@ -14,6 +14,16 @@ router.get("/", adminAfazerController.index);
 router.post("/", adminAfazerController.criar);
 
 /* =========================
+   EDITAR (FORM)
+========================= */
+router.get("/:id/editar", adminAfazerController.editar);
+
+/* =========================
+   ATUALIZAR
+========================= */
+router.post("/:id/atualizar", adminAfazerController.atualizar);
+
+/* =========================
    ALTERAR STATUS (AJAX)
 ========================= */
 router.post("/:id/status", adminAfazerController.alterarStatus);

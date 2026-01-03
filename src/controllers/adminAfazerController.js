@@ -1,13 +1,13 @@
 const Afazer = require("../models/Afazer");
 
 /* =========================
-   LISTAR AFAZERES (ADMIN)
+   LISTAR AFAZERES
 ========================= */
 exports.index = async (req, res) => {
   try {
     const afazeres = await Afazer.findAll({
       order: [
-        ["status", "ASC"],     // não iniciado → em obra → concluído
+        ["status", "ASC"],
         ["ordem", "ASC"],
         ["criado_em", "ASC"]
       ]
@@ -17,20 +17,18 @@ exports.index = async (req, res) => {
     const concluidos = afazeres.filter(a => a.status === "concluido").length;
 
     res.render("layouts/admin", {
-  titulo: "Afazeres",
-  body: await new Promise((resolve, reject) => {
-    res.render("admin/afazeres/index", {
-      afazeres,
-      total,
-      concluidos
-    }, (err, html) => {
-      if (err) reject(err);
-      else resolve(html);
+      titulo: "Afazeres",
+      body: await new Promise((resolve, reject) => {
+        res.render("admin/afazeres/index", {
+          afazeres,
+          total,
+          concluidos
+        }, (err, html) => {
+          if (err) reject(err);
+          else resolve(html);
+        });
+      })
     });
-  })
-});
-
-
   } catch (err) {
     console.error(err);
     res.status(500).send("Erro ao carregar afazeres");
@@ -38,7 +36,7 @@ exports.index = async (req, res) => {
 };
 
 /* =========================
-   CRIAR AFAZER
+   CRIAR
 ========================= */
 exports.criar = async (req, res) => {
   try {
@@ -58,7 +56,67 @@ exports.criar = async (req, res) => {
 };
 
 /* =========================
-   ALTERAR STATUS
+   FORM EDITAR
+========================= */
+exports.editar = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const afazer = await Afazer.findByPk(id);
+    if (!afazer) {
+      return res.status(404).send("Afazer não encontrado");
+    }
+
+    res.render("layouts/admin", {
+      titulo: "Editar Afazer",
+      body: await new Promise((resolve, reject) => {
+        res.render("admin/afazeres/editar", { afazer }, (err, html) => {
+          if (err) reject(err);
+          else resolve(html);
+        });
+      })
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Erro ao carregar edição");
+  }
+};
+
+/* =========================
+   ATUALIZAR
+========================= */
+exports.atualizar = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { titulo, descricao, prioridade, status } = req.body;
+
+    const afazer = await Afazer.findByPk(id);
+    if (!afazer) {
+      return res.status(404).send("Afazer não encontrado");
+    }
+
+    afazer.titulo = titulo;
+    afazer.descricao = descricao;
+    afazer.prioridade = prioridade;
+    afazer.status = status;
+
+    if (status === "concluido") {
+      afazer.concluido_em = new Date();
+    } else {
+      afazer.concluido_em = null;
+    }
+
+    await afazer.save();
+
+    res.redirect("/admin/afazeres");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Erro ao atualizar afazer");
+  }
+};
+
+/* =========================
+   ALTERAR STATUS (AJAX)
 ========================= */
 exports.alterarStatus = async (req, res) => {
   try {
@@ -71,12 +129,7 @@ exports.alterarStatus = async (req, res) => {
     }
 
     afazer.status = status;
-
-    if (status === "concluido") {
-      afazer.concluido_em = new Date();
-    } else {
-      afazer.concluido_em = null;
-    }
+    afazer.concluido_em = status === "concluido" ? new Date() : null;
 
     await afazer.save();
 

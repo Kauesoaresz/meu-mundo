@@ -1,0 +1,36 @@
+<div class="admin-afazeres-header">
+  <h2>✏️ Editar Afazer</h2>
+</div>
+
+<form method="POST" action="/admin/afazeres/<%= afazer.id %>/atualizar" class="admin-afazeres-form">
+
+  <input
+    type="text"
+    name="titulo"
+    value="<%= afazer.titulo %>"
+    required
+  >
+
+  <textarea
+    name="descricao"
+    placeholder="Descrição"
+  ><%= afazer.descricao || "" %></textarea>
+
+  <select name="prioridade">
+    <option value="baixa" <%= afazer.prioridade==="baixa"?"selected":"" %>>Baixa</option>
+    <option value="media" <%= afazer.prioridade==="media"?"selected":"" %>>Média</option>
+    <option value="alta" <%= afazer.prioridade==="alta"?"selected":"" %>>Alta</option>
+  </select>
+
+  <select name="status">
+    <option value="nao_iniciado" <%= afazer.status==="nao_iniciado"?"selected":"" %>>Não iniciado</option>
+    <option value="em_obra" <%= afazer.status==="em_obra"?"selected":"" %>>Em obra</option>
+    <option value="concluido" <%= afazer.status==="concluido"?"selected":"" %>>Concluído</option>
+  </select>
+
+  <div style="display:flex; gap:10px;">
+    <button class="btn btn-primary">Salvar</button>
+    <a href="/admin/afazeres" class="btn btn-secondary">Cancelar</a>
+  </div>
+
+</form>
