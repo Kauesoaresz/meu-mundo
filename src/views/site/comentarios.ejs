@@ -1,21 +1,58 @@
-<section class="comentarios">
-  <h1>Comentários</h1>
+<section class="comentarios-page">
 
+  <header class="comentarios-header">
+    <h1>💬 Comentários</h1>
+    <p>Deixe sua opinião sobre o mundo, ideias, sugestões ou qualquer coisa 😊</p>
+  </header>
+
+  <!-- FORMULÁRIO -->
   <form method="POST" action="/comentarios" class="comentario-form">
-    <input type="text" name="nome" placeholder="Seu nome" required>
-    <textarea name="comentario" placeholder="Deixe seu comentário" required></textarea>
-    <button type="submit">Enviar</button>
+    <div class="form-group">
+      <label>Seu nome</label>
+      <input
+        type="text"
+        name="nome"
+        placeholder="Ex: Steve"
+        required
+      >
+    </div>
+
+    <div class="form-group">
+      <label>Comentário</label>
+      <textarea
+        name="comentario"
+        placeholder="Escreva seu comentário aqui..."
+        required
+      ></textarea>
+    </div>
+
+    <button type="submit">Enviar comentário</button>
   </form>
 
-  <div class="lista-comentarios">
+  <!-- LISTA -->
+  <div class="comentarios-lista">
+
+    <% if (comentarios.length === 0) { %>
+      <p class="sem-comentarios">
+        Ainda não há comentários. Seja o primeiro a comentar 👀
+      </p>
+    <% } %>
+
     <% comentarios.forEach(c => { %>
-      <div class="comentario">
-        <strong><%= c.nome %></strong>
-        <p><%= c.comentario %></p>
-        <span>
-          <%= new Date(c.created_at).toLocaleDateString("pt-BR") %>
-        </span>
+      <div class="comentario-card">
+        <div class="comentario-topo">
+          <strong><%= c.nome %></strong>
+          <span>
+            <%= new Date(c.created_at).toLocaleDateString("pt-BR") %>
+          </span>
+        </div>
+
+        <p class="comentario-texto">
+          <%= c.comentario %>
+        </p>
       </div>
     <% }) %>
+
   </div>
+
 </section>
