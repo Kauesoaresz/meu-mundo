@@ -20,10 +20,8 @@ exports.dashboard = async (req, res) => {
   const totalSecoes = await Secao.count();
 
   const ultimoPost = await Post.findOne({
-  order: [["id", "DESC"]]
-});
-
-
+    order: [["id", "DESC"]]
+  });
 
   res.renderWithLayout("admin/index", {
     layout: "layouts/admin",
@@ -62,22 +60,36 @@ exports.update = async (req, res) => {
   const mundo = await Mundo.findOne();
   if (!mundo) return res.redirect("/admin");
 
-  await mundo.update({
-    nome: req.body.nome,
-    descricao: req.body.descricao,
-    versao_minecraft: req.body.versao_minecraft,
-
-    edicao: req.body.edicao,
-    modo: req.body.modo,
-    dificuldade: req.body.dificuldade,
-
-    criado_em: req.body.criado_em,
+  const {
+    nome,
+    descricao,
+    versao_minecraft,
+    edicao,
+    modo,
+    dificuldade,
+    criado_em,
+    objetivo_atual,
+    seed,
     ultima_jogatina,
-  dia_mundo,
+    dia_mundo
+  } = req.body;
 
-    objetivo_atual: req.body.objetivo_atual,
-    seed: req.body.seed,
+  await mundo.update({
+    nome,
+    descricao,
+    versao_minecraft,
+    edicao,
+    modo,
+    dificuldade,
+    criado_em,
+    objetivo_atual,
+    seed,
 
+    // 🔥 NOVOS CAMPOS (AGORA CORRETOS)
+    ultima_jogatina: ultima_jogatina || null,
+    dia_mundo: dia_mundo || null,
+
+    // CHECKBOXES (SEGURO)
     overworld: req.body.overworld === "on",
     nether: req.body.nether === "on",
     end: req.body.end === "on"
