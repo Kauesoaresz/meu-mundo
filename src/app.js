@@ -15,6 +15,11 @@ const Secao = require("./models/Secao");
 const app = express();
 
 /* ===========================
+   TRUST PROXY (RAILWAY)
+=========================== */
+app.set("trust proxy", 1);
+
+/* ===========================
    VIEW ENGINE
 =========================== */
 app.set("view engine", "ejs");
@@ -31,7 +36,10 @@ app.use(
   session({
     secret: process.env.SESSION_SECRET || "meu-mundo-secret",
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    cookie: {
+      secure: false // Railway usa HTTPS via proxy
+    }
   })
 );
 
@@ -48,6 +56,7 @@ app.use(async (req, res, next) => {
     res.locals.secoes = secoes;
     next();
   } catch (err) {
+    console.error("Erro ao carregar seções:", err);
     next(err);
   }
 });
@@ -58,15 +67,25 @@ app.use(async (req, res, next) => {
 app.use(loadSecoes);
 
 /* ===========================
-   RENDER COM LAYOUT
+   RENDER COM LAYOUT (SEGURO)
 =========================== */
 app.use((req, res, next) => {
-  res.renderWithLayout = (view, data) => {
+  res.renderWithLayout = (view, data = {}) => {
+    const layout = data.layout || "layouts/main";
+
     res.render(view, data, (err, html) => {
-      if (err) return res.status(500).send(err.message);
-      res.render(data.layout, { ...data, body: html });
+      if (err) {
+        console.error("Erro ao renderizar view:", err);
+        return res.status(500).send("Erro interno");
+      }
+
+      res.render(layout, {
+        ...data,
+        body: html
+      });
     });
   };
+
   next();
 });
 
@@ -86,9 +105,11 @@ app.use("/", routes);
 =========================== */
 sequelize
   .authenticate()
-  .then(() => console.log("🟢 Banco conectado"))
+  .then(() => {
+    console.log("🟢 Banco conectado");
+  })
   .catch((err) => {
-    console.error("🔴 Erro no banco:", err.message);
+    console.error("🔴 Erro no banco:", err);
   });
 
 /* ===========================
