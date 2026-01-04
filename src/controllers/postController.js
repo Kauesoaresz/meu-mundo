@@ -1,4 +1,9 @@
-const { Post, Secao, PostImagem, Comentario } = require("../config/database").models;
+const sequelize = require("../config/database");
+
+const Post = sequelize.models.Post;
+const Secao = sequelize.models.Secao;
+const PostImagem = sequelize.models.PostImagem;
+const Comentario = sequelize.models.Comentario;
 
 /* ===============================
    POST PÚBLICO
@@ -13,12 +18,7 @@ exports.show = async (req, res) => {
     });
 
     if (!post) {
-      return res.renderWithLayout("site/post", {
-        layout: "layouts/main",
-        titulo: "Post não encontrado",
-        post: null,
-        comentarios: []
-      });
+      return res.status(404).send("Post não encontrado");
     }
 
     const comentarios = await Comentario.findAll({
@@ -37,8 +37,6 @@ exports.show = async (req, res) => {
     });
   } catch (err) {
     console.error("Erro no post público:", err);
-
-    // fallback simples (SEM view 500)
     res.status(500).send("Erro interno ao carregar o post");
   }
 };
