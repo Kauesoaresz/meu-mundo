@@ -100,10 +100,12 @@ app.use((req, res, next) => {
 const routes = require("./routes");
 const adminAfazeresRoutes = require("./routes/adminAfazeres");
 const afazeresRoutes = require("./routes/afazeres");
+const comentariosRoutes = require("./routes/comentarios");
 
 /* ROTAS ESPECÍFICAS */
 app.use("/admin/afazeres", adminAfazeresRoutes);
 app.use("/afazeres", afazeresRoutes);
+app.use("/comentarios", comentariosRoutes);
 
 /* ROTAS GERAIS */
 app.use("/", routes);
