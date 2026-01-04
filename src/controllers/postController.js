@@ -1,4 +1,7 @@
-const { Post, Secao, PostImagem, Comentario } = require("../models");
+const Post = require("../models/Post");
+const Secao = require("../models/Secao");
+const PostImagem = require("../models/PostImagem");
+const Comentario = require("../models/Comentario");
 
 exports.show = async (req, res) => {
   try {

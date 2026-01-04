@@ -4,10 +4,9 @@ const path = require("path");
 const session = require("express-session");
 
 /* ===========================
-   BANCO + MODELS (ORDEM CRÍTICA)
+   BANCO
 =========================== */
 const sequelize = require("./config/database");
-const models = require("./models"); // 🔥 REGISTRA TODOS OS MODELS
 
 const { Secao } = models;
 
