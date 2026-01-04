@@ -1,0 +1,33 @@
+<link rel="stylesheet" href="/css/admin-comentarios.css">
+
+<h1>Comentários</h1>
+
+<table>
+  <tr>
+    <th>Post</th>
+    <th>Nome</th>
+    <th>Comentário</th>
+    <th>Status</th>
+    <th>Ações</th>
+  </tr>
+
+  <% comentarios.forEach(c => { %>
+    <tr>
+      <td><%= c.Post?.titulo %></td>
+      <td><%= c.nome %></td>
+      <td><%= c.comentario %></td>
+      <td><%= c.aprovado ? "Aprovado" : "Pendente" %></td>
+      <td>
+        <% if (!c.aprovado) { %>
+          <form method="POST" action="/admin/comentarios/<%= c.id %>/aprovar">
+            <button>Aprovar</button>
+          </form>
+        <% } %>
+
+        <form method="POST" action="/admin/comentarios/<%= c.id %>/excluir">
+          <button class="danger">Excluir</button>
+        </form>
+      </td>
+    </tr>
+  <% }) %>
+</table>

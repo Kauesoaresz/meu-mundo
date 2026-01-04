@@ -1,0 +1,21 @@
+<link rel="stylesheet" href="/css/comentarios.css">
+
+<section class="comentarios">
+  <h2>Comentários</h2>
+
+  <form method="POST" action="/comentarios/<%= post.id %>" class="comentario-form">
+    <input type="text" name="nome" placeholder="Seu nome" required>
+    <textarea name="comentario" placeholder="Escreva seu comentário..." required></textarea>
+    <button type="submit">Enviar comentário</button>
+  </form>
+
+  <div class="lista-comentarios">
+    <% comentarios.forEach(c => { %>
+      <div class="comentario">
+        <strong><%= c.nome %></strong>
+        <p><%= c.comentario %></p>
+        <span><%= new Date(c.created_at).toLocaleDateString("pt-BR") %></span>
+      </div>
+    <% }) %>
+  </div>
+</section>

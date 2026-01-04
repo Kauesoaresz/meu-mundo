@@ -3,6 +3,9 @@ const router = express.Router();
 
 const homeController = require("../controllers/homeController");
 const secaoController = require("../controllers/secaoController");
+const postController = require("../controllers/postController");
+const comentarioController = require("../controllers/comentarioController");
+
 const simpleAuthController = require("../controllers/simpleAuthController");
 const adminSecaoController = require("../controllers/adminSecaoController");
 const adminPostController = require("../controllers/adminPostController");
@@ -31,12 +34,12 @@ router.get("/admin/logout", (req, res) =>
 /* ===========================
    ADMIN
 =========================== */
-// ✅ DASHBOARD
+// DASHBOARD
 router.get("/admin", auth, (req, res) =>
   adminController.dashboard(req, res)
 );
 
-// ✅ CONFIGURAÇÕES DO MUNDO
+// CONFIGURAÇÕES DO MUNDO
 router.get("/admin/mundo", auth, (req, res) =>
   adminController.index(req, res)
 );
@@ -104,10 +107,6 @@ router.post(
   (req, res) => adminPostController.store(req, res)
 );
 
-router.get("/admin/posts/:id", auth, (req, res) =>
-  adminPostController.show(req, res)
-);
-
 router.get("/admin/posts/:id/editar", auth, (req, res) =>
   adminPostController.editForm(req, res)
 );
@@ -135,17 +134,22 @@ router.post("/admin/posts/:id/excluir", auth, (req, res) =>
 /* ===========================
    PÚBLICO
 =========================== */
+// HOME
 router.get("/", (req, res) =>
   homeController.index(req, res)
 );
 
+// POST (AGORA COM CONTROLLER PRÓPRIO + COMENTÁRIOS)
 router.get("/:slug/post/:id", (req, res) =>
-  secaoController.mostrarPost(req, res)
+  postController.show(req, res)
 );
 
-/* ===========================
-   ROTA DINÂMICA (SEMPRE POR ÚLTIMO)
-=========================== */
+// CRIAR COMENTÁRIO
+router.post("/comentarios/:postId", (req, res) =>
+  comentarioController.criar(req, res)
+);
+
+// SEÇÃO
 router.get("/:slug", (req, res) =>
   secaoController.mostrar(req, res)
 );
