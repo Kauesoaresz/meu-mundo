@@ -2,6 +2,7 @@ const Comentario = require("../models/Comentario");
 
 exports.index = async (req, res) => {
   const comentarios = await Comentario.findAll({
+    where: { aprovado: true }, // 🔥 SÓ APROVADOS
     order: [["created_at", "DESC"]]
   });
 
@@ -22,9 +23,9 @@ exports.store = async (req, res) => {
 
   await Comentario.create({
     nome,
-    comentario
+    comentario,
+    aprovado: false // explícito (boa prática)
   });
 
-  // 🔥 AVISO PARA O USUÁRIO
   res.redirect("/comentarios?enviado=1");
 };
