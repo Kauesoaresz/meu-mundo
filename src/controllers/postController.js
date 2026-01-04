@@ -1,7 +1,4 @@
-const Post = require("../models/Post");
-const Secao = require("../models/Secao");
-const PostImagem = require("../models/PostImagem");
-const Comentario = require("../models/Comentario");
+const { Post, Secao, PostImagem, Comentario } = require("../config/database").models;
 
 /* ===============================
    POST PÚBLICO
@@ -16,9 +13,11 @@ exports.show = async (req, res) => {
     });
 
     if (!post) {
-      return res.status(404).renderWithLayout("site/404", {
+      return res.renderWithLayout("site/post", {
         layout: "layouts/main",
-        titulo: "Post não encontrado"
+        titulo: "Post não encontrado",
+        post: null,
+        comentarios: []
       });
     }
 
@@ -37,10 +36,9 @@ exports.show = async (req, res) => {
       comentarios
     });
   } catch (err) {
-    console.error(err);
-    res.status(500).renderWithLayout("site/500", {
-      layout: "layouts/main",
-      titulo: "Erro"
-    });
+    console.error("Erro no post público:", err);
+
+    // fallback simples (SEM view 500)
+    res.status(500).send("Erro interno ao carregar o post");
   }
 };
