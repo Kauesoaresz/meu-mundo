@@ -1,4 +1,4 @@
-const { Comentario } = require("../models");
+const Comentario = require("../models/Comentario");
 
 exports.criar = async (req, res) => {
   try {
@@ -17,7 +17,7 @@ exports.criar = async (req, res) => {
 
     res.redirect("back");
   } catch (err) {
-    console.error(err);
+    console.error("Erro ao criar comentário:", err);
     res.redirect("back");
   }
 };
