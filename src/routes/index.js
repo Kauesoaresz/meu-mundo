@@ -3,8 +3,6 @@ const router = express.Router();
 
 const homeController = require("../controllers/homeController");
 const secaoController = require("../controllers/secaoController");
-const postController = require("../controllers/postController");
-const comentarioController = require("../controllers/comentarioController");
 
 const simpleAuthController = require("../controllers/simpleAuthController");
 const adminSecaoController = require("../controllers/adminSecaoController");
@@ -139,17 +137,12 @@ router.get("/", (req, res) =>
   homeController.index(req, res)
 );
 
-// POST (AGORA COM CONTROLLER PRÓPRIO + COMENTÁRIOS)
+// POST PÚBLICO (COMO ERA ANTES)
 router.get("/:slug/post/:id", (req, res) =>
-  postController.show(req, res)
+  secaoController.mostrarPost(req, res)
 );
 
-// CRIAR COMENTÁRIO
-router.post("/comentarios/:postId", (req, res) =>
-  comentarioController.criar(req, res)
-);
-
-// SEÇÃO
+// SEÇÃO (SEMPRE POR ÚLTIMO)
 router.get("/:slug", (req, res) =>
   secaoController.mostrar(req, res)
 );
