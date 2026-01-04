@@ -8,7 +8,10 @@ const session = require("express-session");
 =========================== */
 const sequelize = require("./config/database");
 
-const { Secao } = models;
+/* ===========================
+   MODELS NECESSÁRIOS AQUI
+=========================== */
+const Secao = require("./models/Secao");
 
 /* ===========================
    APP
