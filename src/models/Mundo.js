@@ -1,21 +1,20 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
 
-const Mundo = sequelize.define(
-  "Mundo",
-  {
-    // =====================
-    // IDENTIDADE
-    // =====================
-    nome: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
+const Mundo = sequelize.define("Mundo", {
+  nome: DataTypes.STRING,
+  descricao: DataTypes.TEXT,
 
-    descricao: {
-      type: DataTypes.TEXT
-    },
+  // 👇 NOVOS CAMPOS
+  ultima_jogatina: {
+    type: DataTypes.DATE,
+    allowNull: true
+  },
 
+  dia_mundo: {
+    type: DataTypes.INTEGER,
+    allowNull: true
+  },
     // =====================
     // VERSÃO / JOGO
     // =====================

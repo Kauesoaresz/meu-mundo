@@ -102,6 +102,25 @@
         </div>
       <% } %>
 
+      <div class="status-item">
+  <span>🎮 Última jogatina</span>
+  <strong>
+    <%= mundo.ultima_jogatina
+      ? new Date(mundo.ultima_jogatina).toLocaleDateString("pt-BR")
+      : "Ainda não registrada" %>
+  </strong>
+</div>
+
+<div class="status-item">
+  <span>📅 Dia do mundo</span>
+  <strong>
+    <%= mundo.dia_mundo
+      ? "Dia " + mundo.dia_mundo
+      : "Não informado" %>
+  </strong>
+</div>
+
+
     </div>
   </div>
 </section>

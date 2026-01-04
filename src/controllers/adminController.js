@@ -72,6 +72,8 @@ exports.update = async (req, res) => {
     dificuldade: req.body.dificuldade,
 
     criado_em: req.body.criado_em,
+    ultima_jogatina,
+  dia_mundo,
 
     objetivo_atual: req.body.objetivo_atual,
     seed: req.body.seed,

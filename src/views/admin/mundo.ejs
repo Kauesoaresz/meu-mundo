@@ -95,11 +95,35 @@
   <div class="admin-section">
     <h3>Status Atual</h3>
 
-    <label>Objetivo Atual</label>
+    <label>🎯 Objetivo Atual</label>
     <textarea name="objetivo_atual" rows="3"><%= mundo.objetivo_atual || "" %></textarea>
 
-    <label>Seed</label>
+    <label>🌱 Seed</label>
     <input type="text" name="seed" value="<%= mundo.seed || "" %>">
+
+    <!-- 🔥 NOVOS CAMPOS -->
+    <div class="admin-grid" style="margin-top: 1rem;">
+      <div>
+        <label>🎮 Última vez que jogou</label>
+        <input
+          type="date"
+          name="ultima_jogatina"
+          value="<%= mundo.ultima_jogatina
+            ? mundo.ultima_jogatina.toISOString().slice(0,10)
+            : "" %>"
+        >
+      </div>
+
+      <div>
+        <label>📅 Dia atual do mundo</label>
+        <input
+          type="number"
+          name="dia_mundo"
+          min="0"
+          value="<%= mundo.dia_mundo || "" %>"
+        >
+      </div>
+    </div>
   </div>
 
   <!-- AÇÕES -->
