@@ -3,15 +3,17 @@ const express = require("express");
 const path = require("path");
 const session = require("express-session");
 
+/* ===========================
+   BANCO + MODELS (ORDEM CRÍTICA)
+=========================== */
 const sequelize = require("./config/database");
-const routes = require("./routes");
-const loadSecoes = require("./middlewares/loadSecoes");
+const models = require("./models"); // 🔥 REGISTRA TODOS OS MODELS
 
-const adminAfazeresRoutes = require("./routes/adminAfazeres");
-const afazeresRoutes = require("./routes/afazeres");
+const { Secao } = models;
 
-const Secao = require("./models/Secao");
-
+/* ===========================
+   APP
+=========================== */
 const app = express();
 
 /* ===========================
@@ -64,6 +66,7 @@ app.use(async (req, res, next) => {
 /* ===========================
    MIDDLEWARE GLOBAL
 =========================== */
+const loadSecoes = require("./middlewares/loadSecoes");
 app.use(loadSecoes);
 
 /* ===========================
@@ -90,8 +93,11 @@ app.use((req, res, next) => {
 });
 
 /* ===========================
-   ROTAS — ORDEM CORRETA
+   ROTAS
 =========================== */
+const routes = require("./routes");
+const adminAfazeresRoutes = require("./routes/adminAfazeres");
+const afazeresRoutes = require("./routes/afazeres");
 
 /* ROTAS ESPECÍFICAS */
 app.use("/admin/afazeres", adminAfazeresRoutes);

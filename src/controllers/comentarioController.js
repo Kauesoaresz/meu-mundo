@@ -1,5 +1,4 @@
-const sequelize = require("../config/database");
-const Comentario = sequelize.models.Comentario;
+const { Comentario } = require("../models");
 
 exports.criar = async (req, res) => {
   try {

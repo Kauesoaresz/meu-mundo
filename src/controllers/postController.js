@@ -1,13 +1,5 @@
-const sequelize = require("../config/database");
+const { Post, Secao, PostImagem, Comentario } = require("../models");
 
-const Post = sequelize.models.Post;
-const Secao = sequelize.models.Secao;
-const PostImagem = sequelize.models.PostImagem;
-const Comentario = sequelize.models.Comentario;
-
-/* ===============================
-   POST PÚBLICO
-=============================== */
 exports.show = async (req, res) => {
   try {
     const post = await Post.findByPk(req.params.id, {
