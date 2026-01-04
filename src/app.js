@@ -27,11 +27,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use(session({
-  secret: "meu-mundo-secret",
-  resave: false,
-  saveUninitialized: false
-}));
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET || "meu-mundo-secret",
+    resave: false,
+    saveUninitialized: false
+  })
+);
 
 /* ===========================
    CARREGAR SEÇÕES (NAV)
@@ -72,23 +74,28 @@ app.use((req, res, next) => {
    ROTAS — ORDEM CORRETA
 =========================== */
 
-/* 🔥 ROTAS ESPECÍFICAS PRIMEIRO */
+/* ROTAS ESPECÍFICAS */
 app.use("/admin/afazeres", adminAfazeresRoutes);
 app.use("/afazeres", afazeresRoutes);
 
-/* 🔥 ROTAS GENÉRICAS POR ÚLTIMO */
+/* ROTAS GERAIS */
 app.use("/", routes);
 
 /* ===========================
    BANCO
 =========================== */
-sequelize.authenticate()
+sequelize
+  .authenticate()
   .then(() => console.log("🟢 Banco conectado"))
-  .catch(() => console.log("🔴 Erro no banco"));
+  .catch((err) => {
+    console.error("🔴 Erro no banco:", err.message);
+  });
 
 /* ===========================
-   SERVER
+   SERVER (RAILWAY READY)
 =========================== */
-app.listen(3000, () => {
-  console.log("🌍 Meu Mundo rodando em http://localhost:3000");
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`🌍 Meu Mundo rodando na porta ${PORT}`);
 });
