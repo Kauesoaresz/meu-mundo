@@ -5,6 +5,14 @@
     <p>Deixe sua opinião sobre o mundo, ideias, sugestões ou qualquer coisa 😊</p>
   </header>
 
+  <% if (enviado) { %>
+  <div class="aviso-comentario">
+    ✅ Comentário enviado com sucesso! <br>
+    Ele será analisado pelo <strong>dono do mundo</strong> antes de aparecer publicamente 🌍
+  </div>
+<% } %>
+
+
   <!-- FORMULÁRIO -->
   <form method="POST" action="/comentarios" class="comentario-form">
     <div class="form-group">
