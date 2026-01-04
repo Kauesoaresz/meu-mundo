@@ -1,0 +1,54 @@
+<h1>Comentários</h1>
+
+<table class="admin-table">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Comentário</th>
+      <th>Status</th>
+      <th>Data</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% comentarios.forEach(c => { %>
+      <tr>
+        <td><%= c.nome %></td>
+
+        <td style="max-width: 400px">
+          <%= c.comentario %>
+        </td>
+
+        <td>
+          <% if (c.aprovado) { %>
+            ✅ Aprovado
+          <% } else { %>
+            ⏳ Pendente
+          <% } %>
+        </td>
+
+        <td>
+          <%= new Date(c.created_at).toLocaleDateString("pt-BR") %>
+        </td>
+
+        <td style="display:flex; gap:6px;">
+          <% if (!c.aprovado) { %>
+            <form method="POST" action="/admin/comentarios/<%= c.id %>/aprovar">
+              <button>Aprovar</button>
+            </form>
+          <% } else { %>
+            <form method="POST" action="/admin/comentarios/<%= c.id %>/reprovar">
+              <button>Reprovar</button>
+            </form>
+          <% } %>
+
+          <form method="POST" action="/admin/comentarios/<%= c.id %>/excluir"
+                onsubmit="return confirm('Excluir comentário?')">
+            <button style="color:red;">Excluir</button>
+          </form>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>

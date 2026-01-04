@@ -101,11 +101,13 @@ const routes = require("./routes");
 const adminAfazeresRoutes = require("./routes/adminAfazeres");
 const afazeresRoutes = require("./routes/afazeres");
 const comentariosRoutes = require("./routes/comentarios");
+const adminComentariosRoutes = require("./routes/adminComentarios");
 
 /* ROTAS ESPECÍFICAS */
 app.use("/admin/afazeres", adminAfazeresRoutes);
 app.use("/afazeres", afazeresRoutes);
 app.use("/comentarios", comentariosRoutes);
+app.use("/admin/comentarios", adminComentariosRoutes);
 
 /* ROTAS GERAIS */
 app.use("/", routes);
