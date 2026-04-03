@@ -4,8 +4,13 @@
   <meta charset="UTF-8">
   <title><%= titulo || "Admin" %></title>
 
-  <link rel="stylesheet" href="/css/admin.css">
-  <link rel="stylesheet" href="/css/admin-afazeres.css">
+  <!-- Dynamic per-view CSS -->
+  <% if (typeof cssFiles !== 'undefined' && Array.isArray(cssFiles)) { %>
+  <% cssFiles.forEach(function(css) { %>
+    <link rel="stylesheet" href="/css/<%= css %>">
+  <% }); %>
+  <% } %>
+
 </head>
 <body>
 

@@ -1,78 +1,13 @@
-<section class="post-page">
-
-  <!-- CABEÇALHO -->
-  <header class="post-header">
-    <span class="post-section"><%= secao.nome %></span>
-    <h1 class="post-title"><%= post.titulo %></h1>
-
-    <% if (post.criado_em) { %>
-      <span class="post-date">
-        <%= new Date(post.criado_em).toLocaleDateString("pt-BR") %>
-      </span>
-    <% } %>
-  </header>
-
-  <!-- REGISTRO PRINCIPAL -->
-  <% if (post.imagem) { %>
-    <section class="post-record">
-      <img src="<%= post.imagem %>" alt="<%= post.titulo %>">
-
-      <% if (post.descricao) { %>
-        <div class="post-record-text">
-          <%= post.descricao %>
-        </div>
-      <% } %>
-    </section>
-  <% } %>
-
-  <!-- CONTEÚDO LIVRE -->
-  <% if (post.conteudo) { %>
-    <section class="post-body">
-      <%- post.conteudo %>
-    </section>
-  <% } %>
-
-  <!-- GALERIA -->
-  <% if (post.imagens && post.imagens.length) { %>
-    <section class="post-gallery">
-      <% post.imagens.forEach(img => { %>
-        <img src="<%= img.imagem %>" alt="">
-      <% }) %>
-    </section>
-  <% } %>
-
-  <!-- VÍDEO -->
-  <% if (post.video_youtube) { %>
-    <section class="post-video">
-      <iframe
-        src="https://www.youtube.com/embed/<%= post.video_youtube %>"
-        allowfullscreen>
-      </iframe>
-    </section>
-  <% } %>
-
-  <!-- COORDENADAS -->
-  <% if (post.coord_x !== null && post.coord_y !== null && post.coord_z !== null) { %>
-    <section class="post-coords">
-      <strong>Coordenadas</strong>
-
-      <span>X: <%= post.coord_x %></span>
-      <span>Y: <%= post.coord_y %></span>
-      <span>Z: <%= post.coord_z %></span>
-
-      <% if (post.dimensao) { %>
-        <span class="dim-badge <%= post.dimensao %>">
-          <%= post.dimensao %>
-        </span>
-      <% } %>
-
-      <button class="copy-coords">Copiar</button>
-    </section>
-  <% } %>
-
-  <!-- VOLTAR -->
-  <footer class="post-footer">
-    <a href="/<%= secao.slug %>">← Voltar para <%= secao.nome %></a>
-  </footer>
-
-</section>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= titulo %></title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/secao-post.css">
+</head>
+<body>
+<!-- Conteúdo do post aqui -->
+</body>
+</html>

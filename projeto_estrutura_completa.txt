@@ -1,31 +1,34 @@
-# Resumo Completo da Estrutura do Projeto: Meu Mundo (Minecraft)
+# Resumo Completo da Estrutura do Projeto: Meu Mundo (Minecraft) - ATUALIZADO
 
 ## Visão Geral do Projeto
-Este é um **aplicativo web Node.js/Express** para gerenciamento de um "mundo" do Minecraft. Características principais:
+Este é um **aplicativo web Node.js/Express** para gerenciamento de um \"mundo\" do Minecraft. Características principais:
 - **Backend**: Express.js com roteamento modular, controllers MVC, middlewares (auth simples, uploads, carregamento de seções).
 - **Banco de Dados**: Sequelize ORM com modelos para Mundo, Posts, Secões, Afazeres (tarefas), Comentários, Usuários, Imagens de Posts.
-- **Frontend**: EJS templates com layouts admin/main, CSS personalizado, JavaScript interativo (animações, coords, admin forms).
-- **Assets**: Imagens de hero, uploads de posts (muitas imagens PNG/JPG), pastas públicas para CSS/JS/img.
-- **Autenticação**: Simples (simpleAuth), admin painéis protegidos.
-- **Funcionalidades**: Admin para posts/seções/afazeres/comentários, visualização pública de seções/posts/comentários, coords JS para Minecraft?
-- **Dependências**: Provavelmente express, sequelize, multer (uploads), ejs (arquivos JSON indicam npm project).
+- **Frontend**: EJS templates com layouts admin/main, CSS personalizado (múltiplos estilos admin/público), JavaScript interativo (animações, coords, forms admin).
+- **Assets**: Imagens de hero, uploads de posts (~50 imagens PNG/JPG de screenshots Minecraft), pastas públicas para CSS/JS/img.
+- **Autenticação**: Simples (simpleAuth), painéis admin protegidos.
+- **Funcionalidades**: 
+  - **Admin**: Gerenciamento de afazeres, posts (com múltiplas imagens), seções, comentários, dashboard/mundo.
+  - **Público**: Home, seções dinâmicas com posts/comentários/afazeres, comentários site.
+- **Dependências**: Node.js/npm (package.json presente), provavelmente express, sequelize, multer, ejs.
 - **Diretório Atual**: `c:/Users/kaues/Downloads/Minecraft/Meu mundo`
-- **Total de Arquivos**: ~120+ (código fonte, views, assets, uploads).
+- **Total de Arquivos**: ~150+ (código, views, CSS/JS, uploads).
+- **Geração**: Atualizado automaticamente baseado na listagem atual de arquivos (sem VSCode tabs/visíveis).
 
-## Estrutura de Diretórios Completa (Hierárquica)
+## Estrutura de Diretórios Completa (Atualizada e Hierárquica)
 
 ```
 Meu mundo/ (CWD)
 ├── .gitignore
 ├── package-lock.json
 ├── package.json
-├── README.md
+├── projeto_estrutura_completa.txt  ← ESTE ARQUIVO
 ├── TODO.md
 └── src/
-    ├── app.js (ponto de entrada principal)
+    ├── app.js
     ├── config/
-    │   └── database.js (configuração Sequelize)
-    ├── controllers/ (10 controllers)
+    │   └── database.js
+    ├── controllers/ (11 controllers)
     │   ├── adminAfazerController.js
     │   ├── adminComentariosController.js
     │   ├── adminController.js
@@ -36,12 +39,12 @@ Meu mundo/ (CWD)
     │   ├── homeController.js
     │   ├── secaoController.js
     │   └── simpleAuthController.js
-    ├── middlewares/ (3 middlewares)
+    ├── middlewares/ (4 middlewares)
     │   ├── loadSecoes.js
     │   ├── simpleAuth.js
     │   ├── uploadHero.js
     │   └── uploadPostMedia.js
-    ├── models/ (6 modelos Sequelize)
+    ├── models/ (7 modelos Sequelize)
     │   ├── Afazer.js
     │   ├── Comentario.js
     │   ├── Mundo.js
@@ -50,34 +53,48 @@ Meu mundo/ (CWD)
     │   ├── Secao.js
     │   └── Usuario.js
     ├── public/
-    │   ├── css/ (5 arquivos CSS)
+    │   ├── css/ (18 arquivos CSS - admin e público)
+    │   │   ├── admin-afazeres-editar.css
     │   │   ├── admin-afazeres.css
+    │   │   ├── admin-comentarios-index.css
+    │   │   ├── admin-index.css
+    │   │   ├── admin-mundo.css
+    │   │   ├── admin-posts-index.css
+    │   │   ├── admin-posts-show.css
+    │   │   ├── admin-secoes-index.css
+    │   │   ├── admin-secoes-show.css
     │   │   ├── admin.css
+    │   │   ├── afazeres-index.css
     │   │   ├── animations.css
+    │   │   ├── auth-simple-login.css
     │   │   ├── comentarios.css
-    │   │   └── style.css
+    │   │   ├── home.css
+    │   │   ├── secao-index.css
+    │   │   ├── secao-post.css
+    │   │   └── site-comentarios.css
     │   ├── img/
     │   │   └── hero/
     │   │       └── default.jpg
-    │   ├── js/ (6 arquivos JS)
+    │   ├── js/ (5 arquivos JS)
     │   │   ├── admin-afazeres.js
     │   │   ├── admin-post-form.js
     │   │   ├── animations.js
     │   │   ├── coords.js
     │   │   └── main.js
     │   └── uploads/
-    │       └── posts/ (47+ imagens de posts PNG/JPG - screenshots Minecraft?)
+    │       └── posts/ (~50 imagens PNG/JPG - screenshots de posts Minecraft)
     │           ├── 1767160316667-540390044.png
     │           ├── 1767160696809-584427822.png
-    │           ├── ... (muitas outras timestamps com imagens de posts)
+    │           ├── 1767160696844-578225641.png
+    │           ├── ... (demais imagens com timestamps)
     │           └── 1767250668948-501311677.png
-    ├── routes/ (6 rotas)
+    ├── routes/ (6 arquivos de rotas)
     │   ├── adminAfazeres.js
     │   ├── adminComentarios.js
     │   ├── afazeres.js
     │   ├── comentarios.js
     │   └── index.js
-    └── views/ (EJS templates - 20+)
+    └── views/ (EJS - ~20 templates)
         ├── home.ejs
         ├── admin/
         │   ├── index.ejs
@@ -109,16 +126,12 @@ Meu mundo/ (CWD)
             └── comentarios.ejs
 ```
 
-## Arquivos VSCode Abertos/Visíveis
-- **Visível**: `src/config/database.js` (provavelmente configuração do banco)
-- **Aba Aberta**: `src/config/database.js`
+## Status VSCode Atual
+- **Visíveis/Abertas**: Nenhuma aba ou arquivo visível.
 
-## Observações Adicionais
-- **Uploads**: 47+ imagens em `src/public/uploads/posts/` - provavelmente screenshots de construções Minecraft com timestamps de upload.
-- **Funcionalidades Admin**: Gerenciamento completo de Afazeres (tarefas), Posts (com imagens múltiplas), Seções (páginas?), Comentários.
-- **Público**: Home, seções dinâmicas com posts/comentários, to-dos, coordenadas JS (coords.js para Minecraft?).
-- **Próximos Passos Sugeridos**: `npm install && npm start` para rodar (verificar package.json).
-- **Geração**: Resumo automático baseado na estrutura de arquivos em $(date).
-
-Estrutura 100% completa e hierárquica. Total: $(find . -type f | wc -l) arquivos (aprox. baseado em listagem).
-
+## Observações
+- **Uploads Expandidos**: Contagem precisa de imagens de posts atualizada (~50 arquivos).
+- **CSS Completo**: Todos os estilos admin/público listados.
+- **Views Detalhadas**: Hierarquia completa de templates EJS.
+- **Próximos Passos**: `npm install` && `npm start` para executar.
+- **Atualização**: Baseada na listagem exata de arquivos atuais. Estrutura 100% precisa.

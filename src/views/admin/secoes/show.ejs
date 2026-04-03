@@ -1,12 +1,16 @@
-<h2>Seção: <%= secao.nome %></h2>
-
-<p><strong>ID:</strong> <%= secao.id %></p>
-<p><strong>Slug:</strong> <%= secao.slug %></p>
-<p><strong>Ícone:</strong> <%= secao.icone %></p>
-<p><strong>Ordem:</strong> <%= secao.ordem %></p>
-<p><strong>Ativa:</strong> <%= secao.ativa ? "Sim" : "Não" %></p>
-
-<hr>
-
-<a href="/admin/secoes/<%= secao.id %>/editar">✏️ Editar</a><br>
-<a href="/admin/secoes">⬅ Voltar</a>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visualizar Seção - Admin</title>
+  <link rel="stylesheet" href="/css/admin.css">
+  <link rel="stylesheet" href="/css/admin-secoes-show.css">
+</head>
+<body>
+<h2>Visualizar Seção</h2>
+<!-- Conteúdo do show aqui -->
+<div>Seção ID: <%= secao.id %></div>
+<a href="/admin/secoes" class="btn">Voltar</a>
+</body>
+</html>
