@@ -8,62 +8,89 @@
   <link rel="stylesheet" href="/css/admin-secoes-index.css">
 </head>
 <body>
-<h2 class="admin-title">📂 Seções</h2>
-<p class="admin-description">Gerencie as seções do site</p>
+<div class="admin-page-wrapper">
+  
+  <header class="dashboard-header reveal-1">
+    <h2 class="admin-title">📂 Gerenciar Seções</h2>
+    <p class="admin-description">Organize as categorias do seu mundo e defina a ordem em que aparecem no menu.</p>
+  </header>
 
-<div class="admin-action-bar">
-  <span></span>
-  <a href="/admin/secoes/nova" class="btn btn-primary">+ Nova Seção</a>
-</div>
+  <!-- BARRA DE AÇÃO RÁPIDA -->
+  <div class="admin-action-bar reveal-2">
+    <div class="action-stats">
+      Seções cadastradas: <strong><%= secoes.length %></strong>
+    </div>
+    <a href="/admin/secoes/nova" class="btn-new-section">
+      <span>+</span> Nova Seção
+    </a>
+  </div>
 
-<div class="admin-section">
-  <table class="admin-table">
-    <thead>
-      <tr>
-        <th>Ordem</th>
-        <th>Nome</th>
-        <th>Slug</th>
-        <th>Status</th>
-        <th>Ações</th>
-      </tr>
-    </thead>
+  <!-- TABELA DE SEÇÕES (ESTILO CARDS) -->
+  <div class="admin-table-container reveal-3">
+    <% if (secoes.length === 0) { %>
+      <div class="empty-state">
+        <span class="empty-icon">📂</span>
+        <p>Nenhuma seção criada. Crie uma para começar a organizar seus posts!</p>
+      </div>
+    <% } else { %>
+      <table class="premium-table">
+        <thead>
+          <tr>
+            <th>Ordem</th>
+            <th>Nome</th>
+            <th>Link (Slug)</th>
+            <th>Status</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
 
-    <tbody>
-      <% secoes.forEach(secao => { %>
-        <tr>
-          <td><%= secao.ordem %></td>
-          <td><strong><%= secao.nome %></strong></td>
-          <td><%= secao.slug %></td>
-          <td>
-            <span style="color: var(--green); font-weight: bold">
-              Ativa
-            </span>
-          </td>
-          <td>
-            <!-- 🔥 CONTAINER CORRETO -->
-            <div class="admin-table-actions">
-              <a
-                href="/admin/secoes/<%= secao.id %>/editar"
-                class="btn btn-primary"
-              >
-                Editar
-              </a>
+        <tbody>
+          <% secoes.forEach(secao => { %>
+            <tr class="<%= secao.ativa === false ? 'linha-inativa' : '' %>">
+              
+              <td class="col-ordem">
+                <span class="ordem-badge"><%= secao.ordem %></span>
+              </td>
 
-              <form
-                action="/admin/secoes/<%= secao.id %>/excluir"
-                method="POST"
-                onsubmit="return confirm('Deseja excluir esta seção?')"
-              >
-                <button class="btn btn-danger">
-                  Excluir
-                </button>
-              </form>
-            </div>
-          </td>
-        </tr>
-      <% }) %>
-    </tbody>
-  </table>
+              <td class="col-nome">
+                <span class="icone-secao"><%= secao.icone || "📂" %></span>
+                <strong><%= secao.nome %></strong>
+              </td>
+
+              <td class="col-slug">
+                <span class="slug-text">/<%= secao.slug %></span>
+              </td>
+
+              <td class="col-status">
+                <!-- Mostra o status real da seção -->
+                <% if (secao.ativa !== false) { %>
+                  <span class="badge badge-success">✅ Ativa</span>
+                <% } else { %>
+                  <span class="badge badge-muted">🚫 Inativa</span>
+                <% } %>
+              </td>
+
+              <td class="col-acoes">
+                <div class="action-buttons">
+                  <a href="/admin/secoes/<%= secao.id %>/editar" class="btn-action btn-edit">Editar</a>
+                  
+                  <form
+                    action="/admin/secoes/<%= secao.id %>/excluir"
+                    method="POST"
+                    onsubmit="return confirm('ATENÇÃO: Excluir uma seção pode afetar os posts vinculados a ela! Deseja continuar?')"
+                  >
+                    <button class="btn-action btn-delete">Excluir</button>
+                  </form>
+                </div>
+              </td>
+
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    <% } %>
+  </div>
+
 </div>
 </body>
 </html>

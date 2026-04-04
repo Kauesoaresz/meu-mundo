@@ -8,70 +8,78 @@
   <link rel="stylesheet" href="/css/admin-posts-index.css">
 </head>
 <body>
-<h2 class="admin-title">📝 Posts</h2>
-<p class="admin-description">Gerencie os posts do site</p>
+<div class="admin-page-wrapper">
+  
+  <header class="dashboard-header reveal-1">
+    <h2 class="admin-title">📝 Gerenciar Posts</h2>
+    <p class="admin-description">Visualize, edite e organize todas as construções e histórias do seu mundo.</p>
+  </header>
 
-<!-- BARRA DE AÇÃO -->
-<div class="admin-action-bar">
-  <span></span>
-  <a href="/admin/posts/novo" class="btn btn-primary">+ Novo Post</a>
-</div>
-
-<!-- LISTA DE POSTS -->
-<div class="admin-post-list">
-
-  <% posts.forEach(post => { %>
-    <div class="admin-post-row">
-
-      <!-- THUMB -->
-      <div>
-        <% if (post.imagem) { %>
-          <img
-            src="<%= post.imagem %>"
-            alt="<%= post.titulo %>"
-            class="admin-post-thumb"
-          >
-        <% } else { %>
-          <div class="admin-post-thumb" style="background:#222;"></div>
-        <% } %>
-      </div>
-
-      <!-- INFO -->
-      <div class="admin-post-info">
-        <strong><%= post.titulo %></strong>
-        <span>
-          <%= post.Secao.nome %> •
-          <%= new Date(post.criado_em).toLocaleDateString("pt-BR") %>
-        </span>
-      </div>
-
-      <!-- STATUS -->
-      <div>
-        <span style="color: var(--green); font-size: 14px;">
-          Publicado
-        </span>
-      </div>
-
-      <!-- AÇÕES -->
-      <div class="admin-post-actions">
-        <a
-          href="/admin/posts/<%= post.id %>/editar"
-          class="btn btn-primary"
-        >
-          Editar
-        </a>
-
-        <form
-          action="/admin/posts/<%= post.id %>/excluir"
-          method="POST"
-          onsubmit="return confirm('Deseja realmente excluir este post?')"
-        >
-          <button class="btn btn-danger">Excluir</button>
-        </form>
-      </div>
-
+  <!-- BARRA DE AÇÃO RÁPIDA -->
+  <div class="admin-action-bar reveal-2">
+    <div class="action-stats">
+      Total de registros: <strong><%= posts.length %></strong>
     </div>
-  <% }) %>
+    <a href="/admin/posts/novo" class="btn-new-post">
+      <span>+</span> Novo Post
+    </a>
+  </div>
+
+  <!-- LISTA DE POSTS -->
+  <div class="admin-post-list reveal-3">
+    <% if (posts.length === 0) { %>
+      <div class="empty-state">
+        <span class="empty-icon">🧱</span>
+        <p>Você ainda não criou nenhum post. Comece a documentar seu mundo!</p>
+      </div>
+    <% } else { %>
+      
+      <% posts.forEach(post => { %>
+        <div class="admin-post-row">
+          
+          <!-- THUMBNAIL (CAPA) -->
+          <div class="admin-post-thumb-wrapper">
+            <% if (post.imagem) { %>
+              <img src="<%= post.imagem %>" alt="<%= post.titulo %>" class="admin-post-thumb">
+            <% } else { %>
+              <div class="admin-post-thumb fallback">
+                <span>Sem Capa</span>
+              </div>
+            <% } %>
+          </div>
+
+          <!-- INFORMAÇÕES DO POST -->
+          <div class="admin-post-info">
+            <strong><%= post.titulo %></strong>
+            <div class="post-meta">
+              <span class="meta-secao"><%= post.Secao.nome %></span>
+              <span class="meta-data">📅 <%= new Date(post.criado_em).toLocaleDateString("pt-BR") %></span>
+            </div>
+          </div>
+
+          <!-- STATUS -->
+          <div class="admin-post-status">
+            <span class="badge badge-success">● Publicado</span>
+          </div>
+
+          <!-- AÇÕES -->
+          <div class="admin-post-actions">
+            <a href="/admin/posts/<%= post.id %>/editar" class="btn-action btn-edit">Editar</a>
+            
+            <form 
+              action="/admin/posts/<%= post.id %>/excluir" 
+              method="POST" 
+              onsubmit="return confirm('Tem certeza que deseja excluir permanentemente este post?')"
+            >
+              <button class="btn-action btn-delete">Excluir</button>
+            </form>
+          </div>
+
+        </div>
+      <% }) %>
+
+    <% } %>
+  </div>
 
 </div>
 </body>

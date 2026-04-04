@@ -1,1 +1,233 @@
-/* CSS específico para admin/mundo.ejs */\n\n/* Estilos para configurações do mundo */\n\n/* Adicione estilos aqui */
+/* ========================================================
+   ADMIN-MUNDO.CSS - Painel de Configurações do Mundo
+======================================================== */
+
+.admin-page-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.dashboard-header {
+  margin-bottom: 40px;
+}
+
+/* ================= ESTRUTURA DO FORMULÁRIO ================= */
+.admin-form {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.form-section {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 40px 32px;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.form-section:hover {
+  border-color: rgba(67, 181, 129, 0.3);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+}
+
+/* Título em formato de "Badge" (etiqueta) cravada no topo do card */
+.section-badge {
+  position: absolute;
+  top: -14px;
+  left: 32px;
+  background: var(--green);
+  color: #000;
+  font-family: "Minecraft", Arial, sans-serif;
+  font-size: 14px;
+  padding: 6px 16px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 10px rgba(67, 181, 129, 0.3);
+}
+
+/* ================= GRIDS E CAMPOS ================= */
+.admin-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+/* Remove a margem do último item para não sobrar espaço inútil */
+.admin-grid .form-group { margin-bottom: 0; }
+.form-section > .form-group:last-child { margin-bottom: 0; }
+
+.form-group label {
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Estilo Premium para Inputs, Selects e Textareas */
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 16px;
+  padding: 14px 16px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  color-scheme: dark; /* Faz os calendários (date) ficarem escuros no navegador */
+}
+
+.form-group select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2394a3b8%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px top 50%;
+  background-size: 12px auto;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Foco Verde Imersivo */
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(67, 181, 129, 0.15);
+  background: var(--bg-alt);
+}
+
+/* ================= CHECKBOXES CUSTOMIZADOS ================= */
+.admin-checkboxes {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.custom-checkbox {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding-left: 36px;
+  cursor: pointer;
+  font-size: 16px;
+  color: var(--text);
+  user-select: none;
+}
+
+/* Esconde o checkbox padrão do navegador */
+.custom-checkbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Cria o "quadradinho" falso */
+.checkmark {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  height: 24px;
+  width: 24px;
+  background-color: var(--bg);
+  border: 2px solid var(--border);
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+/* Efeito de hover na caixa inteira */
+.custom-checkbox:hover input ~ .checkmark {
+  border-color: var(--green);
+}
+
+/* Quando marcado, fundo verde */
+.custom-checkbox input:checked ~ .checkmark {
+  background-color: var(--green);
+  border-color: var(--green);
+  box-shadow: 0 0 10px rgba(67, 181, 129, 0.4);
+}
+
+/* O "V" de check (escondido por padrão) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 7px;
+  top: 3px;
+  width: 6px;
+  height: 12px;
+  border: solid #000;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+
+/* Mostra o "V" quando marcado */
+.custom-checkbox input:checked ~ .checkmark:after {
+  display: block;
+}
+
+
+/* ================= BOTÃO DE SALVAR ================= */
+.admin-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+.btn-save {
+  background: var(--green);
+  color: #000;
+  border: none;
+  padding: 18px 40px;
+  font-family: "Minecraft", Arial, sans-serif;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 5px 15px rgba(67, 181, 129, 0.2);
+}
+
+.btn-save:hover {
+  background: #349e6f;
+  transform: scale(1.05) translateY(-2px);
+  box-shadow: 0 10px 25px rgba(67, 181, 129, 0.4);
+}
+
+
+/* ================= ANIMAÇÕES EM CASCATA ================= */
+.reveal-1, .reveal-2, .reveal-3, .reveal-4, .reveal-5 {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.5s ease forwards;
+}
+
+.reveal-1 { animation-delay: 0.1s; }
+.reveal-2 { animation-delay: 0.2s; }
+.reveal-3 { animation-delay: 0.3s; }
+.reveal-4 { animation-delay: 0.4s; }
+.reveal-5 { animation-delay: 0.5s; }
+
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}

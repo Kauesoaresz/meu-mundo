@@ -8,140 +8,154 @@
   <link rel="stylesheet" href="/css/admin-mundo.css">
 </head>
 <body>
-<h2 class="admin-title">🌍 Mundo</h2>
-<p class="admin-description">
-  Informações gerais e status do seu mundo Minecraft.
-</p>
+<div class="admin-page-wrapper">
+  <header class="dashboard-header">
+    <h2 class="admin-title">🌍 Mundo</h2>
+    <p class="admin-description">
+      Informações gerais e status do seu mundo Minecraft.
+    </p>
+  </header>
 
-<form class="admin-form" method="POST" action="/admin/mundo">
+  <form class="admin-form" method="POST" action="/admin/mundo">
 
-  <!-- BLOCO: IDENTIDADE -->
-  <div class="admin-section">
-    <h3>Identidade</h3>
+    <!-- BLOCO: IDENTIDADE -->
+    <div class="admin-card form-section reveal-1">
+      <h3 class="section-badge">Identidade</h3>
 
-    <div class="admin-grid">
-      <div>
-        <label>Nome do Mundo</label>
-        <input type="text" name="nome" value="<%= mundo.nome %>" required>
+      <div class="admin-grid">
+        <div class="form-group">
+          <label>Nome do Mundo</label>
+          <input type="text" name="nome" value="<%= mundo.nome %>" required>
+        </div>
+
+        <div class="form-group">
+          <label>Versão do Minecraft</label>
+          <input
+            type="text"
+            name="versao_minecraft"
+            value="<%= mundo.versao_minecraft || "" %>"
+          >
+        </div>
       </div>
 
-      <div>
-        <label>Versão do Minecraft</label>
-        <input
-          type="text"
-          name="versao_minecraft"
-          value="<%= mundo.versao_minecraft || "" %>"
-        >
+      <div class="form-group">
+        <label>Descrição</label>
+        <textarea name="descricao" rows="3"><%= mundo.descricao || "" %></textarea>
+      </div>
+    </div>
+
+    <!-- BLOCO: JOGO -->
+    <div class="admin-card form-section reveal-2">
+      <h3 class="section-badge">Jogo</h3>
+
+      <div class="admin-grid">
+        <div class="form-group">
+          <label>Edição</label>
+          <select name="edicao">
+            <option value="Java Edition" <%= mundo.edicao === "Java Edition" ? "selected" : "" %>>
+              Java Edition
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Modo</label>
+          <input type="text" name="modo" value="<%= mundo.modo || "" %>">
+        </div>
+
+        <div class="form-group">
+          <label>Dificuldade</label>
+          <select name="dificuldade">
+            <option value="Difícil" <%= mundo.dificuldade === "Difícil" ? "selected" : "" %>>Difícil</option>
+            <option value="Normal" <%= mundo.dificuldade === "Normal" ? "selected" : "" %>>Normal</option>
+            <option value="Fácil" <%= mundo.dificuldade === "Fácil" ? "selected" : "" %>>Fácil</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Data de Criação</label>
+          <input
+            type="date"
+            name="criado_em"
+            value="<%= mundo.criado_em ? mundo.criado_em.toISOString().slice(0,10) : "" %>"
+            required
+          >
+        </div>
       </div>
     </div>
 
-    <label>Descrição</label>
-    <textarea name="descricao" rows="3"><%= mundo.descricao || "" %></textarea>
-  </div>
+    <!-- BLOCO: DIMENSÕES -->
+    <div class="admin-card form-section reveal-3">
+      <h3 class="section-badge">Dimensões Ativas</h3>
 
-  <!-- BLOCO: JOGO -->
-  <div class="admin-section">
-    <h3>Jogo</h3>
+      <div class="admin-checkboxes">
+        <label class="custom-checkbox">
+          <input type="checkbox" name="overworld" <%= mundo.overworld ? "checked" : "" %>>
+          <span class="checkmark"></span>
+          Overworld
+        </label>
 
-    <div class="admin-grid">
-      <div>
-        <label>Edição</label>
-        <select name="edicao">
-          <option value="Java Edition" <%= mundo.edicao === "Java Edition" ? "selected" : "" %>>
-            Java Edition
-          </option>
-        </select>
-      </div>
+        <label class="custom-checkbox">
+          <input type="checkbox" name="nether" <%= mundo.nether ? "checked" : "" %>>
+          <span class="checkmark"></span>
+          Nether
+        </label>
 
-      <div>
-        <label>Modo</label>
-        <input type="text" name="modo" value="<%= mundo.modo || "" %>">
-      </div>
-
-      <div>
-        <label>Dificuldade</label>
-        <select name="dificuldade">
-          <option value="Difícil" <%= mundo.dificuldade === "Difícil" ? "selected" : "" %>>Difícil</option>
-          <option value="Normal" <%= mundo.dificuldade === "Normal" ? "selected" : "" %>>Normal</option>
-          <option value="Fácil" <%= mundo.dificuldade === "Fácil" ? "selected" : "" %>>Fácil</option>
-        </select>
-      </div>
-
-      <div>
-        <label>Data de Criação</label>
-        <input
-          type="date"
-          name="criado_em"
-          value="<%= mundo.criado_em ? mundo.criado_em.toISOString().slice(0,10) : "" %>"
-          required
-        >
+        <label class="custom-checkbox">
+          <input type="checkbox" name="end" <%= mundo.end ? "checked" : "" %>>
+          <span class="checkmark"></span>
+          End
+        </label>
       </div>
     </div>
-  </div>
 
-  <!-- BLOCO: DIMENSÕES -->
-  <div class="admin-section">
-    <h3>Dimensões Ativas</h3>
+    <!-- BLOCO: STATUS -->
+    <div class="admin-card form-section reveal-4">
+      <h3 class="section-badge">Status Atual</h3>
 
-    <div class="admin-checkboxes">
-      <label>
-        <input type="checkbox" name="overworld" <%= mundo.overworld ? "checked" : "" %>>
-        Overworld
-      </label>
-
-      <label>
-        <input type="checkbox" name="nether" <%= mundo.nether ? "checked" : "" %>>
-        Nether
-      </label>
-
-      <label>
-        <input type="checkbox" name="end" <%= mundo.end ? "checked" : "" %>>
-        End
-      </label>
-    </div>
-  </div>
-
-  <!-- BLOCO: STATUS -->
-  <div class="admin-section">
-    <h3>Status Atual</h3>
-
-    <label>🎯 Objetivo Atual</label>
-    <textarea name="objetivo_atual" rows="3"><%= mundo.objetivo_atual || "" %></textarea>
-
-    <label>🌱 Seed</label>
-    <input type="text" name="seed" value="<%= mundo.seed || "" %>">
-
-    <!-- 🔥 NOVOS CAMPOS -->
-    <div class="admin-grid" style="margin-top: 1rem;">
-      <div>
-        <label>🎮 Última vez que jogou</label>
-        <input
-          type="date"
-          name="ultima_jogatina"
-          value="<%= mundo.ultima_jogatina
-            ? mundo.ultima_jogatina.toISOString().slice(0,10)
-            : "" %>"
-        >
+      <div class="form-group">
+        <label>🎯 Objetivo Atual</label>
+        <textarea name="objetivo_atual" rows="3"><%= mundo.objetivo_atual || "" %></textarea>
       </div>
 
-      <div>
-        <label>📅 Dia atual do mundo</label>
-        <input
-          type="number"
-          name="dia_mundo"
-          min="0"
-          value="<%= mundo.dia_mundo || "" %>"
-        >
+      <div class="form-group">
+        <label>🌱 Seed</label>
+        <input type="text" name="seed" value="<%= mundo.seed || "" %>">
+      </div>
+
+      <div class="admin-grid">
+        <div class="form-group">
+          <label>🎮 Última vez que jogou</label>
+          <input
+            type="date"
+            name="ultima_jogatina"
+            value="<%= mundo.ultima_jogatina
+              ? mundo.ultima_jogatina.toISOString().slice(0,10)
+              : "" %>"
+          >
+        </div>
+
+        <div class="form-group">
+          <label>📅 Dia atual do mundo</label>
+          <input
+            type="number"
+            name="dia_mundo"
+            min="0"
+            value="<%= mundo.dia_mundo || "" %>"
+          >
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- AÇÕES -->
-  <div class="admin-actions">
-    <button type="submit" class="btn btn-primary">
-      💾 Salvar Alterações
-    </button>
-  </div>
+    <!-- AÇÕES -->
+    <div class="admin-actions reveal-5">
+      <button type="submit" class="btn-save">
+        💾 Salvar Alterações
+      </button>
+    </div>
+
+  </form>
+</div>
 
 </form>
 </body>

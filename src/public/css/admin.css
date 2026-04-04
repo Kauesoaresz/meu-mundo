@@ -1,0 +1,107 @@
+/* ========================================================
+   ADMIN.CSS - Layout Global do Painel Administrativo
+======================================================== */
+
+/* ================= BARRA SUPERIOR (TOPBAR) ================= */
+.admin-topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 64px;
+  background: var(--bg-card); /* Fundo um pouco mais claro que o bg normal */
+  border-bottom: 1px solid var(--border);
+  z-index: 1000;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.admin-topbar-inner {
+  max-width: 1200px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* LOGO DO ADMIN */
+.admin-logo {
+  font-family: "Minecraft", Arial, sans-serif;
+  font-size: 20px;
+  color: var(--text);
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.admin-logo::before {
+  content: "⛏"; /* Ícone de picareta para o admin */
+  color: var(--green);
+}
+
+/* NAVEGAÇÃO DO ADMIN */
+.admin-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.admin-nav a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+/* Efeito ao passar o mouse (Hover) */
+.admin-nav a:hover {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Efeito exclusivo para o botão de "Sair" (Logout) */
+.admin-nav a[href="/admin/logout"] {
+  color: #ef4444; /* Vermelho */
+  margin-left: 12px;
+}
+
+.admin-nav a[href="/admin/logout"]:hover {
+  background: rgba(239, 68, 68, 0.15); /* Fundo vermelho translúcido */
+  color: #f87171;
+}
+
+/* ================= ÁREA DE CONTEÚDO (MAIN) ================= */
+.admin-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 100px 24px 60px; /* 100px no topo empurra o conteúdo para baixo da topbar fixa */
+  min-height: 100vh;
+}
+
+/* ================= CLASSES GERAIS PARA REUSO NO ADMIN ================= */
+/* Como o Admin repete muitas tabelas e botões, você pode colocar estilos de botões padrão aqui */
+
+.btn-admin {
+  background: var(--green);
+  color: #000;
+  border: none;
+  padding: 10px 20px;
+  font-family: "Minecraft", Arial, sans-serif;
+  font-size: 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.2s ease;
+}
+
+.btn-admin:hover {
+  background: #349e6f;
+  transform: translateY(-2px);
+}

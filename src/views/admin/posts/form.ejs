@@ -8,222 +8,229 @@
   <link rel="stylesheet" href="/css/admin-posts-form.css">
 </head>
 <body>
-<h2 class="admin-title">
-  <%= post ? "✏️ Editar Post" : "➕ Novo Post" %>
-</h2>
+<div class="admin-page-wrapper">
 
-<form
-  class="admin-form"
-  method="POST"
-  enctype="multipart/form-data"
-  action="<%= post ? `/admin/posts/${post.id}/editar` : '/admin/posts' %>"
->
+  <header class="dashboard-header reveal-1">
+    <a href="/admin/posts" class="back-link">← Voltar para Posts</a>
+    <h2 class="admin-title">
+      <%= post ? "✏️ Editar Post" : "➕ Novo Post" %>
+    </h2>
+    <p class="admin-description">Preencha os detalhes da sua construção, história ou farm.</p>
+  </header>
 
-  <div class="admin-grid">
+  <form
+    class="admin-form"
+    method="POST"
+    enctype="multipart/form-data"
+    action="<%= post ? `/admin/posts/${post.id}/editar` : '/admin/posts' %>"
+  >
 
-    <!-- =========================
-         COLUNA ESQUERDA — CONTEÚDO
-    ========================== -->
-    <div>
+    <div class="split-layout">
+      
+      <!-- =========================
+           COLUNA ESQUERDA — CONTEÚDO
+      ========================== -->
+      <div class="col-main reveal-2">
+        
+        <div class="form-section">
+          <h3 class="section-badge">Conteúdo Principal</h3>
 
-      <div class="admin-section">
-        <h3>Conteúdo</h3>
+          <div class="form-group">
+            <label>Título da Obra</label>
+            <input
+              type="text"
+              name="titulo"
+              placeholder="Ex: Castelo de Pedra"
+              value="<%= post?.titulo || "" %>"
+              required
+            >
+          </div>
 
-        <label>Título</label>
-        <input
-          type="text"
-          name="titulo"
-          value="<%= post?.titulo || "" %>"
-        >
+          <div class="form-group">
+            <label>Descrição Curta</label>
+            <input
+              type="text"
+              name="descricao"
+              placeholder="Um resumo do que é este post..."
+              value="<%= post?.descricao || "" %>"
+            >
+          </div>
 
-        <label>Descrição curta</label>
-        <input
-          type="text"
-          name="descricao"
-          value="<%= post?.descricao || "" %>"
-        >
-
-        <label>Conteúdo</label>
-        <textarea
-          name="conteudo"
-          rows="10"
-        ><%= post?.conteudo || "" %></textarea>
-      </div>
-
-      <div class="admin-section">
-        <h3>Vídeo</h3>
-
-        <label>Vídeo do YouTube</label>
-        <input
-          type="text"
-          name="video_youtube"
-          value="<%= post?.video_youtube || "" %>"
-        >
-      </div>
-
-      <div class="admin-section">
-        <h3>📍 Coordenadas</h3>
-
-        <div class="admin-grid">
-          <input
-            type="number"
-            name="coord_x"
-            placeholder="X"
-            value="<%= post?.coord_x || "" %>"
-          >
-          <input
-            type="number"
-            name="coord_y"
-            placeholder="Y"
-            value="<%= post?.coord_y || "" %>"
-          >
-          <input
-            type="number"
-            name="coord_z"
-            placeholder="Z"
-            value="<%= post?.coord_z || "" %>"
-          >
+          <div class="form-group">
+            <label>História / Conteúdo Completo</label>
+            <textarea
+              name="conteudo"
+              rows="15"
+              placeholder="Descreva os detalhes, como foi construído, lore..."
+            ><%= post?.conteudo || "" %></textarea>
+          </div>
         </div>
 
-        <select name="dimensao">
-          <option value="">Dimensão</option>
-          <option value="overworld" <%= post?.dimensao === "overworld" ? "selected" : "" %>>
-            Overworld
-          </option>
-          <option value="nether" <%= post?.dimensao === "nether" ? "selected" : "" %>>
-            Nether
-          </option>
-          <option value="end" <%= post?.dimensao === "end" ? "selected" : "" %>>
-            End
-          </option>
-        </select>
+        <div class="form-section">
+          <h3 class="section-badge">Mídia Externa</h3>
+          <div class="form-group">
+            <label>Vídeo do YouTube (ID ou Link)</label>
+            <input
+              type="text"
+              name="video_youtube"
+              placeholder="Ex: dQw4w9WgXcQ"
+              value="<%= post?.video_youtube || "" %>"
+            >
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3 class="section-badge">📍 Coordenadas</h3>
+          
+          <div class="coords-box">
+            <div class="coords-inputs">
+              <input type="number" name="coord_x" placeholder="X" value="<%= post?.coord_x || "" %>">
+              <input type="number" name="coord_y" placeholder="Y" value="<%= post?.coord_y || "" %>">
+              <input type="number" name="coord_z" placeholder="Z" value="<%= post?.coord_z || "" %>">
+            </div>
+
+            <select name="dimensao" class="dimensao-select">
+              <option value="">Selecione a Dimensão</option>
+              <option value="overworld" <%= post?.dimensao === "overworld" ? "selected" : "" %>>Overworld</option>
+              <option value="nether" <%= post?.dimensao === "nether" ? "selected" : "" %>>Nether</option>
+              <option value="end" <%= post?.dimensao === "end" ? "selected" : "" %>>End</option>
+            </select>
+          </div>
+        </div>
+
       </div>
 
-    </div>
+      <!-- =========================
+           COLUNA DIREITA — CONTROLE
+      ========================== -->
+      <div class="col-sidebar reveal-3">
+        
+        <div class="form-section">
+          <h3 class="section-badge">Organização</h3>
+          <div class="form-group">
+            <label>Seção (Categoria)</label>
+            <select name="secao_id" required>
+              <% secoes.forEach(secao => { %>
+                <option
+                  value="<%= secao.id %>"
+                  <%= post?.secao_id === secao.id ? "selected" : "" %>
+                >
+                  <%= secao.nome %>
+                </option>
+              <% }) %>
+            </select>
+          </div>
+        </div>
 
-    <!-- =========================
-         COLUNA DIREITA — CONTROLE
-    ========================== -->
-    <div>
+        <!-- IMAGEM DE CAPA -->
+        <div class="form-section">
+          <h3 class="section-badge">Imagem de Capa</h3>
 
-      <div class="admin-section">
-        <h3>Organização</h3>
-
-        <label>Seção</label>
-        <select name="secao_id" required>
-          <% secoes.forEach(secao => { %>
-            <option
-              value="<%= secao.id %>"
-              <%= post?.secao_id === secao.id ? "selected" : "" %>
+          <div class="form-group">
+            <label>URL Externa (Opcional)</label>
+            <input
+              type="text"
+              name="imagem"
+              id="imagemUrl"
+              placeholder="https://..."
+              value="<%= post?.imagem || "" %>"
             >
-              <%= secao.nome %>
-            </option>
-          <% }) %>
-        </select>
-      </div>
+          </div>
 
-      <!-- IMAGEM DE CAPA -->
-      <div class="admin-section">
-        <h3>Imagem de Capa</h3>
+          <div class="form-group">
+            <label>Upload do Computador</label>
+            <div class="file-upload-wrapper">
+              <input
+                type="file"
+                name="imagem_upload"
+                id="imagemUpload"
+                accept="image/*"
+                class="file-input"
+              >
+              <div class="file-upload-visual">
+                <span>📁 Escolher Arquivo</span>
+              </div>
+            </div>
+            <small class="helper-text">Upload tem prioridade sobre a URL</small>
+          </div>
 
-        <label>Imagem (URL)</label>
-        <input
-          type="text"
-          name="imagem"
-          id="imagemUrl"
-          value="<%= post?.imagem || "" %>"
-        >
+          <!-- PREVIEW DA CAPA -->
+          <div id="previewCapa" class="image-preview-container">
+            <% if (post?.imagem) { %>
+              <img src="<%= post.imagem %>" alt="Capa atual">
+            <% } %>
+          </div>
+        </div>
 
-        <label>Imagem (Upload)</label>
-        <input
-          type="file"
-          name="imagem_upload"
-          id="imagemUpload"
-          accept="image/*"
-        >
+        <!-- GALERIA -->
+        <div class="form-section">
+          <h3 class="section-badge">Galeria</h3>
 
-        <div id="previewCapa" style="margin-top: 10px;">
-          <% if (post?.imagem) { %>
-            <img
-              src="<%= post.imagem %>"
-              style="width:100%; border-radius:10px;"
-            >
+          <div class="form-group">
+            <label>Adicionar Imagens</label>
+            <div class="file-upload-wrapper">
+              <input
+                type="file"
+                name="galeria"
+                id="galeriaInput"
+                accept="image/*"
+                multiple
+                class="file-input"
+              >
+              <div class="file-upload-visual">
+                <span>📸 Selecionar Múltiplas</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- PREVIEW DE NOVAS IMAGENS -->
+          <div id="previewGaleria" class="gallery-preview-grid"></div>
+
+          <!-- IMAGENS JÁ SALVAS NA GALERIA -->
+          <% if (post?.imagens?.length) { %>
+            <% const imgsGaleria = post.imagens.filter(img => img.imagem !== post.imagem); %>
+            
+            <% if (imgsGaleria.length > 0) { %>
+              <div class="saved-gallery-divider">
+                <span>Já salvas</span>
+              </div>
+
+              <div class="gallery-preview-grid">
+                <% imgsGaleria.forEach(img => { %>
+                  <div class="saved-image-card">
+                    <img src="<%= img.imagem %>" alt="Imagem salva">
+                    
+                    <form
+                      method="POST"
+                      action="/admin/posts/imagem/<%= img.id %>/excluir"
+                      onsubmit="return confirm('Excluir esta imagem permanentemente?')"
+                      class="delete-img-form"
+                    >
+                      <button type="submit" class="btn-delete-img" title="Remover imagem">✕</button>
+                    </form>
+                  </div>
+                <% }) %>
+              </div>
+            <% } %>
           <% } %>
         </div>
 
-        <small style="color: var(--muted);">
-          Upload tem prioridade sobre URL
-        </small>
-      </div>
-
-      <!-- GALERIA -->
-      <div class="admin-section">
-        <h3>Galeria</h3>
-
-        <input
-          type="file"
-          name="galeria"
-          id="galeriaInput"
-          accept="image/*"
-          multiple
-        >
-
-        <div
-          id="previewGaleria"
-          style="display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:10px;"
-        ></div>
-
-        <% if (post?.imagens?.length) { %>
-          <hr style="margin:15px 0; border-color:#2a2a2a;">
-          <h4 style="margin-bottom:10px;">Imagens já salvas</h4>
-
-          <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:10px;">
-            <% post.imagens
-              .filter(img => img.imagem !== post.imagem)
-              .forEach(img => { %>
-
-              <div style="position:relative;">
-                <img
-                  src="<%= img.imagem %>"
-                  style="width:100%; border-radius:8px;"
-                >
-
-                <form
-                  method="POST"
-                  action="/admin/posts/imagem/<%= img.id %>/excluir"
-                  onsubmit="return confirm('Remover esta imagem?')"
-                  style="position:absolute; top:5px; right:5px;"
-                >
-                  <button
-                    type="submit"
-                    class="btn btn-danger"
-                    style="padding:4px 6px; font-size:10px;"
-                  >
-                    ✕
-                  </button>
-                </form>
-              </div>
-            <% }) %>
+        <!-- AÇÕES -->
+        <div class="form-section sticky-actions">
+          <div class="admin-actions">
+            <a href="/admin/posts" class="btn-cancel">Cancelar</a>
+            <button type="submit" class="btn-save">💾 Salvar Post</button>
           </div>
-        <% } %>
-      </div>
-
-      <!-- AÇÕES -->
-      <div class="admin-section">
-        <h3>Ações</h3>
-
-        <div class="admin-actions">
-          <button class="btn btn-primary">Salvar</button>
-          <a href="/admin/posts" class="btn">Cancelar</a>
         </div>
+
       </div>
 
     </div>
+  </form>
 
-  </div>
+</div>
 
-</form>
-
+<!-- SCRIPTS DE PREVIEW MANTIDOS E APERFEIÇOADOS -->
 <script>
   // Preview imagem por URL
   const urlInput = document.getElementById("imagemUrl");
@@ -232,9 +239,10 @@
 
   if (urlInput) {
     urlInput.addEventListener("input", () => {
-      if (urlInput.value) {
-        preview.innerHTML =
-          `<img src="${urlInput.value}" style="width:100%; border-radius:10px;">`;
+      if (urlInput.value && !uploadInput.files.length) {
+        preview.innerHTML = `<img src="${urlInput.value}" alt="Preview URL">`;
+      } else if (!urlInput.value && !uploadInput.files.length) {
+        preview.innerHTML = ''; // Limpa se vazio
       }
     });
   }
@@ -244,36 +252,45 @@
     uploadInput.addEventListener("change", () => {
       const file = uploadInput.files[0];
       if (file) {
+        // Altera o texto visual do botão
+        const visualText = uploadInput.nextElementSibling.querySelector('span');
+        visualText.textContent = `✅ ${file.name.substring(0, 15)}...`;
+        
         const reader = new FileReader();
         reader.onload = e => {
-          preview.innerHTML =
-            `<img src="${e.target.result}" style="width:100%; border-radius:10px;">`;
+          preview.innerHTML = `<img src="${e.target.result}" alt="Preview Upload">`;
         };
         reader.readAsDataURL(file);
       }
     });
   }
-</script>
 
-<script>
+  // Preview Galeria Múltipla
   const galeriaInput = document.getElementById("galeriaInput");
   const previewGaleria = document.getElementById("previewGaleria");
 
   if (galeriaInput) {
     galeriaInput.addEventListener("change", () => {
       previewGaleria.innerHTML = "";
+      const files = Array.from(galeriaInput.files);
+      
+      if(files.length > 0) {
+        const visualText = galeriaInput.nextElementSibling.querySelector('span');
+        visualText.textContent = `✅ ${files.length} selecionadas`;
+      }
 
-      Array.from(galeriaInput.files).forEach(file => {
+      files.forEach(file => {
         const reader = new FileReader();
-
         reader.onload = e => {
+          const div = document.createElement("div");
+          div.className = "saved-image-card new-preview"; // Usa o mesmo estilo das salvas
+          
           const img = document.createElement("img");
           img.src = e.target.result;
-          img.style.width = "100%";
-          img.style.borderRadius = "8px";
-          previewGaleria.appendChild(img);
+          
+          div.appendChild(img);
+          previewGaleria.appendChild(div);
         };
-
         reader.readAsDataURL(file);
       });
     });

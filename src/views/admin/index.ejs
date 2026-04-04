@@ -8,74 +8,66 @@
   <link rel="stylesheet" href="/css/admin-index.css">
 </head>
 <body>
-<h2 class="admin-title">Painel Administrativo</h2>
-<p class="admin-description">
-  Visão geral do seu mundo e acesso rápido às principais ações.
-</p>
+<!-- Centro de Comando (Dashboard) -->
+<div class="admin-dashboard">
+  
+  <header class="dashboard-header">
+    <h2 class="admin-title">Painel Administrativo</h2>
+    <p class="admin-description">
+      Visão geral do seu mundo e acesso rápido às principais ações.
+    </p>
+  </header>
 
-<div class="admin-grid">
+  <div class="admin-grid">
+    <!-- CARD: MUNDO -->
+    <div class="admin-card">
+      <h3>🌍 Mundo</h3>
+      <p><strong><%= mundo.nome %></strong></p>
+      <p class="card-subtext"><%= mundo.descricao || "Sem descrição" %></p>
+      <a href="/admin/mundo" class="btn-dashboard">Configurações</a>
+    </div>
 
-  <div class="admin-card">
-    <h3>🌍 Mundo</h3>
-    <p><strong><%= mundo.nome %></strong></p>
-    <p><%= mundo.descricao || "Sem descrição" %></p>
-    <br>
-    <a href="/admin/mundo" class="btn btn-primary">
-      Configurações
-    </a>
+    <!-- CARD: POSTS -->
+    <div class="admin-card">
+      <h3>🧱 Posts</h3>
+      <p class="card-subtext">Total cadastrados</p>
+      <h2 class="card-number"><%= totalPosts %></h2>
+      <a href="/admin/posts" class="btn-dashboard">Gerenciar Posts</a>
+    </div>
+
+    <!-- CARD: SEÇÕES -->
+    <div class="admin-card">
+      <h3>📂 Seções</h3>
+      <p class="card-subtext">Total cadastradas</p>
+      <h2 class="card-number"><%= totalSecoes %></h2>
+      <a href="/admin/secoes" class="btn-dashboard">Gerenciar Seções</a>
+    </div>
+
+    <!-- CARD: AFAZERES -->
+    <div class="admin-card">
+      <h3>✅ Afazeres</h3>
+      <p class="card-subtext">Planejamento e progresso do mundo</p>
+      <div class="spacer"></div> <!-- Empurra o botão pro final -->
+      <a href="/admin/afazeres" class="btn-dashboard">Gerenciar Afazeres</a>
+    </div>
   </div>
 
-  <div class="admin-card">
-    <h3>🧱 Posts</h3>
-    <p>Total cadastrados</p>
-    <h2><%= totalPosts %></h2>
-    <a href="/admin/posts" class="btn btn-primary">
-      Gerenciar Posts
-    </a>
-  </div>
-
-  <div class="admin-card">
-    <h3>📂 Seções</h3>
-    <p>Total cadastradas</p>
-    <h2><%= totalSecoes %></h2>
-    <a href="/admin/secoes" class="btn btn-primary">
-      Gerenciar Seções
-    </a>
-  </div>
-
-  <!-- ✅ NOVO CARD: AFAZERES -->
-  <div class="admin-card">
-    <h3>✅ Afazeres</h3>
-    <p>Planejamento e progresso do mundo</p>
-    <br>
-    <a href="/admin/afazeres" class="btn btn-primary">
-      Gerenciar Afazeres
-    </a>
-  </div>
+  <!-- BANNER: ÚLTIMO POST -->
+  <% if (ultimoPost) { %>
+    <div class="admin-section">
+      <div class="section-info">
+        <h3>🕒 Último Post Criado</h3>
+        <p><strong><%= ultimoPost.titulo %></strong></p>
+        <span class="section-date">
+          Criado em <%= new Date(ultimoPost.createdAt).toLocaleDateString("pt-BR") %>
+        </span>
+      </div>
+      <a href="/admin/posts/<%= ultimoPost.id %>/editar" class="btn-dashboard alt">
+        Editar Post
+      </a>
+    </div>
+  <% } %>
 
 </div>
-
-<% if (ultimoPost) { %>
-  <div class="admin-section">
-    <h3>🕒 Último Post Criado</h3>
-
-    <p>
-      <strong><%= ultimoPost.titulo %></strong><br>
-      <span class="admin-description">
-        Criado em
-        <%= new Date(ultimoPost.createdAt).toLocaleDateString("pt-BR") %>
-      </span>
-    </p>
-
-    <br>
-
-    <a
-      href="/admin/posts/<%= ultimoPost.id %>/editar"
-      class="btn btn-primary"
-    >
-      Editar Post
-    </a>
-  </div>
-<% } %>
 </body>
 </html>

@@ -8,59 +8,86 @@
   <link rel="stylesheet" href="/css/admin-comentarios-index.css">
 </head>
 <body>
-<h1>Comentários</h1>
+<div class="admin-page-wrapper">
+  
+  <header class="dashboard-header reveal-1">
+    <h2 class="admin-title">💬 Moderação de Comentários</h2>
+    <p class="admin-description">Aprove, oculte ou exclua as mensagens deixadas pelos visitantes no mural do seu mundo.</p>
+  </header>
 
-<table class="admin-table">
-  <thead>
-    <tr>
-      <th>Nome</th>
-      <th>Comentário</th>
-      <th>Status</th>
-      <th>Data</th>
-      <th>Ações</th>
-    </tr>
-  </thead>
+  <div class="admin-table-container reveal-2">
+    <% if (comentarios.length === 0) { %>
+      <div class="empty-state">
+        <span class="empty-icon">📭</span>
+        <p>Nenhum comentário encontrado no momento.</p>
+      </div>
+    <% } else { %>
+      <table class="premium-table">
+        <thead>
+          <tr>
+            <th>Autor</th>
+            <th>Comentário</th>
+            <th>Status</th>
+            <th>Data</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        
+        <tbody>
+          <% comentarios.forEach(c => { %>
+            <!-- Adiciona uma classe específica se estiver pendente -->
+            <tr class="<%= c.aprovado ? 'status-aprovado' : 'status-pendente' %>">
+              
+              <td class="col-autor">
+                <strong><%= c.nome %></strong>
+              </td>
 
-  <tbody>
-    <% comentarios.forEach(c => { %>
-      <tr>
-        <td><%= c.nome %></td>
+              <td class="col-comentario">
+                <div class="comentario-text" title="<%= c.comentario %>">
+                  <%= c.comentario %>
+                </div>
+              </td>
 
-        <td style="max-width: 400px">
-          <%= c.comentario %>
-        </td>
+              <td class="col-status">
+                <% if (c.aprovado) { %>
+                  <span class="badge badge-success">✅ Aprovado</span>
+                <% } else { %>
+                  <span class="badge badge-warning">⏳ Pendente</span>
+                <% } %>
+              </td>
 
-        <td>
-          <% if (c.aprovado) { %>
-            ✅ Aprovado
-          <% } else { %>
-            ⏳ Pendente
-          <% } %>
-        </td>
+              <td class="col-data">
+                <%= new Date(c.created_at).toLocaleDateString("pt-BR") %>
+              </td>
 
-        <td>
-          <%= new Date(c.created_at).toLocaleDateString("pt-BR") %>
-        </td>
+              <td class="col-acoes">
+                <div class="action-buttons">
+                  
+                  <% if (!c.aprovado) { %>
+                    <form method="POST" action="/admin/comentarios/<%= c.id %>/aprovar">
+                      <button class="btn-action btn-approve">Aprovar</button>
+                    </form>
+                  <% } else { %>
+                    <form method="POST" action="/admin/comentarios/<%= c.id %>/reprovar">
+                      <button class="btn-action btn-reject">Ocultar</button>
+                    </form>
+                  <% } %>
 
-        <td style="display:flex; gap:6px;">
-          <% if (!c.aprovado) { %>
-            <form method="POST" action="/admin/comentarios/<%= c.id %>/aprovar">
-              <button>Aprovar</button>
-            </form>
-          <% } else { %>
-            <form method="POST" action="/admin/comentarios/<%= c.id %>/reprovar">
-              <button>Reprovar</button>
-            </form>
-          <% } %>
+                  <form method="POST" action="/admin/comentarios/<%= c.id %>/excluir"
+                        onsubmit="return confirm('Tem certeza que deseja excluir permanentemente este comentário?')">
+                    <button class="btn-action btn-delete">Excluir</button>
+                  </form>
+                  
+                </div>
+              </td>
 
-          <form method="POST" action="/admin/comentarios/<%= c.id %>/excluir"
-                onsubmit="return confirm('Excluir comentário?')">
-            <button style="color:red;">Excluir</button>
-          </form>
-        </td>
-      </tr>
-    <% }) %>
-  </tbody>
-</table>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    <% } %>
+  </div>
+
+</div>
 </body>
 </html>

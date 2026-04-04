@@ -1,1 +1,117 @@
-/* CSS para auth/simple-login.ejs */\nbody {}
+/* ========================================================
+   AUTH-SIMPLE-LOGIN.CSS - O Cofre (Login Premium)
+======================================================== */
+
+/* Centraliza a caixa de login no meio da tela perfeitamente */
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  /* O background e cores gerais já são herdados do base.css */
+}
+
+.login-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-top: 4px solid var(--green); /* Barra de destaque indicando segurança */
+  border-radius: 12px;
+  padding: 40px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  animation: fadeIn 0.4s ease-out; /* Animação de entrada */
+}
+
+.login-box h2 {
+  font-family: "Minecraft", Arial, sans-serif;
+  color: var(--text);
+  font-size: 24px;
+  margin-bottom: 32px;
+  letter-spacing: 1px;
+}
+
+.login-box form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.login-box input {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 20px; /* Fonte maior para os pontinhos da senha */
+  padding: 16px;
+  border-radius: 8px;
+  text-align: center;
+  letter-spacing: 6px; /* Espaça os pontinhos dando ar de senha de cofre */
+  transition: all 0.2s ease;
+}
+
+.login-box input:focus {
+  outline: none;
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(67, 181, 129, 0.15);
+}
+
+.login-box input::placeholder {
+  letter-spacing: normal; /* O placeholder fica com espaçamento normal */
+  font-size: 16px;
+}
+
+.login-box button {
+  width: 100%;
+  background: var(--green);
+  color: #000;
+  border: none;
+  padding: 16px;
+  font-family: "Minecraft", Arial, sans-serif;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+}
+
+.login-box button:hover {
+  background: #349e6f;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(67, 181, 129, 0.2);
+}
+
+.hint {
+  margin-top: 24px;
+  font-size: 12px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+/* Linhas decorativas ao lado do texto "Área administrativa" */
+.hint::before,
+.hint::after {
+  content: "";
+  height: 1px;
+  width: 40px;
+  background: var(--border);
+}
+
+/* Keyframe para a animação da caixa de login */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

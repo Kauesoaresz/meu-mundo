@@ -2,15 +2,19 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= titulo || "Admin" %></title>
 
-  <!-- Dynamic per-view CSS -->
-  <% if (typeof cssFiles !== 'undefined' && Array.isArray(cssFiles)) { %>
-  <% cssFiles.forEach(function(css) { %>
-    <link rel="stylesheet" href="/css/<%= css %>">
-  <% }); %>
-  <% } %>
+  <!-- 1. Fundação e CSS Global do Admin -->
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/admin.css">
 
+  <!-- 2. Dynamic per-view CSS -->
+  <% if (typeof cssFiles !== 'undefined' && Array.isArray(cssFiles)) { %>
+    <% cssFiles.forEach(function(css) { %>
+      <link rel="stylesheet" href="/css/<%= css %>">
+    <% }); %>
+  <% } %>
 </head>
 <body>
 

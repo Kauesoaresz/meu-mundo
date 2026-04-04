@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= titulo %></title>
-  <link rel="stylesheet" href="/css/style.css">
+  
   <link rel="stylesheet" href="/css/secao-index.css">
 </head>
 <body>
@@ -18,10 +18,13 @@
           href="/<%= secao.slug %>/post/<%= post.id %>"
           class="post-card reveal"
         >
-          <div
-            class="post-thumb"
-            style="background-image:url('<%= post.imagem || "/img/default.jpg" %>')"
-          ></div>
+          <!-- Wrapper adicionado para segurar o zoom (overflow: hidden) -->
+          <div class="post-card-img-wrapper">
+            <div
+              class="post-thumb"
+              style="background-image:url('<%= post.imagem || "/img/default.jpg" %>')"
+            ></div>
+          </div>
 
           <div class="post-info">
             <h3><%= post.titulo %></h3>

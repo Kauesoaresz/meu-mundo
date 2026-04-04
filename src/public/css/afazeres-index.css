@@ -1,1 +1,168 @@
-/* CSS específico para afazeres/index.ejs */\n/* Adicione estilos aqui */\nbody {}
+/* ========================================================
+   AFAZERES-INDEX.CSS - A Lista de Missões (Premium)
+======================================================== */
+
+.afazeres-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 60px 20px;
+}
+
+/* ================= CABEÇALHO DA SEÇÃO ================= */
+.section-title {
+  font-family: "Minecraft", Arial, sans-serif;
+  color: var(--green);
+  font-size: 36px;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+
+.section-text {
+  color: var(--text-muted);
+  font-size: 16px;
+  margin-bottom: 40px;
+  line-height: 1.6;
+}
+
+/* ================= BARRA DE PROGRESSO ================= */
+.afazeres-progress {
+  background: rgba(67, 181, 129, 0.08); /* Fundo com um verde quase imperceptível */
+  border: 1px solid rgba(67, 181, 129, 0.15);
+  border-left: 4px solid var(--green);
+  padding: 24px 32px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 48px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.afazeres-progress span {
+  font-size: 16px;
+  color: var(--text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.afazeres-progress strong {
+  font-family: "Minecraft", Arial, sans-serif;
+  font-size: 32px;
+  color: var(--green);
+  text-shadow: 0 2px 10px rgba(67, 181, 129, 0.2);
+}
+
+/* ================= LISTA DE AFAZERES ================= */
+.afazeres-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.afazer-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  transition: all 0.25s ease;
+}
+
+/* Efeito Hover do card */
+.afazer-item:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+  transform: translateX(6px); /* Dá uma "puxadinha" pro lado */
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* Item Concluído (Fica mais apagado para não chamar atenção) */
+.afazer-item.concluido {
+  opacity: 0.55;
+  background: rgba(11, 12, 16, 0.6);
+}
+
+.afazer-item.concluido:hover {
+  opacity: 0.8;
+}
+
+/* ================= CONTEÚDO DO CARD ================= */
+.afazer-content {
+  flex: 1; /* Ocupa todo o espaço central empurrando as badges para os lados */
+}
+
+.afazer-content strong {
+  display: block;
+  font-size: 18px;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.afazer-content p {
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* ================= ETIQUETAS (BADGES) ================= */
+.afazer-status,
+.afazer-priority {
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 6px 12px;
+  border-radius: 6px;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+/* Cores de Status */
+.afazer-status.concluido {
+  background: rgba(67, 181, 129, 0.15);
+  color: var(--green);
+  border: 1px solid rgba(67, 181, 129, 0.3);
+}
+
+.afazer-status.em_obra {
+  background: rgba(245, 158, 11, 0.15);
+  color: #f59e0b; /* Laranja premium */
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.afazer-status.nao_iniciado {
+  background: rgba(148, 163, 184, 0.1);
+  color: var(--text-muted);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+/* Cores de Prioridade */
+.afazer-priority.alta {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444; /* Vermelho rubi */
+}
+
+.afazer-priority.media {
+  background: rgba(245, 158, 11, 0.1);
+  color: #f59e0b;
+}
+
+.afazer-priority.baixa {
+  background: rgba(148, 163, 184, 0.1);
+  color: var(--text-muted);
+}
+
+/* ================= DESIGN RESPONSIVO (CELULARES) ================= */
+@media (max-width: 768px) {
+  .afazer-item {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .afazeres-progress {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}

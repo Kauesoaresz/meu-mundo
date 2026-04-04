@@ -1,0 +1,352 @@
+/* ========================================================
+   ADMIN-POSTS-FORM.CSS - Criação e Edição de Obras
+======================================================== */
+
+.admin-page-wrapper {
+  max-width: 1300px; /* Mais largo para o split layout respirar */
+  margin: 0 auto;
+}
+
+.dashboard-header {
+  margin-bottom: 32px;
+}
+
+.back-link {
+  display: inline-block;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 16px;
+  transition: all 0.2s ease;
+}
+
+.back-link:hover {
+  color: var(--green);
+  transform: translateX(-4px);
+}
+
+/* ================= LAYOUT DE DUAS COLUNAS ================= */
+.split-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr; /* Esquerda (Texto) maior, Direita (Mídia) menor */
+  gap: 32px;
+  align-items: start;
+}
+
+/* ================= CARTÕES DE FORMULÁRIO ================= */
+.form-section {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  margin-bottom: 32px;
+  transition: all 0.3s ease;
+}
+
+.form-section:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.section-badge {
+  position: absolute;
+  top: -14px;
+  left: 32px;
+  background: var(--green);
+  color: #000;
+  font-family: "Minecraft", Arial, sans-serif;
+  font-size: 13px;
+  padding: 6px 16px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ================= CAMPOS DE ENTRADA ================= */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.form-section > .form-group:last-child { margin-bottom: 0; }
+
+.form-group label {
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 16px;
+  padding: 14px 16px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 200px; /* Maior para escrever as histórias */
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(67, 181, 129, 0.15);
+  background: var(--bg-alt);
+}
+
+.helper-text {
+  color: var(--text-muted);
+  font-size: 12px;
+  margin-top: -4px;
+}
+
+
+/* ================= COORDENADAS (ESTILO CONSOLE) ================= */
+.coords-box {
+  background: rgba(11, 12, 16, 0.5);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.coords-inputs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.coords-inputs input {
+  text-align: center;
+  font-family: "Minecraft", sans-serif;
+  letter-spacing: 1px;
+}
+
+.dimensao-select {
+  width: 100%;
+}
+
+
+/* ================= UPLOAD DE ARQUIVOS PREMIUM ================= */
+.file-upload-wrapper {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.file-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0; /* Esconde o input feio do navegador */
+  cursor: pointer;
+  z-index: 2;
+}
+
+.file-upload-visual {
+  background: rgba(255, 255, 255, 0.03);
+  border: 2px dashed rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+  transition: all 0.2s ease;
+  color: var(--text-muted);
+  font-weight: bold;
+}
+
+.file-upload-wrapper:hover .file-upload-visual {
+  background: rgba(67, 181, 129, 0.05);
+  border-color: var(--green);
+  color: var(--green);
+}
+
+
+/* ================= PREVIEWS DE IMAGEM E GALERIA ================= */
+.image-preview-container {
+  margin-top: 16px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.image-preview-container img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  display: block; /* Remove espaços brancos embaixo da img */
+  border: 1px solid var(--border);
+}
+
+.saved-gallery-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 24px 0 16px;
+  color: var(--text-muted);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.saved-gallery-divider::before,
+.saved-gallery-divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.saved-gallery-divider span { padding: 0 10px; }
+
+
+.gallery-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.saved-image-card {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.saved-image-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Marca d'água visual para imagens que ainda não foram salvas */
+.saved-image-card.new-preview::after {
+  content: "NOVA";
+  position: absolute;
+  bottom: 4px; left: 4px;
+  background: var(--green); color: #000;
+  font-size: 9px; font-weight: bold;
+  padding: 2px 6px; border-radius: 4px;
+}
+
+/* Botão de excluir imagem da galeria */
+.delete-img-form {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  z-index: 10;
+}
+
+.btn-delete-img {
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.2);
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(4px);
+}
+
+.btn-delete-img:hover {
+  background: #ef4444;
+  border-color: #ef4444;
+}
+
+
+/* ================= AÇÕES (SALVAR / CANCELAR) ================= */
+.sticky-actions {
+  position: sticky;
+  top: 80px; /* Fica preso na tela enquanto você rola o texto da esquerda */
+  padding: 24px;
+}
+
+.admin-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.btn-cancel {
+  text-align: center;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 15px;
+  padding: 14px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.btn-cancel:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--border);
+}
+
+.btn-save {
+  background: var(--green);
+  color: #000;
+  border: none;
+  padding: 16px;
+  font-family: "Minecraft", Arial, sans-serif;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 5px 15px rgba(67, 181, 129, 0.2);
+}
+
+.btn-save:hover {
+  background: #349e6f;
+  transform: scale(1.02) translateY(-2px);
+  box-shadow: 0 10px 25px rgba(67, 181, 129, 0.4);
+}
+
+
+/* ================= ANIMAÇÕES E RESPONSIVO ================= */
+.reveal-1, .reveal-2, .reveal-3 {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.5s ease forwards;
+}
+
+.reveal-1 { animation-delay: 0.1s; }
+.reveal-2 { animation-delay: 0.2s; }
+.reveal-3 { animation-delay: 0.3s; }
+
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 900px) {
+  .split-layout {
+    grid-template-columns: 1fr; /* Empilha as colunas em telas menores */
+  }
+  .sticky-actions {
+    position: static;
+  }
+}

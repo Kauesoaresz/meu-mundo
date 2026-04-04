@@ -4,10 +4,97 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= titulo %></title>
-  <link rel="stylesheet" href="/css/style.css">
+  
   <link rel="stylesheet" href="/css/secao-post.css">
 </head>
 <body>
 <!-- Conteúdo do post aqui -->
 </body>
 </html>
+
+<article class="post-detail-page reveal">
+
+  <!-- CABEÇALHO DO POST -->
+  <header class="post-header">
+    <span class="post-category"><%= secao.nome %></span>
+    <h1 class="post-title"><%= post.titulo %></h1>
+  </header>
+
+  <!-- REGISTRO PRINCIPAL -->
+  <% if (post.imagem) { %>
+    <section class="post-record">
+      <img src="<%= post.imagem %>" alt="<%= post.titulo %>" class="post-main-img">
+
+      <% if (post.descricao) { %>
+        <div class="post-record-text">
+          <p><%= post.descricao %></p>
+        </div>
+      <% } %>
+    </section>
+  <% } %>
+
+  <!-- CONTEÚDO LIVRE (TEXTO/HTML) -->
+  <% if (post.conteudo) { %>
+    <section class="post-body">
+      <%- post.conteudo %>
+    </section>
+  <% } %>
+
+  <!-- GALERIA DE IMAGENS -->
+  <% if (post.imagens && post.imagens.length) { %>
+    <section class="post-gallery">
+      <h3 class="section-subtitle">Galeria de Imagens</h3>
+      <div class="gallery-grid">
+        <% post.imagens.forEach(img => { %>
+          <div class="gallery-item">
+            <img src="<%= img.imagem %>" alt="Imagem da galeria" loading="lazy">
+          </div>
+        <% }) %>
+      </div>
+    </section>
+  <% } %>
+
+  <!-- VÍDEO DO YOUTUBE -->
+  <% if (post.video_youtube) { %>
+    <section class="post-video">
+      <h3 class="section-subtitle">Vídeo</h3>
+      <div class="video-wrapper">
+        <iframe
+          src="https://www.youtube.com/embed/<%= post.video_youtube %>"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </section>
+  <% } %>
+
+  <!-- COORDENADAS (HUD PREMIUM) -->
+  <% if (post.coord_x !== null && post.coord_y !== null && post.coord_z !== null) { %>
+    <section class="post-coords">
+      <div class="coords-info">
+        <strong>📍 Coordenadas</strong>
+        <div class="coords-values">
+          <span>X: <%= post.coord_x %></span>
+          <span>Y: <%= post.coord_y %></span>
+          <span>Z: <%= post.coord_z %></span>
+        </div>
+
+        <% if (post.dimensao) { %>
+          <!-- Usei .toLowerCase() para o CSS pegar certinho: 'nether', 'overworld', 'end' -->
+          <span class="dim-badge <%= post.dimensao.toLowerCase() %>">
+            <%= post.dimensao %>
+          </span>
+        <% } %>
+      </div>
+
+      <!-- Guardei os dados no botão para o seu JavaScript conseguir copiar fácil -->
+      <button class="copy-coords" data-coords="<%= post.coord_x %> <%= post.coord_y %> <%= post.coord_z %>">Copiar</button>
+    </section>
+  <% } %>
+
+  <!-- VOLTAR -->
+  <footer class="post-footer">
+    <a href="/<%= secao.slug %>" class="btn-back">← Voltar para <%= secao.nome %></a>
+  </footer>
+
+</article>
+

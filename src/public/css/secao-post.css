@@ -1,1 +1,240 @@
-/* CSS específico para secao/post.ejs */\n\n/* Estilos para visualização única de post */\n\n/* Adicione estilos aqui */
+/* ========================================================
+   SECAO-POST.CSS - Leitura e Detalhes do Post (Premium)
+======================================================== */
+
+.post-detail-page {
+  max-width: 800px; /* Largura ideal para leitura de textos longos */
+  margin: 0 auto;
+  padding: 60px 20px 100px;
+}
+
+/* ================= CABEÇALHO DO POST ================= */
+.post-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.post-category {
+  display: inline-block;
+  background: rgba(67, 181, 129, 0.15);
+  color: var(--green);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 16px;
+  border: 1px solid rgba(67, 181, 129, 0.3);
+}
+
+.post-title {
+  font-family: "Minecraft", Arial, sans-serif;
+  color: var(--text);
+  font-size: 48px;
+  line-height: 1.2;
+}
+
+/* ================= IMAGEM E DESCRIÇÃO PRINCIPAL ================= */
+.post-record {
+  margin-bottom: 48px;
+}
+
+.post-main-img {
+  width: 100%;
+  height: auto;
+  max-height: 500px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.post-record-text {
+  background: var(--bg-card);
+  padding: 24px;
+  border-radius: 0 0 12px 12px;
+  margin-top: -12px; /* Junta o texto com a imagem de cima */
+  border: 1px solid var(--border);
+  border-top: none;
+  color: var(--text-muted);
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+/* ================= CONTEÚDO LIVRE (TEXTO) ================= */
+.post-body {
+  font-size: 18px;
+  line-height: 1.8;
+  color: var(--text);
+  margin-bottom: 48px;
+}
+
+.post-body p {
+  margin-bottom: 20px;
+}
+
+.post-body strong {
+  color: #fff;
+}
+
+/* ================= TÍTULOS DE SEÇÕES ================= */
+.section-subtitle {
+  font-family: "Minecraft", Arial, sans-serif;
+  color: var(--text);
+  font-size: 24px;
+  margin-bottom: 24px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.05);
+  padding-bottom: 12px;
+}
+
+/* ================= GALERIA DE IMAGENS ================= */
+.post-gallery {
+  margin-bottom: 48px;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.gallery-item {
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  aspect-ratio: 16 / 9; /* Mantém todas as imagens no mesmo padrão retangular */
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.1);
+  filter: brightness(1.1);
+}
+
+/* ================= VÍDEO DO YOUTUBE ================= */
+.post-video {
+  margin-bottom: 48px;
+}
+
+.video-wrapper {
+  position: relative;
+  padding-bottom: 56.25%; /* Proporção 16:9 perfeita para vídeos */
+  height: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* ================= COORDENADAS (HUD PREMIUM) ================= */
+.post-coords {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--green);
+  padding: 24px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 48px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.coords-info strong {
+  display: block;
+  font-size: 16px;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.coords-values {
+  display: flex;
+  gap: 16px;
+  font-family: "Minecraft", Arial, sans-serif;
+  font-size: 20px;
+  color: #fff;
+  margin-bottom: 12px;
+}
+
+/* Cores das Dimensões */
+.dim-badge {
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 6px;
+  letter-spacing: 0.5px;
+}
+
+.dim-badge.overworld { background: rgba(67, 181, 129, 0.15); color: var(--green); border: 1px solid rgba(67, 181, 129, 0.3); }
+.dim-badge.nether { background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); }
+.dim-badge.end { background: rgba(168, 85, 247, 0.15); color: #a855f7; border: 1px solid rgba(168, 85, 247, 0.3); }
+
+/* Botão de Copiar */
+.copy-coords {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 12px 24px;
+  font-family: "Minecraft", Arial, sans-serif;
+  font-size: 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.copy-coords:hover {
+  background: var(--green);
+  color: #000;
+  border-color: var(--green);
+}
+
+/* ================= RODAPÉ / VOLTAR ================= */
+.post-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding-top: 24px;
+  text-align: center;
+}
+
+.btn-back {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 16px;
+  transition: color 0.2s ease;
+}
+
+.btn-back:hover {
+  color: var(--green);
+}
+
+/* Animação Reveal (Fade In) */
+.reveal {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsividade Básica */
+@media (max-width: 600px) {
+  .post-coords { flex-direction: column; align-items: flex-start; gap: 20px; }
+  .copy-coords { width: 100%; }
+}

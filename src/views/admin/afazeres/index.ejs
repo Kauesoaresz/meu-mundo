@@ -8,60 +8,77 @@
   <link rel="stylesheet" href="/css/admin-afazeres.css">
 </head>
 <body>
-<div class="admin-afazeres-header">
-  <h2>📋 Afazeres</h2>
-
-  <form method="POST" action="/admin/afazeres" class="admin-afazeres-form">
-    <input type="text" name="titulo" placeholder="Novo afazer" required>
-    <select name="prioridade">
-      <option value="baixa">Baixa</option>
-      <option value="media" selected>Média</option>
-      <option value="alta">Alta</option>
-    </select>
-    <button class="btn btn-primary">Adicionar</button>
-  </form>
-</div>
-
-<div class="admin-afazeres-list">
-
-  <% afazeres.forEach(a => { %>
-    <div class="admin-afazer-item <%= a.status === 'concluido' ? 'concluido' : '' %>">
-
-      <div class="admin-afazer-status <%= a.status %>">
-        <%= a.status === "concluido"
-          ? "Concluído"
-          : a.status === "em_obra"
-          ? "Em obra"
-          : "Não iniciado" %>
-      </div>
-
-      <div class="admin-afazer-content">
-        <strong><%= a.titulo %></strong>
-        <% if (a.descricao) { %>
-          <p><%= a.descricao %></p>
-        <% } %>
-      </div>
-
-      <div class="admin-afazer-priority <%= a.prioridade %>">
-        <%= a.prioridade.toUpperCase() %>
-      </div>
-
-      <div class="admin-afazer-actions">
-        <select data-id="<%= a.id %>" class="status-select">
-          <option value="nao_iniciado" <%= a.status==="nao_iniciado"?"selected":"" %>>Não iniciado</option>
-          <option value="em_obra" <%= a.status==="em_obra"?"selected":"" %>>Em obra</option>
-          <option value="concluido" <%= a.status==="concluido"?"selected":"" %>>Concluído</option>
-        </select>
-      </div>
-
-      <a href="/admin/afazeres/<%= a.id %>/editar" class="btn btn-sm">
-  Editar
-</a>
-
-    </div>
-  <% }) %>
+<div class="admin-page-wrapper">
   
-  
+  <header class="dashboard-header">
+    <h2 class="admin-title">📋 Gerenciar Afazeres</h2>
+    <p class="admin-description">Adicione novas tarefas, mude prioridades e acompanhe o progresso.</p>
+  </header>
+
+  <!-- BARRA DE ADIÇÃO RÁPIDA -->
+  <div class="admin-card form-section reveal-1" style="padding: 24px; margin-bottom: 40px;">
+    <form method="POST" action="/admin/afazeres" class="quick-add-form">
+      <div class="quick-input-wrapper">
+        <input type="text" name="titulo" placeholder="O que precisa ser feito no mundo?" required class="quick-input">
+      </div>
+      
+      <select name="prioridade" class="quick-select">
+        <option value="baixa">Prioridade: Baixa</option>
+        <option value="media" selected>Prioridade: Média</option>
+        <option value="alta">Prioridade: Alta</option>
+      </select>
+
+      <button class="btn-save quick-btn">+ Adicionar</button>
+    </form>
+  </div>
+
+  <!-- LISTA DE TAREFAS -->
+  <div class="admin-afazeres-list reveal-2">
+    <% if (afazeres.length === 0) { %>
+      <div class="admin-card" style="text-align: center; color: var(--text-muted);">
+        Nenhum afazer cadastrado ainda. Comece adicionando um acima!
+      </div>
+    <% } %>
+
+    <% afazeres.forEach(a => { %>
+      <div class="admin-afazer-item <%= a.status === 'concluido' ? 'concluido' : '' %>">
+
+        <!-- STATUS BADGE -->
+        <div class="admin-afazer-status <%= a.status %>">
+          <%= a.status === "concluido"
+            ? "Concluído"
+            : a.status === "em_obra"
+            ? "Em obra"
+            : "Não iniciado" %>
+        </div>
+
+        <!-- CONTEÚDO PRINCIPAL -->
+        <div class="admin-afazer-content">
+          <strong><%= a.titulo %></strong>
+          <% if (a.descricao) { %>
+            <p><%= a.descricao %></p>
+          <% } %>
+        </div>
+
+        <!-- PRIORIDADE -->
+        <div class="admin-afazer-priority <%= a.prioridade %>">
+          <%= a.prioridade.toUpperCase() %>
+        </div>
+
+        <!-- AÇÕES (MUDAR STATUS E EDITAR) -->
+        <div class="admin-afazer-actions">
+          <select data-id="<%= a.id %>" class="status-select">
+            <option value="nao_iniciado" <%= a.status==="nao_iniciado"?"selected":"" %>>Não iniciado</option>
+            <option value="em_obra" <%= a.status==="em_obra"?"selected":"" %>>Em obra</option>
+            <option value="concluido" <%= a.status==="concluido"?"selected":"" %>>Concluído</option>
+          </select>
+
+          <a href="/admin/afazeres/<%= a.id %>/editar" class="btn-edit">Editar</a>
+        </div>
+
+      </div>
+    <% }) %>
+  </div>
 
 </div>
 </body>

@@ -1,0 +1,202 @@
+/* ========================================================
+   ADMIN-SECOES-FORM.CSS - Criação e Edição de Seções
+======================================================== */
+
+.admin-page-wrapper {
+  max-width: 800px; /* Formulário menor, não precisa ser tão largo */
+  margin: 0 auto;
+}
+
+.dashboard-header {
+  margin-bottom: 40px;
+}
+
+.back-link {
+  display: inline-block;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 16px;
+  transition: all 0.2s ease;
+}
+
+.back-link:hover {
+  color: var(--green);
+  transform: translateX(-4px);
+}
+
+/* ================= CARTÃO DO FORMULÁRIO ================= */
+.form-section {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 40px 32px;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  margin-bottom: 24px;
+  transition: all 0.3s ease;
+}
+
+.form-section:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+}
+
+.section-badge {
+  position: absolute;
+  top: -14px;
+  left: 32px;
+  background: var(--green);
+  color: #000;
+  font-family: "Minecraft", Arial, sans-serif;
+  font-size: 13px;
+  padding: 6px 16px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ================= GRIDS E CAMPOS ================= */
+.admin-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Padrão de 2 colunas */
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+/* Grid especial para os botões menores */
+.admin-grid.triple-grid {
+  grid-template-columns: 100px 1fr 1fr; /* O emoji fica num espaço menorzinho */
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 16px;
+  padding: 14px 16px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.form-group select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2394a3b8%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px top 50%;
+  background-size: 12px auto;
+}
+
+.input-emoji {
+  text-align: center;
+  font-size: 20px !important; /* Emoji um pouco maior */
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(67, 181, 129, 0.15);
+  background: var(--bg-alt);
+}
+
+.helper-text {
+  color: var(--text-muted);
+  font-size: 12px;
+  margin-top: -4px;
+}
+
+/* ================= AÇÕES (SALVAR / CANCELAR) ================= */
+.admin-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.btn-cancel {
+  text-align: center;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 15px;
+  padding: 14px 24px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.btn-cancel:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--border);
+  color: var(--text);
+}
+
+.btn-save {
+  background: var(--green);
+  color: #000;
+  border: none;
+  padding: 16px 32px;
+  font-family: "Minecraft", Arial, sans-serif;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 5px 15px rgba(67, 181, 129, 0.2);
+}
+
+.btn-save:hover {
+  background: #349e6f;
+  transform: scale(1.05) translateY(-2px);
+  box-shadow: 0 10px 25px rgba(67, 181, 129, 0.4);
+}
+
+/* ================= ANIMAÇÕES E RESPONSIVO ================= */
+.reveal-1, .reveal-2, .reveal-3 {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.5s ease forwards;
+}
+
+.reveal-1 { animation-delay: 0.1s; }
+.reveal-2 { animation-delay: 0.2s; }
+.reveal-3 { animation-delay: 0.3s; }
+
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 600px) {
+  .admin-grid, .admin-grid.triple-grid {
+    grid-template-columns: 1fr; /* Quebra tudo pra empilhado no celular */
+  }
+  
+  .admin-actions {
+    flex-direction: column-reverse;
+  }
+  
+  .btn-cancel, .btn-save {
+    width: 100%;
+  }
+}

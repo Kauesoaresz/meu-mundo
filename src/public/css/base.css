@@ -1,57 +1,96 @@
 /* ========================================================
-   BASE.CSS - Fundação, Variáveis e Menu Global
+   BASE.CSS - Fundação Premium (O "Sinistro")
 ======================================================== */
 
-/* ================= FONTES ================= */
+/* ================= 1. FONTES ================= */
 @font-face {
   font-family: "Minecraft";
   src: url("/fonts/minecraft.ttf");
+  font-display: swap; /* Carrega a fonte do sistema antes de baixar a do Minecraft para não dar tela em branco */
 }
 
-/* ================= VARIÁVEIS GLOBAIS ================= */
+/* ================= 2. PALETA DE CORES DEFINITIVA ================= */
 :root {
-  --bg: #0e0e0e;
-  --bg-alt: #141414;
-  --bg-card: #1a1a1a;
-  --green: #62d96b;
-  --green-dark: #2e7d32;
-  --text: #e0e0e0;
-  --text-muted: #9e9e9e;
+  /* Tons de fundo (Inspirado em Obsidiana/Deepslate) */
+  --bg: #0b0c10; 
+  --bg-alt: #15161a;
+  --bg-card: #1f2026;
+  
+  /* Verde Minecraft (Vibrante, mas confortável para leitura) */
+  --green: #43b581; 
+  --green-dark: #2c7a56;
+  
+  /* Textos */
+  --text: #e2e8f0;
+  --text-muted: #94a3b8;
+  
+  /* Detalhes */
+  --border: rgba(255, 255, 255, 0.08);
 }
 
-/* ================= RESET BÁSICO ================= */
+/* ================= 3. RESET E CONFIGURAÇÕES GERAIS ================= */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: Arial, Helvetica, sans-serif;
-  overflow-x: hidden;
+html {
+  scroll-behavior: smooth; /* Rolagem deslizante entre as âncoras do site */
 }
 
-/* ================= HEADER PRINCIPAL ================= */
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased; /* Deixa as fontes mais nítidas e suaves */
+}
+
+/* ================= 4. DETALHES PREMIUM ================= */
+
+/* Cor do texto quando é selecionado com o mouse */
+::selection {
+  background-color: var(--green);
+  color: #000;
+}
+
+/* Barra de rolagem (Scrollbar) customizada */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: #2a2c36;
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--green); /* Acende de verde ao passar o mouse */
+}
+
+/* ================= 5. HEADER (MENU SUPERIOR) ================= */
 .main-header {
   position: fixed;
   top: 0;
+  left: 0;
   width: 100%;
-  height: 64px;
-  background: linear-gradient(
-    to bottom,
-    rgba(0,0,0,0.85),
-    rgba(0,0,0,0.55)
-  );
-  backdrop-filter: blur(6px);
+  height: 72px; /* Um pouco mais alto para respirar melhor */
+  background: rgba(11, 12, 16, 0.92); /* Fundo quase sólido */
+  backdrop-filter: blur(8px); /* Desfoque sutil no que passar por trás */
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
   z-index: 1000;
+  display: flex;
+  align-items: center;
 }
 
 .header-container {
-  max-width: 1300px;
-  height: 100%;
-  margin: auto;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
   padding: 0 24px;
   display: flex;
   align-items: center;
@@ -61,41 +100,46 @@ body {
 /* LOGO */
 .header-logo {
   font-family: "Minecraft", Arial, sans-serif;
-  font-size: 18px;
-  color: #6aff7a;
+  font-size: 22px;
+  color: #fff;
   text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  letter-spacing: 1px;
+}
+
+.header-logo span {
+  color: var(--green);
+}
+
+.header-logo img {
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+}
+
+/* NAVEGAÇÃO E LINKS */
+.header-nav {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.header-logo span {
-  font-weight: bold;
-}
-
-/* NAV */
-.header-nav {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  flex-wrap: wrap;
-}
-
-/* LINKS DO MENU */
 .nav-link {
-  font-family: Arial, sans-serif;
-  font-size: 14px;
-  color: #dcdcdc;
+  color: var(--text-muted);
   text-decoration: none;
-  padding: 8px 12px;
-  border-radius: 8px;
-  background: rgba(255,255,255,0.05);
+  font-size: 15px;
+  font-weight: 500;
+  padding: 8px 14px;
+  border-radius: 6px;
   position: relative;
-  overflow: hidden;
-  transition: all 0.25s ease;
+  transition: color 0.25s ease;
 }
 
-/* Efeito Hover do Menu (Linha verde que cresce) */
+/* Efeito Hover do Link: Texto fica verde e a linha cresce do centro para os lados */
+.nav-link:hover {
+  color: var(--green);
+}
+
 .nav-link::after {
   content: "";
   position: absolute;
@@ -103,8 +147,9 @@ body {
   left: 50%;
   width: 0;
   height: 2px;
-  background: var(--green);
-  transition: all 0.25s ease;
+  background-color: var(--green);
+  transition: width 0.3s ease, left 0.3s ease;
+  border-radius: 2px;
 }
 
 .nav-link:hover::after {
@@ -112,13 +157,8 @@ body {
   left: 0;
 }
 
-.nav-link:hover {
-  background: rgba(106,255,122,0.2);
-  color: #6aff7a;
-}
-
-/* ================= ESPAÇAMENTO GERAL ================= */
-/* Impede que o conteúdo fique escondido atrás do header fixo */
+/* ================= 6. ESPAÇAMENTO DO CONTEÚDO ================= */
+/* Evita que o conteúdo da página fique preso embaixo do menu fixo */
 main {
-  padding-top: 64px;
+  padding-top: 72px;
 }

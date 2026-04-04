@@ -1,1 +1,124 @@
-/* CSS específico para secao/index.ejs */\n\n/* Estilos para grid de posts da seção */\n\n/* Adicione estilos aqui */
+/* ========================================================
+   SECAO-INDEX.CSS - A Galeria da Categoria (Premium)
+======================================================== */
+
+.section-block {
+  padding: 40px 20px 100px; /* Mais espaço na parte inferior */
+}
+
+.section-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ================= TÍTULO DA SEÇÃO EM DESTAQUE ================= */
+.section-title {
+  font-family: "Minecraft", Arial, sans-serif;
+  color: var(--text);
+  font-size: 40px;
+  margin-bottom: 48px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Marcador lateral verde premium ao lado do título */
+.section-title::before {
+  content: "";
+  display: block;
+  width: 8px;
+  height: 40px;
+  background: var(--green);
+  border-radius: 4px;
+}
+
+/* ================= GRADE DE POSTS ================= */
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 32px;
+}
+
+/* ================= CARDS DOS POSTS ================= */
+.post-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  text-decoration: none;
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.post-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(67, 181, 129, 0.5); /* Borda acende em verde */
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+}
+
+/* Divisão do topo do card com overflow hidden para segurar o zoom da thumb */
+.post-card-img-wrapper {
+  overflow: hidden;
+  border-radius: 16px 16px 0 0;
+}
+
+.post-thumb {
+  height: 220px;
+  background-size: cover;
+  background-position: center;
+  border-bottom: 1px solid var(--border);
+  transition: transform 0.5s ease, filter 0.3s ease;
+}
+
+.post-card:hover .post-thumb {
+  transform: scale(1.08); /* Efeito Premium: Imagem cresce sem sair do card */
+  filter: brightness(1.1);
+}
+
+.post-info {
+  padding: 24px;
+  background: var(--bg-card);
+  border-radius: 0 0 16px 16px;
+  position: relative;
+  z-index: 2;
+  flex: 1; /* Faz o texto preencher o espaço se um título for maior que o outro */
+}
+
+.post-info h3 {
+  font-size: 22px;
+  margin-bottom: 12px;
+  color: var(--green);
+  line-height: 1.3;
+}
+
+.post-info p {
+  font-size: 15px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* ================= ANIMAÇÃO REVEAL (Entrada Suave) ================= */
+/* Já que seu HTML usa a classe .reveal, o CSS cuida do fade in */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeUp 0.6s ease forwards;
+}
+
+/* Stagger simples para os cards não aparecerem todos de uma vez só */
+.posts-grid .post-card:nth-child(1) { animation-delay: 0.1s; }
+.posts-grid .post-card:nth-child(2) { animation-delay: 0.2s; }
+.posts-grid .post-card:nth-child(3) { animation-delay: 0.3s; }
+.posts-grid .post-card:nth-child(4) { animation-delay: 0.4s; }
+.posts-grid .post-card:nth-child(5) { animation-delay: 0.5s; }
+.posts-grid .post-card:nth-child(6) { animation-delay: 0.6s; }
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -8,70 +8,94 @@
   <link rel="stylesheet" href="/css/admin-secoes-form.css">
 </head>
 <body>
-<h2 class="admin-title">
-  <%= secao ? "✏️ Editar Seção" : "➕ Nova Seção" %>
-</h2>
+<div class="admin-page-wrapper">
+  
+  <header class="dashboard-header reveal-1">
+    <a href="/admin/secoes" class="back-link">← Voltar para Seções</a>
+    <h2 class="admin-title">
+      <%= secao ? "✏️ Editar Seção" : "➕ Nova Seção" %>
+    </h2>
+    <p class="admin-description">Defina como esta categoria aparecerá no menu do seu site e na página inicial.</p>
+  </header>
 
-<div class="admin-card">
   <form
-    class="admin-form"
+    class="admin-form reveal-2"
     method="POST"
     action="<%= secao ? `/admin/secoes/${secao.id}/editar` : '/admin/secoes' %>"
   >
+    
+    <div class="form-section">
+      <h3 class="section-badge">Configurações da Seção</h3>
 
-    <label>Nome da Seção</label>
-    <input
-      type="text"
-      name="nome"
-      value="<%= secao ? secao.nome : "" %>"
-      required
-    >
+      <!-- Primeira Linha: Textos Maiores -->
+      <div class="admin-grid">
+        <div class="form-group">
+          <label>Nome da Seção</label>
+          <input
+            type="text"
+            name="nome"
+            value="<%= secao ? secao.nome : "" %>"
+            placeholder="Ex: Construções"
+            required
+          >
+        </div>
 
-    <label>Slug</label>
-    <input
-      type="text"
-      name="slug"
-      value="<%= secao ? secao.slug : "" %>"
-      required
-    >
+        <div class="form-group">
+          <label>Slug (URL)</label>
+          <input
+            type="text"
+            name="slug"
+            value="<%= secao ? secao.slug : "" %>"
+            placeholder="Ex: construcoes"
+            required
+          >
+          <small class="helper-text">Como aparecerá no link: seudominio.com/slug</small>
+        </div>
+      </div>
 
-    <label>Ícone</label>
-    <input
-      type="text"
-      name="icone"
-      value="<%= secao ? secao.icone : "" %>"
-      placeholder="🧱"
-    >
+      <!-- Segunda Linha: Controles Menores -->
+      <div class="admin-grid triple-grid">
+        <div class="form-group">
+          <label>Ícone (Emoji)</label>
+          <input
+            type="text"
+            name="icone"
+            value="<%= secao ? secao.icone : "" %>"
+            placeholder="Ex: 🧱"
+            class="input-emoji"
+          >
+        </div>
 
-    <label>Ordem (menu)</label>
-    <input
-      type="number"
-      name="ordem"
-      value="<%= secao ? secao.ordem : 0 %>"
-      min="0"
-    >
+        <div class="form-group">
+          <label>Ordem (Menu)</label>
+          <input
+            type="number"
+            name="ordem"
+            value="<%= secao ? secao.ordem : 0 %>"
+            min="0"
+          >
+          <small class="helper-text">0 aparece primeiro na lista</small>
+        </div>
 
-    <label>Status</label>
-    <select name="ativa">
-      <option value="1" <%= secao && secao.ativa ? "selected" : "" %>>
-        Ativa
-      </option>
-      <option value="0" <%= secao && !secao.ativa ? "selected" : "" %>>
-        Inativa
-      </option>
-    </select>
+        <div class="form-group">
+          <label>Status</label>
+          <select name="ativa">
+            <option value="1" <%= secao && secao.ativa ? "selected" : "" %>>✅ Ativa (Visível)</option>
+            <option value="0" <%= secao && !secao.ativa ? "selected" : "" %>>🚫 Inativa (Oculta)</option>
+          </select>
+        </div>
+      </div>
 
-    <div class="admin-actions">
-      <button type="submit" class="btn btn-primary">
-        Salvar
-      </button>
+    </div>
 
-      <a href="/admin/secoes" class="btn">
-        Cancelar
-      </a>
+    <!-- AÇÕES -->
+    <div class="admin-actions reveal-3">
+      <a href="/admin/secoes" class="btn-cancel">Cancelar</a>
+      <button type="submit" class="btn-save">💾 Salvar Seção</button>
     </div>
 
   </form>
+
 </div>
 </body>
 </html>

@@ -8,41 +8,67 @@
   <link rel="stylesheet" href="/css/admin-afazeres-editar.css">
 </head>
 <body>
-<div class="admin-afazeres-header">
-  <h2>✏️ Editar Afazer</h2>
+<div class="admin-page-wrapper">
+  
+  <header class="dashboard-header">
+    <a href="/admin/afazeres" class="back-link">← Voltar para Afazeres</a>
+    <h2 class="admin-title">✏️ Editar Afazer</h2>
+    <p class="admin-description">Atualize os detalhes, mude a prioridade ou o status desta missão.</p>
+  </header>
+
+  <form method="POST" action="/admin/afazeres/<%= afazer.id %>/atualizar" class="admin-form">
+    
+    <div class="admin-card form-section reveal-1">
+      
+      <div class="form-group">
+        <label>Título do Afazer</label>
+        <input
+          type="text"
+          name="titulo"
+          value="<%= afazer.titulo %>"
+          required
+        >
+      </div>
+
+      <div class="form-group">
+        <label>Descrição</label>
+        <textarea
+          name="descricao"
+          rows="4"
+          placeholder="Adicione detalhes, coordenadas ou ideias sobre essa tarefa..."
+        ><%= afazer.descricao || "" %></textarea>
+      </div>
+
+      <div class="admin-grid">
+        <div class="form-group">
+          <label>Prioridade</label>
+          <select name="prioridade">
+            <option value="baixa" <%= afazer.prioridade==="baixa"?"selected":"" %>>Baixa</option>
+            <option value="media" <%= afazer.prioridade==="media"?"selected":"" %>>Média</option>
+            <option value="alta" <%= afazer.prioridade==="alta"?"selected":"" %>>Alta</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Status Atual</label>
+          <select name="status">
+            <option value="nao_iniciado" <%= afazer.status==="nao_iniciado"?"selected":"" %>>Não iniciado</option>
+            <option value="em_obra" <%= afazer.status==="em_obra"?"selected":"" %>>Em obra</option>
+            <option value="concluido" <%= afazer.status==="concluido"?"selected":"" %>>Concluído</option>
+          </select>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- AÇÕES -->
+    <div class="admin-actions reveal-2">
+      <a href="/admin/afazeres" class="btn-cancel">Cancelar</a>
+      <button type="submit" class="btn-save">💾 Salvar Alterações</button>
+    </div>
+
+  </form>
+
 </div>
-
-<form method="POST" action="/admin/afazeres/<%= afazer.id %>/atualizar" class="admin-afazeres-form">
-
-  <input
-    type="text"
-    name="titulo"
-    value="<%= afazer.titulo %>"
-    required
-  >
-
-  <textarea
-    name="descricao"
-    placeholder="Descrição"
-  ><%= afazer.descricao || "" %></textarea>
-
-  <select name="prioridade">
-    <option value="baixa" <%= afazer.prioridade==="baixa"?"selected":"" %>>Baixa</option>
-    <option value="media" <%= afazer.prioridade==="media"?"selected":"" %>>Média</option>
-    <option value="alta" <%= afazer.prioridade==="alta"?"selected":"" %>>Alta</option>
-  </select>
-
-  <select name="status">
-    <option value="nao_iniciado" <%= afazer.status==="nao_iniciado"?"selected":"" %>>Não iniciado</option>
-    <option value="em_obra" <%= afazer.status==="em_obra"?"selected":"" %>>Em obra</option>
-    <option value="concluido" <%= afazer.status==="concluido"?"selected":"" %>>Concluído</option>
-  </select>
-
-  <div style="display:flex; gap:10px;">
-    <button class="btn btn-primary">Salvar</button>
-    <a href="/admin/afazeres" class="btn btn-secondary">Cancelar</a>
-  </div>
-
-</form>
 </body>
 </html>

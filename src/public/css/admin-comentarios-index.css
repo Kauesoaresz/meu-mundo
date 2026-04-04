@@ -1,2 +1,201 @@
-/* CSS específico para admin/comentarios/index.ejs */
-.admin-comentarios-index { /* estilos */ }
+/* ========================================================
+   ADMIN-COMENTARIOS-INDEX.CSS - Tabela Premium
+======================================================== */
+
+.admin-page-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.dashboard-header {
+  margin-bottom: 32px;
+}
+
+/* ================= TABELA PREMIUM (ESTILO CARDS) ================= */
+.admin-table-container {
+  width: 100%;
+  overflow-x: auto; /* Permite rolar pro lado em telas muito pequenas */
+}
+
+.premium-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 16px; /* Cria o espaço entre as linhas (efeito card) */
+  margin-top: -16px;
+}
+
+/* Cabeçalho da Tabela */
+.premium-table th {
+  color: var(--text-muted);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 0 24px 8px;
+  text-align: left;
+  font-weight: bold;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Linhas da Tabela (Cards) */
+.premium-table tbody tr {
+  background: var(--bg-card);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.premium-table tbody tr:hover {
+  transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.02);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+/* Células e Bordas Arredondadas */
+.premium-table td {
+  padding: 24px;
+  vertical-align: middle;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  font-size: 15px;
+  color: var(--text);
+}
+
+.premium-table td:first-child {
+  border-left: 1px solid var(--border);
+  border-radius: 12px 0 0 12px;
+}
+
+.premium-table td:last-child {
+  border-right: 1px solid var(--border);
+  border-radius: 0 12px 12px 0;
+}
+
+/* Destaque para Comentários Pendentes (Barra Laranja) */
+.premium-table tbody tr.status-pendente td:first-child {
+  border-left: 4px solid #f59e0b; /* Laranja Premium */
+}
+
+/* ================= COLUNAS ESPECÍFICAS ================= */
+.col-autor strong {
+  color: #fff;
+  font-size: 16px;
+}
+
+/* Limita o texto do comentário para não quebrar a tabela */
+.col-comentario {
+  width: 40%;
+}
+
+.comentario-text {
+  color: var(--text-muted);
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Mostra no máximo 2 linhas */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.col-data {
+  color: var(--text-muted);
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+/* ================= BADGES DE STATUS ================= */
+.badge {
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 6px 12px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.badge-success {
+  background: rgba(67, 181, 129, 0.15);
+  color: var(--green);
+  border: 1px solid rgba(67, 181, 129, 0.3);
+}
+
+.badge-warning {
+  background: rgba(245, 158, 11, 0.15);
+  color: #f59e0b;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+/* ================= BOTÕES DE AÇÃO ================= */
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-action {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  padding: 8px 16px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* Hovers Específicos por Ação */
+.btn-approve:hover {
+  background: var(--green);
+  color: #000;
+  border-color: var(--green);
+}
+
+.btn-reject:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border-color: #fff;
+}
+
+.btn-delete:hover {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+  border-color: rgba(239, 68, 68, 0.5);
+}
+
+/* ================= EMPTY STATE (ESTADO VAZIO) ================= */
+.empty-state {
+  background: var(--bg-card);
+  border: 1px dashed var(--border);
+  border-radius: 16px;
+  padding: 60px 20px;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.empty-icon {
+  font-size: 48px;
+  display: block;
+  margin-bottom: 16px;
+  opacity: 0.8;
+}
+
+/* ================= ANIMAÇÕES DE ENTRADA ================= */
+.reveal-1, .reveal-2 {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.5s ease forwards;
+}
+
+.reveal-1 { animation-delay: 0.1s; }
+.reveal-2 { animation-delay: 0.2s; }
+
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ================= RESPONSIVO ================= */
+@media (max-width: 900px) {
+  .premium-table th, .premium-table td {
+    padding: 16px;
+  }
+  .col-comentario { width: auto; }
+}

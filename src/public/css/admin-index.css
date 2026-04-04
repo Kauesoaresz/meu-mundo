@@ -1,1 +1,215 @@
-/* CSS específico para admin/index.ejs (dashboard) */\n\n/* Adicione estilos aqui */
+/* ========================================================
+   ADMIN-INDEX.CSS - O Centro de Comando (Cinematográfico)
+======================================================== */
+
+.admin-dashboard {
+  animation: fadeUp 0.6s ease-out forwards;
+}
+
+/* ================= CABEÇALHO DO DASHBOARD ================= */
+.dashboard-header {
+  margin-bottom: 48px;
+}
+
+.admin-title {
+  font-family: "Minecraft", Arial, sans-serif;
+  font-size: 36px;
+  color: var(--text);
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+  text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+
+.admin-description {
+  color: var(--text-muted);
+  font-size: 16px;
+}
+
+/* ================= GRADE DE CARTÕES (CARDS) ================= */
+.admin-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+  margin-bottom: 48px;
+}
+
+.admin-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px 24px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  
+  /* Estado inicial para animação em cascata */
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.5s ease forwards;
+}
+
+/* Animação em Cascata dos Cards */
+.admin-grid .admin-card:nth-child(1) { animation-delay: 0.1s; }
+.admin-grid .admin-card:nth-child(2) { animation-delay: 0.2s; }
+.admin-grid .admin-card:nth-child(3) { animation-delay: 0.3s; }
+.admin-grid .admin-card:nth-child(4) { animation-delay: 0.4s; }
+
+/* Foco de luz sutil no topo do card ao passar o mouse */
+.admin-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: radial-gradient(circle at top, rgba(67, 181, 129, 0.1), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 0;
+}
+
+.admin-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(67, 181, 129, 0.4);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+}
+
+.admin-card:hover::before {
+  opacity: 1;
+}
+
+/* Conteúdo dos Cards */
+.admin-card > * {
+  position: relative;
+  z-index: 2; /* Fica acima do efeito de luz */
+}
+
+.admin-card h3 {
+  font-family: "Minecraft", Arial, sans-serif;
+  font-size: 20px;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+
+.card-subtext {
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+.card-number {
+  font-family: "Minecraft", Arial, sans-serif;
+  font-size: 56px;
+  color: var(--green);
+  margin: 10px 0 24px;
+  text-shadow: 0 0 20px rgba(67, 181, 129, 0.3); /* Brilho neon nos números */
+  line-height: 1;
+}
+
+.spacer { flex-grow: 1; } /* Força o botão de afazeres para baixo */
+
+
+/* ================= BOTÕES DO DASHBOARD ================= */
+.btn-dashboard {
+  display: block;
+  width: 100%;
+  background: transparent;
+  color: var(--green);
+  border: 1px solid var(--green);
+  padding: 12px;
+  font-family: "Minecraft", Arial, sans-serif;
+  font-size: 13px;
+  text-transform: uppercase;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  margin-top: auto; /* Joga pro fundo se houver flex vazio */
+}
+
+.btn-dashboard:hover {
+  background: var(--green);
+  color: #000;
+  transform: scale(1.05);
+  box-shadow: 0 5px 20px rgba(67, 181, 129, 0.3);
+}
+
+
+/* ================= BANNER: ÚLTIMO POST ================= */
+.admin-section {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--green);
+  padding: 32px 40px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
+  
+  /* Entra por último na animação */
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.5s ease forwards;
+  animation-delay: 0.5s;
+}
+
+.admin-section:hover {
+  background: rgba(255, 255, 255, 0.02);
+  border-color: rgba(67, 181, 129, 0.4);
+}
+
+.section-info h3 {
+  font-family: "Minecraft", Arial, sans-serif;
+  color: var(--text-muted);
+  font-size: 16px;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.section-info p {
+  font-size: 20px;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.section-date {
+  font-size: 13px;
+  color: var(--green);
+  background: rgba(67, 181, 129, 0.1);
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.btn-dashboard.alt {
+  width: auto;
+  min-width: 160px;
+  text-align: center;
+  background: var(--green);
+  color: #000;
+}
+
+.btn-dashboard.alt:hover {
+  background: #349e6f;
+  border-color: #349e6f;
+}
+
+
+/* ================= ANIMAÇÃO BASE E RESPONSIVIDADE ================= */
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+  .admin-section {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    padding: 24px;
+  }
+  .btn-dashboard.alt {
+    width: 100%;
+  }
+}
