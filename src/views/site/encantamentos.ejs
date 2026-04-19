@@ -1,0 +1,90 @@
+<link rel="stylesheet" href="/css/site-encantamentos.css">
+
+<div class="grimorio-body">
+  <div class="particulas" id="particulas"></div>
+
+  <header class="grimorio-header">
+    <h1>✨ Grimório de Encantamentos ✨</h1>
+    <p>O conhecimento absoluto para dominar o Mundo</p>
+    
+    <div class="xp-container">
+      <div class="xp-bar" style="width: <%= progresso %>%;"></div>
+      <div class="xp-text">Nível de Completude: <%= progresso %>%</div>
+    </div>
+  </header>
+
+  <div class="grimorio-grid">
+    
+    <div class="grimorio-categoria">
+      <h2>🛡️ Arsenal de Defesa</h2>
+      <% armadura.forEach(enc => { %>
+        <div class="livro-encantamento <%= enc.conquistado ? 'livro-conquistado' : 'livro-falta' %>">
+          <div>
+            <h3>
+              <%= enc.nome %> 
+              <%= enc.nivel_maximo > 1 ? ['I', 'II', 'III', 'IV', 'V'][enc.nivel_maximo - 1] : '' %>
+            </h3>
+          </div>
+          <div>
+            <%= enc.conquistado ? '✨ Obtido' : '🔒 Faltando' %>
+          </div>
+        </div>
+      <% }) %>
+      <% if(armadura.length === 0) { %><p style="text-align: center; color: #64748b;">Vazio...</p><% } %>
+    </div>
+
+    <div class="grimorio-categoria">
+      <h2>⛏️ Artefatos de Coleta</h2>
+      <% ferramentas.forEach(enc => { %>
+        <div class="livro-encantamento <%= enc.conquistado ? 'livro-conquistado' : 'livro-falta' %>">
+          <div>
+            <h3>
+              <%= enc.nome %> 
+              <%= enc.nivel_maximo > 1 ? ['I', 'II', 'III', 'IV', 'V'][enc.nivel_maximo - 1] : '' %>
+            </h3>
+          </div>
+          <div>
+            <%= enc.conquistado ? '✨ Obtido' : '🔒 Faltando' %>
+          </div>
+        </div>
+      <% }) %>
+      <% if(ferramentas.length === 0) { %><p style="text-align: center; color: #64748b;">Vazio...</p><% } %>
+    </div>
+
+    <div class="grimorio-categoria">
+      <h2>⚔️ Relíquias de Combate</h2>
+      <% armas.forEach(enc => { %>
+        <div class="livro-encantamento <%= enc.conquistado ? 'livro-conquistado' : 'livro-falta' %>">
+          <div>
+            <h3>
+              <%= enc.nome %> 
+              <%= enc.nivel_maximo > 1 ? ['I', 'II', 'III', 'IV', 'V'][enc.nivel_maximo - 1] : '' %>
+            </h3>
+          </div>
+          <div>
+            <%= enc.conquistado ? '✨ Obtido' : '🔒 Faltando' %>
+          </div>
+        </div>
+      <% }) %>
+      <% if(armas.length === 0) { %><p style="text-align: center; color: #64748b;">Vazio...</p><% } %>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // Cria animação de runas do Minecraft flutuando (Alfabeto Galáctico fake)
+  const container = document.getElementById('particulas');
+  const runas = ['ᔑ', 'ʖ', 'ᓵ', '↸', 'ᒷ', '⎓', '⊣', '⍑', '╎', '⋮', 'ꖌ', 'ꖎ', 'ᒲ'];
+  
+  for (let i = 0; i < 25; i++) {
+    let span = document.createElement('span');
+    span.classList.add('runa');
+    span.innerText = runas[Math.floor(Math.random() * runas.length)];
+    span.style.left = Math.random() * 100 + 'vw';
+    span.style.animationDuration = (Math.random() * 5 + 5) + 's';
+    span.style.animationDelay = (Math.random() * 5) + 's';
+    span.style.fontSize = (Math.random() * 1.5 + 1) + 'rem';
+    container.appendChild(span);
+  }
+</script>

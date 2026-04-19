@@ -18,6 +18,7 @@ require("./models/PostImagem");
 require("./models/Afazer");
 require("./models/Comentario");
 require("./models/Usuario");
+require("./models/Encantamento"); // 🔥 ADICIONADO: Model de Encantamentos
 
 /* ===========================
     APP CONFIG
@@ -90,22 +91,26 @@ const adminAfazeresRoutes = require("./routes/adminAfazeres");
 const afazeresRoutes = require("./routes/afazeres");
 const comentariosRoutes = require("./routes/comentarios");
 const adminComentariosRoutes = require("./routes/adminComentarios");
+const adminEncantamentosRoutes = require("./routes/adminEncantamentos"); // 🔥 ADICIONADO: Rotas de Encantamentos
+const encantamentosRoutes = require("./routes/encantamentos");
 
 app.use("/admin/afazeres", adminAfazeresRoutes);
+app.use("/admin/encantamentos", adminEncantamentosRoutes); // 🔥 ADICIONADO: Prefixo da rota
+app.use("/encantamentos", encantamentosRoutes);
 app.use("/afazeres", afazeresRoutes);
 app.use("/comentarios", comentariosRoutes);
 app.use("/admin/comentarios", adminComentariosRoutes);
 app.use("/", routes);
 
+
 /* ===========================
     INICIALIZAÇÃO (MODO LOCAL SEGURO)
 =========================== */
-// Mudamos de .sync({ alter: true }) para .authenticate() 
-// para evitar o erro de "Duplicate column"
+// 🔥 ADICIONADO: .sync({ alter: true }) temporariamente para criar a tabela de encantamentos
 sequelize
-  .authenticate() 
+  .sync({ alter: true }) 
   .then(() => {
-    console.log("🟢 MySQL Local: Conectado com sucesso!");
+    console.log("🟢 MySQL Local: Conectado e Sincronizado com sucesso!");
     
     const PORT = process.env.PORT || 3000;
     app.listen(PORT, () => {

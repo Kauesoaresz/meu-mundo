@@ -5,10 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= titulo || "Meu Mundo" %></title>
 
-  <!-- 1. A FUNDAÇÃO (Variáveis globais, Reset e estilo do Menu) -->
   <link rel="stylesheet" href="/css/base.css">
 
-  <!-- 2. CSS DINÂMICO (Exclusivo da view que está sendo aberta) -->
   <% if (typeof cssFiles !== 'undefined' && Array.isArray(cssFiles)) { %>
     <% cssFiles.forEach(function(css) { %>
       <link rel="stylesheet" href="/css/<%= css %>">
@@ -17,7 +15,6 @@
 </head>
 <body>
   
-  <!-- MENU SUPERIOR GLOBAL (Aparece em todas as páginas públicas) -->
   <header class="main-header">
     <div class="header-container">
       <a href="/" class="header-logo">
@@ -26,24 +23,21 @@
       </a>
 
       <nav class="header-nav">
-        <!-- Link fixo da Home -->
         <a href="/" class="nav-link">Início</a>
 
-        <!-- Links dinâmicos vindos do Banco de Dados -->
         <% if (typeof secoes !== 'undefined' && secoes.length > 0) { %>
           <% secoes.forEach(secao => { %>
             <a href="/<%= secao.slug %>" class="nav-link"><%= secao.nome %></a>
           <% }) %>
         <% } %>
 
-        <!-- Outros links fixos -->
         <a href="/afazeres" class="nav-link">Afazeres</a>
+        <a href="/encantamentos" class="nav-link">Encantamentos</a> 
         <a href="/comentarios" class="nav-link">Comentários</a>
       </nav>
     </div>
   </header>
 
-  <!-- O CONTEÚDO DA VIEW É INJETADO AQUI -->
   <main>
     <%- body %>
   </main>

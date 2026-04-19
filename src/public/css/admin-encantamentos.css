@@ -1,0 +1,149 @@
+/* Container Principal */
+.admin-encantamentos-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: sans-serif;
+  color: #e2e8f0; /* Texto claro padrão */
+}
+
+/* Formulário de Adição (Dark) */
+.encantamento-form-card {
+  background: #1e293b; /* Fundo escuro leve */
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #334155; /* Borda sutil */
+  margin-bottom: 30px;
+  display: flex;
+  gap: 15px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 150px;
+}
+
+.form-group label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+  color: #cbd5e1; /* Texto secundário */
+}
+
+/* Inputs e Selects adaptados pro escuro */
+.form-group input, .form-group select {
+  padding: 10px;
+  background-color: #0f172a; /* Fundo do input mais escuro */
+  color: #f8fafc;
+  border: 1px solid #475569;
+  border-radius: 4px;
+}
+
+.form-group input:focus, .form-group select:focus {
+  outline: none;
+  border-color: #3b82f6; /* Destaque azul ao clicar */
+}
+
+.btn-add {
+  padding: 10px 20px;
+  background-color: #3b82f6; /* Azul moderno */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  height: 40px;
+  transition: background 0.2s;
+}
+
+.btn-add:hover {
+  background-color: #2563eb;
+}
+
+/* Grid de Categorias (As 3 Colunas) */
+.encantamentos-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 900px) {
+  .encantamentos-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.categoria-coluna {
+  background: #1e293b; /* Mesmo fundo do formulário */
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #334155;
+  border-top: 4px solid #475569;
+}
+
+.categoria-coluna h2 {
+  text-align: center;
+  margin-bottom: 15px;
+  color: #f8fafc;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+}
+
+/* Cards de Encantamentos */
+.encantamento-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  background: #0f172a; /* Fundo de destaque escuro */
+  transition: all 0.2s;
+}
+
+.encantamento-info h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.encantamento-info span {
+  font-size: 0.8rem;
+  color: #94a3b8;
+}
+
+/* 🔥 Cores de Status (Adaptadas para Dark Mode) 🔥 */
+.status-conquistado {
+  border-left: 5px solid #10b981; /* Borda verde esmeralda grossa */
+  background: rgba(16, 185, 129, 0.1); /* Fundo verde translúcido */
+}
+.status-conquistado h3 { color: #34d399; }
+
+.status-falta {
+  border-left: 5px solid #ef4444; /* Borda vermelha grossa */
+  background: rgba(239, 68, 68, 0.1); /* Fundo vermelho translúcido */
+}
+.status-falta h3 { color: #f87171; }
+
+/* Ações */
+.encantamento-acoes {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-toggle, .btn-delete {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  padding: 5px;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.btn-toggle:hover, .btn-delete:hover {
+  background: rgba(255, 255, 255, 0.1); /* Efeito hover sutil */
+}

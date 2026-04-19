@@ -8,7 +8,6 @@
   <link rel="stylesheet" href="/css/admin-index.css">
 </head>
 <body>
-<!-- Centro de Comando (Dashboard) -->
 <div class="admin-dashboard">
   
   <header class="dashboard-header">
@@ -19,7 +18,6 @@
   </header>
 
   <div class="admin-grid">
-    <!-- CARD: MUNDO -->
     <div class="admin-card">
       <h3>🌍 Mundo</h3>
       <p><strong><%= mundo.nome %></strong></p>
@@ -27,7 +25,6 @@
       <a href="/admin/mundo" class="btn-dashboard">Configurações</a>
     </div>
 
-    <!-- CARD: POSTS -->
     <div class="admin-card">
       <h3>🧱 Posts</h3>
       <p class="card-subtext">Total cadastrados</p>
@@ -35,7 +32,6 @@
       <a href="/admin/posts" class="btn-dashboard">Gerenciar Posts</a>
     </div>
 
-    <!-- CARD: SEÇÕES -->
     <div class="admin-card">
       <h3>📂 Seções</h3>
       <p class="card-subtext">Total cadastradas</p>
@@ -43,16 +39,19 @@
       <a href="/admin/secoes" class="btn-dashboard">Gerenciar Seções</a>
     </div>
 
-    <!-- CARD: AFAZERES -->
     <div class="admin-card">
       <h3>✅ Afazeres</h3>
       <p class="card-subtext">Planejamento e progresso do mundo</p>
-      <div class="spacer"></div> <!-- Empurra o botão pro final -->
-      <a href="/admin/afazeres" class="btn-dashboard">Gerenciar Afazeres</a>
+      <div class="spacer"></div> <a href="/admin/afazeres" class="btn-dashboard">Gerenciar Afazeres</a>
+    </div>
+
+    <div class="admin-card">
+      <h3>📚 Encantamentos</h3>
+      <p class="card-subtext">Progresso e metas de encantamentos</p>
+      <div class="spacer"></div> <a href="/admin/encantamentos" class="btn-dashboard">Gerenciar Encantamentos</a>
     </div>
   </div>
 
-  <!-- BANNER: ÚLTIMO POST -->
   <% if (ultimoPost) { %>
     <div class="admin-section">
       <div class="section-info">
