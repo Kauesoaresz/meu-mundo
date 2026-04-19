@@ -18,7 +18,6 @@
 
   <form class="admin-form" method="POST" action="/admin/mundo">
 
-    <!-- BLOCO: IDENTIDADE -->
     <div class="admin-card form-section reveal-1">
       <h3 class="section-badge">Identidade</h3>
 
@@ -44,7 +43,6 @@
       </div>
     </div>
 
-    <!-- BLOCO: JOGO -->
     <div class="admin-card form-section reveal-2">
       <h3 class="section-badge">Jogo</h3>
 
@@ -84,7 +82,6 @@
       </div>
     </div>
 
-    <!-- BLOCO: DIMENSÕES -->
     <div class="admin-card form-section reveal-3">
       <h3 class="section-badge">Dimensões Ativas</h3>
 
@@ -109,7 +106,6 @@
       </div>
     </div>
 
-    <!-- BLOCO: STATUS -->
     <div class="admin-card form-section reveal-4">
       <h3 class="section-badge">Status Atual</h3>
 
@@ -147,16 +143,27 @@
       </div>
     </div>
 
-    <!-- AÇÕES -->
     <div class="admin-actions reveal-5">
       <button type="submit" class="btn-save">
         💾 Salvar Alterações
       </button>
     </div>
 
-  </form>
-</div>
+  </form> <div class="admin-card form-section reveal-6">
+    <h3 class="section-badge">🖼️ Imagem do Hero (Home)</h3>
+    
+    <div class="form-group">
+      <label>Imagem atual: <%= mundo.hero_imagem || "default.jpg" %></label>
+      <img src="<%= mundo.hero_imagem || "/img/hero/default.jpg" %>" 
+           alt="Hero atual" style="max-width: 300px; border-radius: 8px; margin-bottom: 16px;">
+      
+      <form method="POST" action="/admin/mundo/hero" enctype="multipart/form-data" style="margin-top: 16px;">
+        <input type="file" name="hero" accept="image/*" required>
+        <button type="submit" class="btn-save">📤 Atualizar Hero</button>
+      </form>
+    </div>
+  </div>
 
-</form>
+</div>
 </body>
 </html>
