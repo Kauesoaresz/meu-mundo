@@ -71,9 +71,13 @@
     <% equipamentos.forEach(item => { %>
       <div class="arsenal-card" style="background: var(--bg-card); padding: 16px; border-radius: 8px; border: 1px solid var(--border); position: relative;">
         
-        <form action="/admin/arsenal/deletar/<%= item.id %>" method="POST" style="position: absolute; top: 12px; right: 12px;" onsubmit="return confirm('Tem certeza que deseja DELETAR o item <%= item.nome %>?');">
-          <button type="submit" class="btn-delete" title="Excluir Equipamento">🗑️</button>
-        </form>
+        <div style="position: absolute; top: 12px; right: 12px; display: flex; align-items: center; gap: 8px;">
+          <a href="/admin/arsenal/editar/<%= item.id %>" class="btn-delete" title="Editar" style="text-decoration: none; padding-bottom: 2px;">✏️</a>
+          
+          <form action="/admin/arsenal/deletar/<%= item.id %>" method="POST" onsubmit="return confirm('Tem certeza que deseja DELETAR o item <%= item.nome %>?');">
+            <button type="submit" class="btn-delete" title="Excluir">🗑️</button>
+          </form>
+        </div>
 
         <div class="card-topo" style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
           <% if (item.imagem) { %>

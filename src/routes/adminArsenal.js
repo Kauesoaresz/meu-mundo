@@ -27,6 +27,10 @@ const upload = multer({ storage: storage });
 router.get("/", adminArsenalController.index);
 router.post("/adicionar", upload.single("imagem"), adminArsenalController.store);
 
+// 🔥 ADICIONADO: Rotas de Edição
+router.get("/editar/:id", adminArsenalController.edit);
+router.post("/editar/:id", upload.single("imagem"), adminArsenalController.update);
+
 router.post("/deletar/:id", adminArsenalController.deletar);
 
 module.exports = router;

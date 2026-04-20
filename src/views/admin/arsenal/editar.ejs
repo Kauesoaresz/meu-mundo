@@ -1,0 +1,94 @@
+<div class="arsenal-header">
+  <h2>✏️ Editar: <%= equipamento.nome %></h2>
+  <p>Altere os dados ou atualize os encantamentos deste item.</p>
+  <a href="/admin/arsenal" style="color: var(--green); text-decoration: none; font-size: 14px;">← Voltar para o Arsenal</a>
+</div>
+
+<section class="arsenal-form-section" style="background: var(--bg-card); padding: 24px; border-radius: 8px; margin-bottom: 32px;">
+  
+  <form action="/admin/arsenal/editar/<%= equipamento.id %>" method="POST" enctype="multipart/form-data" class="form-grid">
+    
+    <div class="input-group">
+      <label>Nome do Item</label>
+      <input type="text" name="nome" value="<%= equipamento.nome %>" required class="input-dark">
+    </div>
+
+    <div class="input-group">
+      <label>Categoria</label>
+      <select name="categoria" id="select-categoria" class="input-dark" required>
+        <option value="Armadura" <%= equipamento.categoria === 'Armadura' ? 'selected' : '' %>>Armadura</option>
+        <option value="Armas" <%= equipamento.categoria === 'Armas' ? 'selected' : '' %>>Armas</option>
+        <option value="Ferramentas" <%= equipamento.categoria === 'Ferramentas' ? 'selected' : '' %>>Ferramentas</option>
+      </select>
+    </div>
+
+    <div class="input-group">
+      <label>Ordem de exibição (1, 2, 3...)</label>
+      <input type="number" name="ordem" value="<%= equipamento.ordem %>" required class="input-dark">
+    </div>
+
+    <div class="input-group">
+      <label>Imagem (Deixe em branco para manter a atual)</label>
+      <input type="file" name="imagem" accept="image/*" class="input-dark">
+      <% if (equipamento.imagem) { %>
+        <span style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Imagem atual salva. Suba outra apenas se quiser trocar.</span>
+      <% } %>
+    </div>
+
+    <% 
+      const idsObrig = equipamento.obrigatorios.map(e => e.id);
+      const idsOpcionais = equipamento.opcionais.map(e => e.id);
+    %>
+
+    <div style="grid-column: 1 / -1; margin-top: 16px; border-top: 1px solid var(--border); padding-top: 16px;">
+      
+      <label style="display:block; margin-bottom: 8px; color: var(--green);"><b>Encantamentos Obrigatórios:</b></label>
+      <div class="tags-container" style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px;">
+        <% todosEncantamentos.forEach(enc => { %>
+          <label class="encantamento-tag tag-obrigatoria" data-categoria="<%= enc.categoria %>">
+            <input type="checkbox" name="encantamentos_obrigatorios" value="<%= enc.id %>" style="display:none;" <%= idsObrig.includes(enc.id) ? 'checked' : '' %>>
+            <span class="tag-pill"><%= enc.nome %> (Nv. <%= enc.nivel_maximo %>)</span>
+          </label>
+        <% }) %>
+      </div>
+
+      <label style="display:block; margin-bottom: 8px; color: #eab308;"><b>Opcionais / Conflitantes:</b></label>
+      <div class="tags-container" style="display: flex; flex-wrap: wrap; gap: 8px;">
+        <% todosEncantamentos.forEach(enc => { %>
+          <label class="encantamento-tag tag-opcional" data-categoria="<%= enc.categoria %>">
+            <input type="checkbox" name="encantamentos_opcionais" value="<%= enc.id %>" style="display:none;" <%= idsOpcionais.includes(enc.id) ? 'checked' : '' %>>
+            <span class="tag-pill tag-pill-opc"><%= enc.nome %> (Nv. <%= enc.nivel_maximo %>)</span>
+          </label>
+        <% }) %>
+      </div>
+
+    </div>
+
+    <button type="submit" class="btn-submit" style="grid-column: 1 / -1; margin-top: 24px;">Salvar Alterações</button>
+  </form>
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const selectCategoria = document.getElementById("select-categoria");
+    const todasTags = document.querySelectorAll(".encantamento-tag");
+
+    function filtrarTags() {
+      const categoriaSelecionada = selectCategoria.value;
+      
+      todasTags.forEach(tag => {
+        if (tag.getAttribute("data-categoria") === categoriaSelecionada) {
+          tag.style.display = "inline-block";
+        } else {
+          tag.style.display = "none";
+          // Na edição, não desmarcamos automaticamente ao trocar, deixamos o usuário controlar
+        }
+      });
+    }
+
+    if (selectCategoria) {
+      selectCategoria.addEventListener("change", filtrarTags);
+      filtrarTags();
+    }
+  });
+</script>
