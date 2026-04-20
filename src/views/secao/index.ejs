@@ -6,34 +6,61 @@
   <title><%= titulo %></title>
   
   <link rel="stylesheet" href="/css/secao-index.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
-<body>
-<section class="section-block reveal">
-  <div class="section-container">
-    <h2 class="section-title"><%= secao.nome %></h2>
+<body class="mc-theme">
 
-    <div class="posts-grid">
-      <% posts.forEach(post => { %>
-        <a
-          href="/<%= secao.slug %>/post/<%= post.id %>"
-          class="post-card reveal"
+  <div class="ambient-background"></div>
+
+  <main class="dashboard-container">
+    
+    <header class="index-header">
+      <div class="panel-decorator"></div>
+      
+      <div class="header-content">
+        <div class="category-badge">
+          <span class="pulse-dot"></span>
+          DIRETÓRIO ATIVO
+        </div>
+        <h1 class="section-title"><%= secao.nome %></h1>
+        <p class="section-subtitle">Acesso aos registros e logs catalogados nesta seção.</p>
+      </div>
+      
+      <div class="header-stats">
+        <span class="stat-value"><%= posts.length %></span>
+        <span class="stat-label">Registros</span>
+      </div>
+    </header>
+
+    <section class="posts-grid">
+      <% posts.forEach((post, index) => { %>
+        <a 
+          href="/<%= secao.slug %>/post/<%= post.id %>" 
+          class="post-card animate-slide-up"
+          style="animation-delay: <%= index * 0.1 %>s;"
         >
-          <!-- Wrapper adicionado para segurar o zoom (overflow: hidden) -->
           <div class="post-card-img-wrapper">
-            <div
-              class="post-thumb"
+            <div 
+              class="post-thumb" 
               style="background-image:url('<%= post.imagem || "/img/default.jpg" %>')"
             ></div>
+            
+            <div class="img-overlay">
+              <span class="access-btn">
+                ACESSAR REGISTRO
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </span>
+            </div>
           </div>
 
           <div class="post-info">
-            <h3><%= post.titulo %></h3>
-            <p><%= post.descricao %></p>
+            <h3 class="post-title"><%= post.titulo %></h3>
+            <p class="post-desc"><%= post.descricao %></p>
           </div>
         </a>
       <% }) %>
-    </div>
-  </div>
-</section>
+    </section>
+
+  </main>
 </body>
 </html>

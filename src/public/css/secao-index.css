@@ -1,124 +1,231 @@
 /* ========================================================
-   SECAO-INDEX.CSS - A Galeria da Categoria (Premium)
+   SECAO-INDEX.CSS - Diretório Minecraft Premium
 ======================================================== */
 
-.section-block {
-  padding: 40px 20px 100px; /* Mais espaço na parte inferior */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
+:root {
+  /* Paleta Base Minecraft */
+  --bg-base: #0f0f13;
+  --glass-bg: rgba(20, 20, 24, 0.65);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-highlight: rgba(255, 255, 255, 0.04);
+  
+  --mc-emerald: #10b981;
+  --mc-diamond: #38bdf8;
+  --mc-gold: #fbbf24;
+  --mc-amethyst: #a855f7;
+  --mc-xp: #34d399;
+  
+  --emerald-glow: rgba(16, 185, 129, 0.3);
+  --enchant-glow: rgba(168, 85, 247, 0.4);
+  
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  
+  --font-title: 'Minecraft', 'Inter', sans-serif;
+  --font-body: 'Inter', sans-serif;
 }
 
-.section-container {
-  max-width: 1200px;
+body.mc-theme {
+  background-color: var(--bg-base);
+  color: var(--text-main);
+  font-family: var(--font-body);
+  margin: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ================= FUNDO IMERSIVO ================= */
+.ambient-background {
+  position: fixed; inset: 0; z-index: -3; pointer-events: none;
+  background: radial-gradient(circle at 50% 0%, #1a1a24 0%, var(--bg-base) 80%);
+}
+
+/* ================= ESTRUTURA GERAL ================= */
+.dashboard-container {
+  max-width: 1400px;
+  width: 100%; /* Trava adicionada para impedir o colapso da tela */
+  box-sizing: border-box;
   margin: 0 auto;
+  padding: 40px 24px 100px;
 }
 
-/* ================= TÍTULO DA SEÇÃO EM DESTAQUE ================= */
-.section-title {
-  font-family: "Minecraft", Arial, sans-serif;
-  color: var(--text);
-  font-size: 40px;
-  margin-bottom: 48px;
-  text-transform: uppercase;
+/* ================= CABEÇALHO DO DIRETÓRIO ================= */
+.index-header {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 var(--glass-highlight);
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 16px;
+  padding: 32px 40px;
+  margin-bottom: 48px;
+  position: relative;
+  overflow: hidden;
 }
 
-/* Marcador lateral verde premium ao lado do título */
-.section-title::before {
-  content: "";
-  display: block;
-  width: 8px;
-  height: 40px;
-  background: var(--green);
-  border-radius: 4px;
+.panel-decorator {
+  position: absolute; left: 0; top: 0; bottom: 0; width: 6px;
+  background: var(--mc-gold);
 }
 
-/* ================= GRADE DE POSTS ================= */
+.header-content {
+  flex: 1;
+}
+
+.category-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-title); text-transform: uppercase;
+  letter-spacing: 2px; font-size: 13px; color: var(--mc-gold);
+  margin-bottom: 12px;
+}
+
+.pulse-dot {
+  width: 8px; height: 8px; border-radius: 2px;
+  background: var(--mc-gold);
+  box-shadow: 0 0 10px var(--mc-gold);
+}
+
+.section-title {
+  font-family: var(--font-title); font-size: 48px;
+  font-weight: normal; margin: 0 0 8px;
+  text-transform: uppercase; color: var(--text-main);
+  text-shadow: 2px 2px 0px rgba(0,0,0,0.5);
+}
+
+.section-subtitle {
+  color: var(--text-muted); font-size: 16px; margin: 0;
+}
+
+.header-stats {
+  padding-left: 32px;
+  border-left: 1px solid var(--glass-border);
+  text-align: right;
+}
+
+.stat-value {
+  display: block; font-family: var(--font-title);
+  font-size: 36px; color: var(--mc-diamond);
+  line-height: 1; margin-bottom: 4px;
+  text-shadow: 2px 2px 0px rgba(0,0,0,0.5);
+}
+
+.stat-label {
+  font-family: var(--font-title); font-size: 13px;
+  text-transform: uppercase; letter-spacing: 2px;
+  color: var(--text-muted);
+}
+
+/* ================= GRID DE POSTS ================= */
 .posts-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  /* Auto-fit resolve o problema dos cards esmagados */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 32px;
+  width: 100%;
 }
 
 /* ================= CARDS DOS POSTS ================= */
 .post-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  text-decoration: none;
-  color: var(--text);
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
-  transition: all 0.3s ease;
+  text-decoration: none;
+  border-radius: 16px;
+  padding: 0;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
 }
 
 .post-card:hover {
+  border-color: var(--mc-amethyst);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 25px var(--enchant-glow);
   transform: translateY(-8px);
-  border-color: rgba(67, 181, 129, 0.5); /* Borda acende em verde */
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
 }
 
-/* Divisão do topo do card com overflow hidden para segurar o zoom da thumb */
+/* Área da Imagem */
 .post-card-img-wrapper {
-  overflow: hidden;
+  height: 220px;
   border-radius: 16px 16px 0 0;
+  overflow: hidden;
+  position: relative;
+  border-bottom: 1px solid var(--glass-border);
 }
 
 .post-thumb {
-  height: 220px;
+  width: 100%; height: 100%;
   background-size: cover;
   background-position: center;
-  border-bottom: 1px solid var(--border);
-  transition: transform 0.5s ease, filter 0.3s ease;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .post-card:hover .post-thumb {
-  transform: scale(1.08); /* Efeito Premium: Imagem cresce sem sair do card */
-  filter: brightness(1.1);
+  transform: scale(1.1);
 }
 
+/* Overlay Escuro com Botão */
+.img-overlay {
+  position: absolute; inset: 0;
+  background: rgba(15, 15, 19, 0.7);
+  backdrop-filter: blur(2px);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transition: opacity 0.3s;
+}
+
+.post-card:hover .img-overlay {
+  opacity: 1;
+}
+
+.access-btn {
+  font-family: var(--font-title); font-size: 14px;
+  color: #fff; background: rgba(168, 85, 247, 0.8);
+  border: 1px solid var(--mc-amethyst);
+  padding: 10px 20px; border-radius: 6px;
+  display: flex; align-items: center; gap: 8px;
+  text-transform: uppercase;
+  transform: translateY(15px); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 0 15px var(--enchant-glow);
+}
+
+.post-card:hover .access-btn {
+  transform: translateY(0);
+}
+
+/* Informações do Texto */
 .post-info {
   padding: 24px;
-  background: var(--bg-card);
-  border-radius: 0 0 16px 16px;
-  position: relative;
-  z-index: 2;
-  flex: 1; /* Faz o texto preencher o espaço se um título for maior que o outro */
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
-.post-info h3 {
-  font-size: 22px;
-  margin-bottom: 12px;
-  color: var(--green);
-  line-height: 1.3;
+.post-title {
+  font-family: var(--font-title); font-size: 24px; font-weight: normal;
+  color: var(--text-main); margin: 0 0 12px;
+  text-transform: uppercase; line-height: 1.2;
 }
 
-.post-info p {
-  font-size: 15px;
-  color: var(--text-muted);
-  line-height: 1.6;
+.post-desc {
+  font-size: 15px; color: var(--text-muted);
+  line-height: 1.6; margin: 0 0 24px;
+  flex: 1;
 }
 
-/* ================= ANIMAÇÃO REVEAL (Entrada Suave) ================= */
-/* Já que seu HTML usa a classe .reveal, o CSS cuida do fade in */
-.reveal {
-  opacity: 0;
-  transform: translateY(30px);
-  animation: fadeUp 0.6s ease forwards;
-}
 
-/* Stagger simples para os cards não aparecerem todos de uma vez só */
-.posts-grid .post-card:nth-child(1) { animation-delay: 0.1s; }
-.posts-grid .post-card:nth-child(2) { animation-delay: 0.2s; }
-.posts-grid .post-card:nth-child(3) { animation-delay: 0.3s; }
-.posts-grid .post-card:nth-child(4) { animation-delay: 0.4s; }
-.posts-grid .post-card:nth-child(5) { animation-delay: 0.5s; }
-.posts-grid .post-card:nth-child(6) { animation-delay: 0.6s; }
+/* ================= ANIMAÇÕES DE ENTRADA ================= */
+.animate-slide-up { opacity: 0; animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+@keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
 
-@keyframes fadeUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* ================= RESPONSIVO ================= */
+@media (max-width: 768px) {
+  .index-header { flex-direction: column; text-align: center; gap: 24px; padding: 32px 20px; }
+  .header-stats { border-left: none; border-top: 1px solid var(--glass-border); padding-left: 0; padding-top: 24px; text-align: center; width: 100%; }
 }

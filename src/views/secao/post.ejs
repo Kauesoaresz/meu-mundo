@@ -4,97 +4,143 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= titulo %></title>
-  
   <link rel="stylesheet" href="/css/secao-post.css">
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
-<body>
-<!-- Conteúdo do post aqui -->
+<body class="mc-theme">
+
+  <% if (post.imagem) { %>
+    <div class="ambient-background" style="background-image: url('<%= post.imagem %>');"></div>
+  <% } else { %>
+    <div class="ambient-background fallback-bg"></div>
+  <% } %>
+  
+  <div class="glow-orb orb-1"></div>
+  <div class="glow-orb orb-2"></div>
+
+  <main class="dashboard-container">
+    
+    <header class="glass-panel header-panel animate-fade-in">
+      <div class="panel-decorator"></div>
+      <div class="header-content">
+        <div class="category-badge">
+          <span class="pulse-dot"></span>
+          <%= secao.nome %>
+        </div>
+        <h1 class="post-title"><%= post.titulo %></h1>
+      </div>
+      <a href="/<%= secao.slug %>" class="btn-voltar">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      </a>
+    </header>
+
+    <div class="dashboard-grid">
+      
+      <div class="col-main">
+        
+        <% if (post.imagem) { %>
+          <div class="glass-panel image-panel animate-slide-up" style="animation-delay: 0.1s;">
+            <img src="<%= post.imagem %>" alt="<%= post.titulo %>" class="main-image">
+            <% if (post.descricao) { %>
+              <div class="image-caption"><%= post.descricao %></div>
+            <% } %>
+          </div>
+        <% } %>
+
+        <% if (post.conteudo) { %>
+          <article class="glass-panel content-panel animate-slide-up" style="animation-delay: 0.2s;">
+            <div class="panel-title-bar">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--mc-gold)" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+              <span>Pergaminho de Dados</span>
+            </div>
+            <div class="post-body">
+              <%- post.conteudo %>
+            </div>
+          </article>
+        <% } %>
+
+      </div>
+
+      <aside class="col-sidebar">
+
+        <% if (post.coord_x !== null && post.coord_y !== null && post.coord_z !== null) { %>
+          <div class="glass-panel hud-panel animate-slide-left" style="animation-delay: 0.3s;">
+            
+            <div class="panel-title-bar">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--mc-gold)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span>Bússola de Localização</span>
+            </div>
+
+            <div class="stats-container">
+              <div class="stat-row">
+                <span class="stat-label">X</span>
+                <div class="stat-bar-bg"><div class="stat-bar-fill" style="width: 75%;"></div></div>
+                <span class="stat-value"><%= post.coord_x %></span>
+              </div>
+              <div class="stat-row">
+                <span class="stat-label">Y</span>
+                <div class="stat-bar-bg"><div class="stat-bar-fill" style="width: 40%;"></div></div>
+                <span class="stat-value"><%= post.coord_y %></span>
+              </div>
+              <div class="stat-row">
+                <span class="stat-label">Z</span>
+                <div class="stat-bar-bg"><div class="stat-bar-fill" style="width: 90%;"></div></div>
+                <span class="stat-value"><%= post.coord_z %></span>
+              </div>
+            </div>
+
+            <div class="hud-actions">
+              <% if (post.dimensao) { %>
+                <div class="dim-badge is-<%= post.dimensao.toLowerCase() %>">
+                  [ <%= post.dimensao %> ]
+                </div>
+              <% } %>
+              
+              <button class="mc-btn js-copy-coords" data-coords="<%= post.coord_x %> <%= post.coord_y %> <%= post.coord_z %>">
+                COPIAR COORDENADAS
+              </button>
+            </div>
+          </div>
+        <% } %>
+
+        <% if (post.imagens && post.imagens.length) { %>
+          <div class="glass-panel gallery-panel animate-slide-left" style="animation-delay: 0.4s;">
+            <div class="panel-title-bar">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--mc-gold)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              <span>Molduras</span>
+            </div>
+            <div class="gallery-grid">
+              <% post.imagens.forEach(img => { %>
+                <a href="<%= img.imagem %>" class="gallery-item js-lightbox">
+                  <img src="<%= img.imagem %>" alt="Galeria">
+                </a>
+              <% }) %>
+            </div>
+          </div>
+        <% } %>
+
+        <% if (post.video_youtube) { %>
+          <div class="glass-panel video-panel animate-slide-left" style="animation-delay: 0.5s;">
+            <div class="panel-title-bar">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--mc-gold)" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+              <span>Visão de Cristal (Vídeo)</span>
+            </div>
+            <div class="video-wrapper">
+              <iframe src="https://www.youtube.com/embed/<%= post.video_youtube %>" frameborder="0" allowfullscreen></iframe>
+            </div>
+          </div>
+        <% } %>
+
+      </aside>
+    </div>
+  </main>
+
+  <div id="mc-lightbox" class="lightbox-container">
+    <div class="lightbox-bg"></div>
+    <button class="lightbox-close">&times;</button>
+    <img id="lightbox-img" src="" alt="View">
+  </div>
+
+  <script src="/js/secao-post.js"></script>
 </body>
 </html>
-
-<article class="post-detail-page reveal">
-
-  <!-- CABEÇALHO DO POST -->
-  <header class="post-header">
-    <span class="post-category"><%= secao.nome %></span>
-    <h1 class="post-title"><%= post.titulo %></h1>
-  </header>
-
-  <!-- REGISTRO PRINCIPAL -->
-  <% if (post.imagem) { %>
-    <section class="post-record">
-      <img src="<%= post.imagem %>" alt="<%= post.titulo %>" class="post-main-img">
-
-      <% if (post.descricao) { %>
-        <div class="post-record-text">
-          <p><%= post.descricao %></p>
-        </div>
-      <% } %>
-    </section>
-  <% } %>
-
-  <!-- CONTEÚDO LIVRE (TEXTO/HTML) -->
-  <% if (post.conteudo) { %>
-    <section class="post-body">
-      <%- post.conteudo %>
-    </section>
-  <% } %>
-
-  <!-- GALERIA DE IMAGENS -->
-  <% if (post.imagens && post.imagens.length) { %>
-    <section class="post-gallery">
-      <h3 class="section-subtitle">Galeria de Imagens</h3>
-      <div class="gallery-grid">
-        <% post.imagens.forEach(img => { %>
-          <div class="gallery-item">
-            <img src="<%= img.imagem %>" alt="Imagem da galeria" loading="lazy">
-          </div>
-        <% }) %>
-      </div>
-    </section>
-  <% } %>
-
-  <!-- VÍDEO DO YOUTUBE -->
-  <% if (post.video_youtube) { %>
-    <section class="post-video">
-      <h3 class="section-subtitle">Vídeo</h3>
-      <div class="video-wrapper">
-        <iframe
-          src="https://www.youtube.com/embed/<%= post.video_youtube %>"
-          allowfullscreen>
-        </iframe>
-      </div>
-    </section>
-  <% } %>
-
-  <!-- COORDENADAS (HUD PREMIUM) -->
-  <% if (post.coord_x !== null && post.coord_y !== null && post.coord_z !== null) { %>
-    <section class="post-coords">
-      <div class="coords-info">
-        <strong>📍 Coordenadas</strong>
-        <div class="coords-values">
-          <span>X: <%= post.coord_x %></span>
-          <span>Y: <%= post.coord_y %></span>
-          <span>Z: <%= post.coord_z %></span>
-        </div>
-
-        <% if (post.dimensao) { %>
-          <!-- Usei .toLowerCase() para o CSS pegar certinho: 'nether', 'overworld', 'end' -->
-          <span class="dim-badge <%= post.dimensao.toLowerCase() %>">
-            <%= post.dimensao %>
-          </span>
-        <% } %>
-      </div>
-
-      <!-- Guardei os dados no botão para o seu JavaScript conseguir copiar fácil -->
-      <button class="copy-coords" data-coords="<%= post.coord_x %> <%= post.coord_y %> <%= post.coord_z %>">Copiar</button>
-    </section>
-  <% } %>
-
-  <!-- VOLTAR -->
-  <footer class="post-footer">
-    <a href="/<%= secao.slug %>" class="btn-back">← Voltar para <%= secao.nome %></a>
-  </footer>
-
-</article>
-
