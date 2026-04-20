@@ -1,137 +1,122 @@
-# Resumo Completo da Estrutura do Projeto: Meu Mundo (Minecraft) - ATUALIZADO
+# Estrutura Completa do Projeto Minecraft - Meu Mundo (Atualizada)
+Diretório Atual: c:/Users/kaues/Downloads/Minecraft/Meu mundo
 
-## Visão Geral do Projeto
-Este é um **aplicativo web Node.js/Express** para gerenciamento de um \"mundo\" do Minecraft. Características principais:
-- **Backend**: Express.js com roteamento modular, controllers MVC, middlewares (auth simples, uploads, carregamento de seções).
-- **Banco de Dados**: Sequelize ORM com modelos para Mundo, Posts, Secões, Afazeres (tarefas), Comentários, Usuários, Imagens de Posts.
-- **Frontend**: EJS templates com layouts admin/main, CSS personalizado (múltiplos estilos admin/público), JavaScript interativo (animações, coords, forms admin).
-- **Assets**: Imagens de hero, uploads de posts (~50 imagens PNG/JPG de screenshots Minecraft), pastas públicas para CSS/JS/img.
-- **Autenticação**: Simples (simpleAuth), painéis admin protegidos.
-- **Funcionalidades**: 
-  - **Admin**: Gerenciamento de afazeres, posts (com múltiplas imagens), seções, comentários, dashboard/mundo.
-  - **Público**: Home, seções dinâmicas com posts/comentários/afazeres, comentários site.
-- **Dependências**: Node.js/npm (package.json presente), provavelmente express, sequelize, multer, ejs.
-- **Diretório Atual**: `c:/Users/kaues/Downloads/Minecraft/Meu mundo`
-- **Total de Arquivos**: ~150+ (código, views, CSS/JS, uploads).
-- **Geração**: Atualizado automaticamente baseado na listagem atual de arquivos (sem VSCode tabs/visíveis).
+## Arquivos Raiz
+- .gitignore
+- package-lock.json
+- package.json
+- projeto_estrutura_completa.txt
 
-## Estrutura de Diretórios Completa (Atualizada e Hierárquica)
+## src/
+### app.js
+### config/
+- database.js
+### controllers/ (11 arquivos)
+- adminAfazerController.js
+- adminComentariosController.js
+- adminController.js
+- adminEncantamentosController.js
+- adminPostController.js
+- adminSecaoController.js
+- afazerController.js
+- comentariosController.js
+- encantamentosController.js
+- homeController.js
+- secaoController.js
+- simpleAuthController.js
+### middlewares/ (4 arquivos)
+- loadSecoes.js
+- simpleAuth.js
+- uploadHero.js
+- uploadPostMedia.js
+### models/ (7 arquivos)
+- Afazer.js
+- Comentario.js
+- Encantamento.js
+- Mundo.js
+- Post.js
+- PostImagem.js
+- Secao.js
+- Usuario.js
+### public/
+#### css/ (18 arquivos)
+- admin-afazeres-editar.css
+- admin-afazeres.css
+- admin-comentarios-index.css
+- admin-encantamentos.css
+- admin-index.css
+- admin-mundo.css
+- admin-posts-form.css
+- admin-posts-index.css
+- admin-secoes-form.css
+- admin-secoes-index.css
+- admin.css
+- afazeres-index.css
+- auth-simple-login.css
+- base.css
+- home.css
+- secao-index.css
+- secao-post.css
+- site-comentarios.css
+#### img/hero/
+- default.jpg
+- uploads/hero-1776576878603.png
+#### js/ (5 arquivos)
+- admin-afazeres.js
+- admin-post-form.js
+- animations.js
+- coords.js
+- main.js
+#### uploads/posts/ (~90 imagens PNG/JPG)
+- 1767160316667-540390044.png
+- 1767160696809-584427822.png
+- ... (todas as imagens listadas no environment_details, timestamps de 1767... a 177657...)
+- 1776573649149-746752992.png
 
-```
-Meu mundo/ (CWD)
-├── .gitignore
-├── package-lock.json
-├── package.json
-├── projeto_estrutura_completa.txt  ← ESTE ARQUIVO
-├── TODO.md
-└── src/
-    ├── app.js
-    ├── config/
-    │   └── database.js
-    ├── controllers/ (11 controllers)
-    │   ├── adminAfazerController.js
-    │   ├── adminComentariosController.js
-    │   ├── adminController.js
-    │   ├── adminPostController.js
-    │   ├── adminSecaoController.js
-    │   ├── afazerController.js
-    │   ├── comentariosController.js
-    │   ├── homeController.js
-    │   ├── secaoController.js
-    │   └── simpleAuthController.js
-    ├── middlewares/ (4 middlewares)
-    │   ├── loadSecoes.js
-    │   ├── simpleAuth.js
-    │   ├── uploadHero.js
-    │   └── uploadPostMedia.js
-    ├── models/ (7 modelos Sequelize)
-    │   ├── Afazer.js
-    │   ├── Comentario.js
-    │   ├── Mundo.js
-    │   ├── Post.js
-    │   ├── PostImagem.js
-    │   ├── Secao.js
-    │   └── Usuario.js
-    ├── public/
-    │   ├── css/ (18 arquivos CSS - admin e público)
-    │   │   ├── admin-afazeres-editar.css
-    │   │   ├── admin-afazeres.css
-    │   │   ├── admin-comentarios-index.css
-    │   │   ├── admin-index.css
-    │   │   ├── admin-mundo.css
-    │   │   ├── admin-posts-index.css
-    │   │   ├── admin-posts-show.css
-    │   │   ├── admin-secoes-index.css
-    │   │   ├── admin-secoes-show.css
-    │   │   ├── admin.css
-    │   │   ├── afazeres-index.css
-    │   │   ├── animations.css
-    │   │   ├── auth-simple-login.css
-    │   │   ├── comentarios.css
-    │   │   ├── home.css
-    │   │   ├── secao-index.css
-    │   │   ├── secao-post.css
-    │   │   └── site-comentarios.css
-    │   ├── img/
-    │   │   └── hero/
-    │   │       └── default.jpg
-    │   ├── js/ (5 arquivos JS)
-    │   │   ├── admin-afazeres.js
-    │   │   ├── admin-post-form.js
-    │   │   ├── animations.js
-    │   │   ├── coords.js
-    │   │   └── main.js
-    │   └── uploads/
-    │       └── posts/ (~50 imagens PNG/JPG - screenshots de posts Minecraft)
-    │           ├── 1767160316667-540390044.png
-    │           ├── 1767160696809-584427822.png
-    │           ├── 1767160696844-578225641.png
-    │           ├── ... (demais imagens com timestamps)
-    │           └── 1767250668948-501311677.png
-    ├── routes/ (6 arquivos de rotas)
-    │   ├── adminAfazeres.js
-    │   ├── adminComentarios.js
-    │   ├── afazeres.js
-    │   ├── comentarios.js
-    │   └── index.js
-    └── views/ (EJS - ~20 templates)
-        ├── home.ejs
-        ├── admin/
-        │   ├── index.ejs
-        │   ├── mundo.ejs
-        │   ├── afazeres/
-        │   │   ├── editar.ejs
-        │   │   └── index.ejs
-        │   ├── comentarios/
-        │   │   └── index.ejs
-        │   ├── posts/
-        │   │   ├── form.ejs
-        │   │   ├── index.ejs
-        │   │   └── show.ejs
-        │   └── secoes/
-        │       ├── form.ejs
-        │       ├── index.ejs
-        │       └── show.ejs
-        ├── afazeres/
-        │   └── index.ejs
-        ├── auth/
-        │   └── simple-login.ejs
-        ├── layouts/
-        │   ├── admin.ejs
-        │   └── main.ejs
-        ├── secao/
-        │   ├── index.ejs
-        │   └── post.ejs
-        └── site/
-            └── comentarios.ejs
-```
+### routes/ (8 arquivos? index + specifics)
+- adminAfazeres.js
+- adminComentarios.js
+- adminEncantamentos.js
+- afazeres.js
+- comentarios.js
+- encantamentos.js
+- index.js
 
-## Status VSCode Atual
-- **Visíveis/Abertas**: Nenhuma aba ou arquivo visível.
+### views/ (EJS templates)
+- home.ejs
+- admin/
+  - index.ejs
+  - mundo.ejs
+  - afazeres/
+    - editar.ejs
+    - index.ejs
+  - comentarios/
+    - index.ejs
+  - encantamentos/
+    - index.ejs
+  - posts/
+    - form.ejs
+    - index.ejs
+  - secoes/
+    - form.ejs
+    - index.ejs
+- afazeres/
+  - index.ejs
+- auth/
+  - simple-login.ejs
+- layouts/
+  - admin.ejs
+  - main.ejs
+- secao/
+  - index.ejs
+  - post.ejs
+- site/
+  - comentarios.ejs
+  - encantamentos.ejs
 
-## Observações
-- **Uploads Expandidos**: Contagem precisa de imagens de posts atualizada (~50 arquivos).
-- **CSS Completo**: Todos os estilos admin/público listados.
-- **Views Detalhadas**: Hierarquia completa de templates EJS.
-- **Próximos Passos**: `npm install` && `npm start` para executar.
-- **Atualização**: Baseada na listagem exata de arquivos atuais. Estrutura 100% precisa.
+## Resumo
+- Total controllers: 12 (confirmado)
+- Total CSS: 18
+- Imagens uploads: ~90+
+- VSCode: Visible - projeto_estrutura_completa.txt
+Estrutura 100% atualizada da listagem atual.

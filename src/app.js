@@ -9,7 +9,7 @@ const session = require("express-session");
 const sequelize = require("./config/database");
 
 /* ===========================
-    MODELS
+    MODELS & ASSOCIAÇÕES
 =========================== */
 const Secao = require("./models/Secao");
 require("./models/Mundo");
@@ -18,7 +18,33 @@ require("./models/PostImagem");
 require("./models/Afazer");
 require("./models/Comentario");
 require("./models/Usuario");
-require("./models/Encantamento"); // 🔥 ADICIONADO: Model de Encantamentos
+
+// 🔥 ADICIONADO: Importando para variáveis para fazer as relações
+const Encantamento = require("./models/Encantamento"); 
+const Equipamento = require("./models/Equipamento");
+
+// 🔥 ADICIONADO: Relações Separadas (Obrigatórios e Opcionais)
+Equipamento.belongsToMany(Encantamento, {
+  through: "equipamento_encantamentos_obrigatorios",
+  as: "obrigatorios",
+  foreignKey: "equipamento_id"
+});
+Encantamento.belongsToMany(Equipamento, {
+  through: "equipamento_encantamentos_obrigatorios",
+  as: "equipamentosObrigatorios",
+  foreignKey: "encantamento_id"
+});
+
+Equipamento.belongsToMany(Encantamento, {
+  through: "equipamento_encantamentos_opcionais",
+  as: "opcionais",
+  foreignKey: "equipamento_id"
+});
+Encantamento.belongsToMany(Equipamento, {
+  through: "equipamento_encantamentos_opcionais",
+  as: "equipamentosOpcionais",
+  foreignKey: "encantamento_id"
+});
 
 /* ===========================
     APP CONFIG
@@ -91,11 +117,15 @@ const adminAfazeresRoutes = require("./routes/adminAfazeres");
 const afazeresRoutes = require("./routes/afazeres");
 const comentariosRoutes = require("./routes/comentarios");
 const adminComentariosRoutes = require("./routes/adminComentarios");
-const adminEncantamentosRoutes = require("./routes/adminEncantamentos"); // 🔥 ADICIONADO: Rotas de Encantamentos
+const adminEncantamentosRoutes = require("./routes/adminEncantamentos");
 const encantamentosRoutes = require("./routes/encantamentos");
+const adminArsenalRoutes = require("./routes/adminArsenal"); // 🔥 ADICIONADO: Rotas do Arsenal
+const arsenalPublicoRoutes = require("./routes/arsenalPublico");
 
 app.use("/admin/afazeres", adminAfazeresRoutes);
-app.use("/admin/encantamentos", adminEncantamentosRoutes); // 🔥 ADICIONADO: Prefixo da rota
+app.use("/admin/encantamentos", adminEncantamentosRoutes);
+app.use("/admin/arsenal", adminArsenalRoutes); // 🔥 ADICIONADO: Prefixo da rota do Arsenal
+app.use("/arsenal", arsenalPublicoRoutes);
 app.use("/encantamentos", encantamentosRoutes);
 app.use("/afazeres", afazeresRoutes);
 app.use("/comentarios", comentariosRoutes);
@@ -106,7 +136,6 @@ app.use("/", routes);
 /* ===========================
     INICIALIZAÇÃO (MODO LOCAL SEGURO)
 =========================== */
-// 🔥 ADICIONADO: .sync({ alter: true }) temporariamente para criar a tabela de encantamentos
 sequelize
   .sync({ alter: true }) 
   .then(() => {

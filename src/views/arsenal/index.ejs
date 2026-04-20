@@ -1,0 +1,167 @@
+<div class="public-arsenal-container">
+  
+  <header class="arsenal-hero">
+    <h1>⚔️ Meu Arsenal Definitivo</h1>
+    <p>Acompanhe a construção dos itens God-Tier do seu mundo.</p>
+    
+    <div class="progress-container">
+      <div class="progress-info">
+        <span>Progresso Global do Loadout</span>
+        <span class="progress-percent"><%= progressoGlobal %>%</span>
+      </div>
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" style="width: <%= progressoGlobal %>%;"></div>
+      </div>
+    </div>
+  </header>
+
+  <div class="arsenal-filters">
+    <button class="filter-btn active" data-filter="todos">Todos</button>
+    <button class="filter-btn" data-filter="Armadura">Armaduras</button>
+    <button class="filter-btn" data-filter="Armas">Armas</button>
+    <button class="filter-btn" data-filter="Ferramentas">Ferramentas</button>
+  </div>
+
+  <main class="public-cards-grid">
+    <% equipamentos.forEach(item => { 
+        let total = item.obrigatorios ? item.obrigatorios.length : 0;
+        let feitos = item.obrigatorios ? item.obrigatorios.filter(e => e.conquistado).length : 0;
+        let calc = total > 0 ? Math.round((feitos/total)*100) : 0;
+    %>
+      <div class="public-card" data-categoria="<%= item.categoria %>" onclick="abrirMapaMental(<%= item.id %>)">
+        <div class="card-imagem-wrapper">
+          <img src="<%= item.imagem || '/img/hero/default.jpg' %>" alt="<%= item.nome %>">
+        </div>
+        <div class="card-info">
+          <h3><%= item.nome %></h3>
+          <span class="card-cat"><%= item.categoria %></span>
+          
+          <div class="card-mini-progress">
+            <div class="mini-bar"><div class="mini-fill" style="width: <%= calc %>%;"></div></div>
+            <span><%= calc %>%</span>
+          </div>
+        </div>
+      </div>
+    <% }) %>
+  </main>
+
+</div>
+
+<div id="mindmap-modal" class="modal-overlay">
+  <div class="modal-content">
+    <button class="close-modal" onclick="fecharModal()">✕</button>
+    <h2 id="modal-titulo">Nome do Item</h2>
+    
+    <div id="mindmap-area">
+      <svg id="mindmap-lines"></svg>
+      <div id="mindmap-nodes"></div>
+    </div>
+    
+    <div class="mindmap-legenda">
+      <div><span class="dot dot-green"></span> Já Tenho</div>
+      <div><span class="dot dot-red"></span> Falta Farmar</div>
+      <div><span class="dot dot-gold"></span> Opcional / Conflito</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const DADOS_ARSENAL = <%- equipamentosJSON %>;
+</script>
+
+<script>
+  // 1. Lógica dos Filtros
+  const btns = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.public-card');
+
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      btns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filtro = btn.getAttribute('data-filter');
+      
+      cards.forEach(card => {
+        if(filtro === 'todos' || card.getAttribute('data-categoria') === filtro) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+
+  // 2. Lógica do Mapa Mental Radial
+  const modal = document.getElementById('mindmap-modal');
+  const areaNodes = document.getElementById('mindmap-nodes');
+  const areaLines = document.getElementById('mindmap-lines');
+  
+  function abrirMapaMental(id) {
+    const item = DADOS_ARSENAL.find(e => e.id === id);
+    if(!item) return;
+
+    document.getElementById('modal-titulo').innerText = item.nome;
+    areaNodes.innerHTML = '';
+    areaLines.innerHTML = '';
+
+    // Tamanho da área do mapa
+    const raio = 160; // Distância do centro
+    const centroX = 400; // Metade da largura da área (800px)
+    const centroY = 250; // Metade da altura (500px)
+
+    // Desenha o Nó Central (O Equipamento)
+    const imgCentro = item.imagem || '/img/hero/default.jpg';
+    areaNodes.innerHTML += `
+      <div class="mindmap-node center-node" style="left: ${centroX}px; top: ${centroY}px;">
+        <img src="${imgCentro}">
+      </div>
+    `;
+
+    // Junta Obrigatórios e Opcionais para distribuir no círculo
+    const todosEncs = [];
+    if(item.obrigatorios) item.obrigatorios.forEach(e => todosEncs.push({...e, tipo: 'obrigatorio'}));
+    if(item.opcionais) item.opcionais.forEach(e => todosEncs.push({...e, tipo: 'opcional'}));
+
+    const totalNodes = todosEncs.length;
+    let svgLinesHTML = '';
+
+    // Loop com Matemática para distribuir em formato circular
+    todosEncs.forEach((enc, index) => {
+      // Calcula o ângulo em radianos
+      const angulo = (index / totalNodes) * (2 * Math.PI);
+      
+      // Seno e Cosseno para achar o X e Y
+      const posX = centroX + raio * Math.cos(angulo);
+      const posY = centroY + raio * Math.sin(angulo);
+
+      // Define a cor baseada no status
+      let classeStatus = '';
+      if (enc.tipo === 'opcional') {
+        classeStatus = enc.conquistado ? 'node-gold-conquistado' : 'node-gold-falta';
+      } else {
+        classeStatus = enc.conquistado ? 'node-green' : 'node-red';
+      }
+
+      // Desenha a linha SVG (Do centro até o nó)
+      svgLinesHTML += `<line x1="${centroX}" y1="${centroY}" x2="${posX}" y2="${posY}" class="map-line ${enc.conquistado ? 'line-active' : ''}" />`;
+
+      // Desenha o Nó do Encantamento
+      areaNodes.innerHTML += `
+        <div class="mindmap-node enc-node ${classeStatus}" style="left: ${posX}px; top: ${posY}px;">
+          ${enc.nome} <br><small>Nv. ${enc.nivel_maximo}</small>
+        </div>
+      `;
+    });
+
+    areaLines.innerHTML = svgLinesHTML;
+    modal.classList.add('active'); // Abre o modal
+  }
+
+  function fecharModal() {
+    modal.classList.remove('active');
+  }
+
+  // Fechar ao clicar fora do conteúdo
+  modal.addEventListener('click', (e) => {
+    if(e.target === modal) fecharModal();
+  });
+</script>

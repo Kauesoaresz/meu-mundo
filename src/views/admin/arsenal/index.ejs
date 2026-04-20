@@ -1,0 +1,149 @@
+<div class="arsenal-header">
+  <h2>⚔️ Gerenciar Arsenal God-Tier</h2>
+  <p>Defina o loadout perfeito, separando o que é regra e o que é escolha.</p>
+</div>
+
+<section class="arsenal-form-section" style="background: var(--bg-card); padding: 24px; border-radius: 8px; margin-bottom: 32px;">
+  <h3>Novo Equipamento</h3>
+  
+  <form action="/admin/arsenal/adicionar" method="POST" enctype="multipart/form-data" class="form-grid">
+    
+    <div class="input-group">
+      <label>Nome do Item (Ex: Picareta God-Tier)</label>
+      <input type="text" name="nome" required class="input-dark">
+    </div>
+
+    <div class="input-group">
+      <label>Categoria</label>
+      <select name="categoria" id="select-categoria" class="input-dark" required>
+        <option value="Armadura">Armadura</option>
+        <option value="Armas">Armas</option>
+        <option value="Ferramentas">Ferramentas</option>
+      </select>
+    </div>
+
+    <div class="input-group">
+      <label>Ordem de exibição (1, 2, 3...)</label>
+      <input type="number" name="ordem" value="1" required class="input-dark">
+    </div>
+
+    <div class="input-group">
+      <label>Imagem (Upload)</label>
+      <input type="file" name="imagem" accept="image/*" class="input-dark">
+    </div>
+
+    <div style="grid-column: 1 / -1; margin-top: 16px; border-top: 1px solid var(--border); padding-top: 16px;">
+      
+      <label style="display:block; margin-bottom: 8px; color: var(--green);"><b>Encantamentos Obrigatórios:</b></label>
+      <div class="tags-container" style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px;">
+        <% todosEncantamentos.forEach(enc => { %>
+          <label class="encantamento-tag tag-obrigatoria" data-categoria="<%= enc.categoria %>">
+            <input type="checkbox" name="encantamentos_obrigatorios" value="<%= enc.id %>" style="display:none;">
+            <span class="tag-pill"><%= enc.nome %> (Nv. <%= enc.nivel_maximo %>)</span>
+          </label>
+        <% }) %>
+      </div>
+
+      <label style="display:block; margin-bottom: 8px; color: #eab308;"><b>Opcionais / Conflitantes (Ex: Fortuna vs Toque Suave):</b></label>
+      <div class="tags-container" style="display: flex; flex-wrap: wrap; gap: 8px;">
+        <% todosEncantamentos.forEach(enc => { %>
+          <label class="encantamento-tag tag-opcional" data-categoria="<%= enc.categoria %>">
+            <input type="checkbox" name="encantamentos_opcionais" value="<%= enc.id %>" style="display:none;">
+            <span class="tag-pill tag-pill-opc"><%= enc.nome %> (Nv. <%= enc.nivel_maximo %>)</span>
+          </label>
+        <% }) %>
+      </div>
+
+    </div>
+
+    <button type="submit" class="btn-submit" style="grid-column: 1 / -1; margin-top: 24px;">Salvar Equipamento God-Tier</button>
+  </form>
+</section>
+
+<section class="arsenal-list">
+  <h3>Seus Equipamentos</h3>
+  <div class="cards-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; margin-top: 16px;">
+    
+    <% if (equipamentos.length === 0) { %>
+      <p style="color: var(--text-muted); grid-column: 1 / -1;">Nenhum equipamento cadastrado ainda.</p>
+    <% } %>
+
+    <% equipamentos.forEach(item => { %>
+      <div class="arsenal-card" style="background: var(--bg-card); padding: 16px; border-radius: 8px; border: 1px solid var(--border); position: relative;">
+        
+        <form action="/admin/arsenal/deletar/<%= item.id %>" method="POST" style="position: absolute; top: 12px; right: 12px;" onsubmit="return confirm('Tem certeza que deseja DELETAR o item <%= item.nome %>?');">
+          <button type="submit" class="btn-delete" title="Excluir Equipamento">🗑️</button>
+        </form>
+
+        <div class="card-topo" style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+          <% if (item.imagem) { %>
+            <img src="<%= item.imagem %>" alt="<%= item.nome %>" style="width: 56px; height: 56px; object-fit: contain; border-radius: 4px; background: rgba(0,0,0,0.2); padding: 4px;">
+          <% } else { %>
+            <div style="width: 56px; height: 56px; background: var(--bg); border-radius: 4px;"></div>
+          <% } %>
+          <div>
+            <h4 style="margin: 0; color: var(--green); font-size: 18px; padding-right: 24px;"><%= item.nome %></h4>
+            <span style="font-size: 13px; color: var(--text-muted);"><%= item.categoria %></span>
+          </div>
+        </div>
+
+        <div class="card-encantamentos">
+          <p style="font-size: 12px; color: var(--green); margin-bottom: 6px; font-weight: bold;">Obrigatórios:</p>
+          <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 12px;">
+            <% if (item.obrigatorios && item.obrigatorios.length > 0) { %>
+              <% item.obrigatorios.forEach(enc => { %>
+                <span style="background: rgba(67, 181, 129, 0.1); color: var(--green); padding: 2px 8px; border-radius: 4px; font-size: 12px; border: 1px solid rgba(67, 181, 129, 0.3);">
+                  <%= enc.nome %>
+                </span>
+              <% }) %>
+            <% } else { %>
+              <span style="font-size: 12px; color: var(--text-muted);">Nenhum</span>
+            <% } %>
+          </div>
+
+          <p style="font-size: 12px; color: #eab308; margin-bottom: 6px; font-weight: bold;">Opcionais / Alternativas:</p>
+          <div style="display: flex; flex-wrap: wrap; gap: 4px;">
+            <% if (item.opcionais && item.opcionais.length > 0) { %>
+              <% item.opcionais.forEach(enc => { %>
+                <span style="background: rgba(234, 179, 8, 0.1); color: #eab308; padding: 2px 8px; border-radius: 4px; font-size: 12px; border: 1px solid rgba(234, 179, 8, 0.3);">
+                  <%= enc.nome %>
+                </span>
+              <% }) %>
+            <% } else { %>
+              <span style="font-size: 12px; color: var(--text-muted);">Nenhum</span>
+            <% } %>
+          </div>
+        </div>
+
+      </div>
+    <% }) %>
+
+  </div>
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const selectCategoria = document.getElementById("select-categoria");
+    const todasTags = document.querySelectorAll(".encantamento-tag");
+
+    function filtrarTags() {
+      const categoriaSelecionada = selectCategoria.value;
+      
+      todasTags.forEach(tag => {
+        if (tag.getAttribute("data-categoria") === categoriaSelecionada) {
+          tag.style.display = "inline-block";
+        } else {
+          tag.style.display = "none";
+          // Desmarca os que foram escondidos para não enviar sujeira pro banco
+          tag.querySelector("input").checked = false;
+        }
+      });
+    }
+
+    // Executa ao carregar a página e toda vez que mudar o select
+    if (selectCategoria) {
+      selectCategoria.addEventListener("change", filtrarTags);
+      filtrarTags(); // Aplica o filtro na primeira vez que a página carrega
+    }
+  });
+</script>
