@@ -137,7 +137,7 @@ app.use("/", routes);
     INICIALIZAÇÃO (MODO LOCAL SEGURO)
 =========================== */
 sequelize
-  .sync({ alter: true }) 
+  .sync()
   .then(() => {
     console.log("🟢 MySQL Local: Conectado e Sincronizado com sucesso!");
     

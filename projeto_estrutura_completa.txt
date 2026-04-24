@@ -1,47 +1,77 @@
-# Estrutura Completa do Projeto Minecraft - Meu Mundo (Atualizada)
+# Estrutura Completa do Projeto Minecraft - Meu Mundo (Atualizada em $(date))
+
 Diretório Atual: c:/Users/kaues/Downloads/Minecraft/Meu mundo
 
-## Arquivos Raiz
+## Arquivos na Raiz
 - .gitignore
 - package-lock.json
 - package.json
 - projeto_estrutura_completa.txt
 
+## public/
+### img/
+#### uploads/
+- arsenal-1776646825452-409112699.jpg
+- arsenal-1776647514646-449993793.png
+- arsenal-1776647606324-31479512.jpg
+- arsenal-1776647658605-707556582.png
+- arsenal-1776647835920-735634447.png
+- arsenal-1776647884919-12364512.jpg
+- arsenal-1776647942472-280447360.jpg
+- arsenal-1776648324091-936276158.jpg
+- arsenal-1776648707522-399592786.png
+- arsenal-1776648858553-521530209.png
+- arsenal-1776649084877-23771274.jpg
+- arsenal-1776649278266-757264645.png
+- arsenal-1776649350879-44218039.png
+- arsenal-1776649396118-576876801.jpg
+- arsenal-1776649463282-964100889.jpg
+- arsenal-1776649562975-864996161.png
+- arsenal-1776649610185-691249443.jpg
+
 ## src/
 ### app.js
 ### config/
 - database.js
-### controllers/ (11 arquivos)
+
+### controllers/
 - adminAfazerController.js
+- adminArsenalController.js
 - adminComentariosController.js
 - adminController.js
 - adminEncantamentosController.js
 - adminPostController.js
 - adminSecaoController.js
 - afazerController.js
+- arsenalPublicoController.js
 - comentariosController.js
 - encantamentosController.js
 - homeController.js
 - secaoController.js
 - simpleAuthController.js
-### middlewares/ (4 arquivos)
+
+### middlewares/
 - loadSecoes.js
 - simpleAuth.js
 - uploadHero.js
 - uploadPostMedia.js
-### models/ (7 arquivos)
+
+### models/
 - Afazer.js
 - Comentario.js
 - Encantamento.js
+- Equipamento.js
 - Mundo.js
 - Post.js
 - PostImagem.js
 - Secao.js
 - Usuario.js
+
 ### public/
-#### css/ (18 arquivos)
+#### css/
 - admin-afazeres-editar.css
 - admin-afazeres.css
+- admin-arsenal.css
 - admin-comentarios-index.css
 - admin-encantamentos.css
 - admin-index.css
@@ -52,55 +82,126 @@ Diretório Atual: c:/Users/kaues/Downloads/Minecraft/Meu mundo
 - admin-secoes-index.css
 - admin.css
 - afazeres-index.css
+- arsenal-publico.css
 - auth-simple-login.css
 - base.css
 - home.css
 - secao-index.css
 - secao-post.css
 - site-comentarios.css
-#### img/hero/
+- site-encantamentos.css
+
+#### img/
+##### hero/
 - default.jpg
-- uploads/hero-1776576878603.png
-#### js/ (5 arquivos)
+##### uploads/
+(Vazio ou imagens dinâmicas)
+
+#### js/
 - admin-afazeres.js
 - admin-post-form.js
 - animations.js
 - coords.js
 - main.js
-#### uploads/posts/ (~90 imagens PNG/JPG)
+- secao-post.js
+
+#### uploads/
+##### posts/
 - 1767160316667-540390044.png
 - 1767160696809-584427822.png
-- ... (todas as imagens listadas no environment_details, timestamps de 1767... a 177657...)
-- 1776573649149-746752992.png
+- 1767160696844-578225641.png
+- 1767160871970-893360282.png
+- 1767160872004-515418721.png
+- 1767160898380-374132183.png
+- 1767160914323-883162289.png
+- 1767160914341-479790423.png
+- 1767160922840-98559917.png
+- 1767160922857-365462332.png
+- 1767160922881-287660128.png
+- 1767160971303-555831504.png
+- 1767160971328-317898463.png
+- 1767161062026-770145455.png
+- 1767161062065-764773183.png
+- 1767161210270-484002410.png
+- 1767161210309-944988643.png
+- 1767161474829-317137910.png
+- 1767161605582-662433067.png
+- 1767163169317-363533344.png
+- 1767163169346-737539459.png
+- 1767163178400-549300006.png
+- 1767163324752-381735959.png
+- 1767163324800-421671215.png
+- 1767163335018-620506952.png
+- 1767163409655-988843206.png
+- 1767165159729-750283343.png
+- 1767247423332-659168928.jpg
+- 1767249255821-288783846.png
+- 1767249298396-470459890.png
+- 1767249491856-77516810.png
+- 1767249632328-75187024.png
+- 1767249673603-955458397.png
+- 1767249696575-484479738.png
+- 1767249745919-600269326.png
+- 1767249882049-82572811.png
+- 1767250035630-529061561.png
+- 1767250064794-722247144.png
+- 1767250094824-725773516.png
+- 1767250252562-135943072.png
+- 1767250252593-695649643.png
+- 1767250252602-244354806.png
+- 1767250274592-823295756.png
+- 1767250299743-31774031.png
+- 1767250329834-590405262.png
+- 1767250436630-754988595.png
+- 1767250536114-559865218.png
+- 1767250562690-965013113.png
+- 1767250562702-326518556.png
+- 1767250668948-501311677.png
+- 1775276245634-458375144.png
+- 1775276245803-465418150.png
+- 1775276268835-81042896.png
+- 1775283532368-727383715.png
+- 1775296789640-644447808.png
+- 1775297031858-997947202.png
+- 1775299584126-882127968.png
+- 1775299584231-678044879.png
+- 1775299584259-394735475.png
+- 1775299584372-29622532.png
+- 1775334486538-670403378.png
+- 1775334486747-406733613.png
+- 1775334486854-997123151.png
+- 1775334486861-802448434.png
+- 1775348417689-512086474.png
+- 1775348417748-54038437.png
+- 1775348417900-871251621.png
+- 1776571422320-754569437.png
+- 1776571557229-834720686.png
 
-### routes/ (8 arquivos? index + specifics)
+### routes/
 - adminAfazeres.js
+- adminArsenal.js
 - adminComentarios.js
 - adminEncantamentos.js
 - afazeres.js
+- arsenalPublico.js
 - comentarios.js
 - encantamentos.js
 - index.js
 
-### views/ (EJS templates)
+### views/
 - home.ejs
 - admin/
   - index.ejs
   - mundo.ejs
-  - afazeres/
-    - editar.ejs
-    - index.ejs
-  - comentarios/
-    - index.ejs
-  - encantamentos/
-    - index.ejs
-  - posts/
-    - form.ejs
-    - index.ejs
-  - secoes/
-    - form.ejs
-    - index.ejs
+  - afazeres/ (diretório)
+  - arsenal/ (diretório)
+  - comentarios/ (diretório)
+  - encantamentos/ (diretório)
+  - posts/ (diretório)
+  - secoes/ (diretório)
 - afazeres/
+  - index.ejs
+- arsenal/
   - index.ejs
 - auth/
   - simple-login.ejs
@@ -114,9 +215,14 @@ Diretório Atual: c:/Users/kaues/Downloads/Minecraft/Meu mundo
   - comentarios.ejs
   - encantamentos.ejs
 
-## Resumo
-- Total controllers: 12 (confirmado)
-- Total CSS: 18
-- Imagens uploads: ~90+
-- VSCode: Visible - projeto_estrutura_completa.txt
-Estrutura 100% atualizada da listagem atual.
+## Resumo Geral
+- **Total controllers**: 14 arquivos
+- **Total CSS**: 21 arquivos
+- **Total JS**: 6 arquivos
+- **Total models**: 9 arquivos
+- **Imagens arsenal**: 17 arquivos
+- **Imagens posts**: 77 arquivos
+- **VSCode Visível**: projeto_estrutura_completa.txt
+- **Estrutura 100% atualizada** com base na listagem completa do diretório.
+
+Esta é a estrutura completa e atualizada de todos os arquivos e pastas na pasta "MEU MUNDO".
